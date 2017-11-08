@@ -1,4 +1,4 @@
-<img width="200" alt="torch" src="https://github.com/ahmedhosny/modelhub/blob/master/docs/img/modelhub.png?raw=true">
+<img width="200" alt="modelhub" src="https://github.com/modelhub-ai/modelhub/blob/master/docs/img/modelhub.png?raw=true">
 
 We are building a collection of deep learning models for medical data. Check it out [here](http://www.modelhub.ai).
 
