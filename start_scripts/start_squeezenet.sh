@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -r dockerIdentifier="modelhub/test:1.2"
+declare -r dockerIdentifier="modelhub/test:1.3"
 declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/master/"
 declare -r modelIdentifier="squeezenet"
 declare -a -r requiredFiles=("$modelIdentifier""/usr_src/inference.py"
