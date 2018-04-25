@@ -10,7 +10,7 @@ def startNetron():
 
 
 if __name__ == "__main__":
-#    netronProcess = Process(target=startNetron)
-#    netronProcess.start()
+    netronProcess = Process(target=startNetron)
+    netronProcess.start()
     webservice.start()
-#    netronProcess.terminate()
+    netronProcess.terminate()
