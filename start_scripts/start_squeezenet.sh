@@ -3,17 +3,24 @@
 declare -r dockerIdentifier="modelhub/test:1.3"
 declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/master/"
 declare -r modelIdentifier="squeezenet"
-declare -a -r requiredFiles=("$modelIdentifier""/usr_src/inference.py"
-                             "$modelIdentifier""/usr_src/postprocessing.py"
-                             "$modelIdentifier""/usr_src/preprocessing.py"
-                             "$modelIdentifier""/usr_src/run.py"
-                             "$modelIdentifier""/usr_src/sandbox.ipynb"
-                             "$modelIdentifier""/usr_src/model/config.json"
-                             "$modelIdentifier""/usr_src/model/labels.json"
-                             "$modelIdentifier""/usr_src/model/model.onnx"
-                             "$modelIdentifier""/usr_src/model/figures/thumbnail.jpg"
-                             "$modelIdentifier""/usr_src/sample_data/cat.jpg"
-                            )
+declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
+                             "$modelIdentifier""/contrib_src/postprocessing.py"
+                             "$modelIdentifier""/contrib_src/preprocessing.py"
+                             "$modelIdentifier""/contrib_src/run.py"
+                             "$modelIdentifier""/contrib_src/sandbox.ipynb"
+                             "$modelIdentifier""/contrib_src/model/config.json"
+                             "$modelIdentifier""/contrib_src/model/labels.json"
+                             "$modelIdentifier""/contrib_src/model/model.onnx"
+                             "$modelIdentifier""/contrib_src/model/figures/thumbnail.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/bottle.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/car.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/cat.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/house.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/laptop.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/phone.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/room.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/tree.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/trump.jpg"                             )
 
 
 # ---------------------------------------------------------
@@ -112,7 +119,7 @@ function runBasic()
     echo "Press CTRL+C to quit session."
     echo "============================================================"
     echo ""
-    docker run -p 4000:80 -p 4001:81 -v "$PWD"/"$modelIdentifier"/usr_src:/usr_src "$dockerIdentifier"
+    docker run -p 4000:80 -p 4001:81 -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier"
 }
 
 function runExpert()
@@ -125,7 +132,7 @@ function runExpert()
     echo "Press CTRL+C to quit session."
     echo "============================================================"
     echo ""
-    docker run -p 8888:8888 -p 4000:80 -p 4001:81 -v "$PWD"/"$modelIdentifier"/usr_src:/usr_src "$dockerIdentifier" jupyter notebook --ip 0.0.0.0 --allow-root
+    docker run -p 8888:8888 -p 4000:80 -p 4001:81 -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier" jupyter notebook --ip 0.0.0.0 --allow-root
 }
 
 function runBash()
@@ -137,7 +144,7 @@ function runBash()
     echo "Press CTRL+D to quit session."
     echo "============================================================"
     echo ""
-    docker run -it -p 8888:8888 -p 4000:80 -p 4001:81 -v "$PWD"/"$modelIdentifier"/usr_src:/usr_src "$dockerIdentifier" /bin/bash
+    docker run -it -p 8888:8888 -p 4000:80 -p 4001:81 -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier" /bin/bash
 }
 
 if [ "$MODE" = "basic" ]; then
