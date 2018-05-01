@@ -12,8 +12,15 @@ declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
                              "$modelIdentifier""/contrib_src/model/labels.json"
                              "$modelIdentifier""/contrib_src/model/model.onnx"
                              "$modelIdentifier""/contrib_src/model/figures/thumbnail.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/bottle.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/car.jpg"
                              "$modelIdentifier""/contrib_src/sample_data/cat.jpg"
-                            )
+                             "$modelIdentifier""/contrib_src/sample_data/house.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/laptop.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/phone.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/room.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/tree.jpg"
+                             "$modelIdentifier""/contrib_src/sample_data/trump.jpg"                             )
 
 
 # ---------------------------------------------------------
