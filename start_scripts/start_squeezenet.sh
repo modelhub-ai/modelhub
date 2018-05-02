@@ -132,7 +132,7 @@ function runExpert()
     echo "Press CTRL+C to quit session."
     echo "============================================================"
     echo ""
-    docker run -p 8888:8888 -p 4000:80 -p 4001:81 -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier" jupyter notebook --ip 0.0.0.0 --allow-root
+    docker run -p 8888:8888 -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier" jupyter notebook --ip 0.0.0.0 --allow-root
 }
 
 function runBash()
