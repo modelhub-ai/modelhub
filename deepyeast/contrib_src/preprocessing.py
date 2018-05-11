@@ -8,13 +8,20 @@ class ImagePreprocessor(ImagePreprocessorBase):
 
     def _preprocessBeforeConversionToNumpy(self, image):
         if isinstance(image, PIL.Image.Image):
-            # OPTIONAL TODO: implement preprocessing of PIL image objects
-        elif isinstance(image, SimpleITK.Image):
-            # OPTIONAL TODO: implement preprocessing of SimpleITK image objects
+            image = image.resize((64,64), resample = PIL.Image.LANCZOS)
         else:
             raise IOError("Image Type not supported for preprocessing.")
         return image
 
     def _preprocessAfterConversionToNumpy(self, npArr):
-        # TODO: implement preprocessing of image after it was converted to a numpy array
+        print npArr.shape
+        #if npArr.shape[1] > 3:
+        npArr = npArr[:,0:2,:,:]
+        # elif npArr.shape[1] < 3:
+        #     npArr = npArr[:,[0],:,:]
+        #     npArr = np.concatenate((npArr, npArr[:,[0],:,:]), axis = 1)
+        #     npArr = np.concatenate((npArr, npArr[:,[0],:,:]), axis = 1)
+        #npArr[:, (2, 1, 0), :, :]
+        #npArr = npArr - 127.5
+        print npArr.shape
         return npArr

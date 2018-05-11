@@ -12,9 +12,18 @@ def infer(input):
     inputAsNpArr = preprocessor.load(input)
     # load ONNX model
     model = onnx.load('model/model.onnx')
+    # Check the model
+    onnx.checker.check_model(model)
+    print('The model is checked!')
+    print inputAsNpArr
+    print inputAsNpArr.shape
     # Run inference with caffe2
     results = caffe2.python.onnx.backend.run_model(model, [inputAsNpArr])
+    print "inference run"
     # postprocess results into output
+    # print config_json
     postprocessor = Postprocessor(config_json)
+    # print postprocessor
     output = postprocessor.computeOutput(results)
+    # print output
     return output
