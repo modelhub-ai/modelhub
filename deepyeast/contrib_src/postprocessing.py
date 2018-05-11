@@ -5,5 +5,13 @@ import json
 class Postprocessor(PostprocessorBase):
 
     def computeOutput(self, inferenceResults):
-        # TODO: implement postprocessing of inference results
+        probs = np.squeeze(np.asarray(inferenceResults))
+        with open("model/labels.json") as jsonFile:
+            labels = json.load(jsonFile)
+        result = []
+        for i in range (len(probs)):
+            obj = {'label': str(labels[str(i)]),
+                    'probability': float(probs[i])}
+            result.append(obj)
+        print ('postprocessing done.')
         return result
