@@ -11,17 +11,17 @@ declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
                              "$modelIdentifier""/contrib_src/model/config.json"
                              "$modelIdentifier""/contrib_src/model/labels.json"
                              "$modelIdentifier""/contrib_src/model/model.onnx"
-                             "$modelIdentifier""/contrib_src/sample_data/001004000-0-6157-38.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/001004000-2-9230-34.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/001006000-2-12310-76.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/001006000-4-7703-67.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/001009000-4-15395-68.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/001009000-6-3108-8.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/001010000-2-1574-36.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/001012000-2-13870-17.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/001018000-4-10823-48.jpg"                             )
-                             "$modelIdentifier""/contrib_src/sample_data/002004000-6-4720-35.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/007013000-0-625-80.jpg"   
+                             "$modelIdentifier""/contrib_src/sample_data/001004000-0-6157-38.png"
+                             "$modelIdentifier""/contrib_src/sample_data/001004000-2-9230-34.png"
+                             "$modelIdentifier""/contrib_src/sample_data/001006000-2-12310-76.png"
+                             "$modelIdentifier""/contrib_src/sample_data/001006000-4-7703-67.png"
+                             "$modelIdentifier""/contrib_src/sample_data/001009000-4-15395-68.png"
+                             "$modelIdentifier""/contrib_src/sample_data/001009000-6-3108-8.png"
+                             "$modelIdentifier""/contrib_src/sample_data/001010000-2-1574-36.png"
+                             "$modelIdentifier""/contrib_src/sample_data/001012000-2-13870-17.png"
+                             "$modelIdentifier""/contrib_src/sample_data/001018000-4-10823-48.png"                             )
+                             "$modelIdentifier""/contrib_src/sample_data/002004000-6-4720-35.png"
+                             "$modelIdentifier""/contrib_src/sample_data/007013000-0-625-80.png"   
 
 # ---------------------------------------------------------
 # Process commandline parameters
