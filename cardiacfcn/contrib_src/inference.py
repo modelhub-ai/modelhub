@@ -24,7 +24,7 @@ def infer(input):
     postprocessor = Postprocessor(config_json)
     output = postprocessor.computeOutput(results)
 
-    # resize the image to inputSize - temporary step
+    # resize the image to inputSize - temporary step (to be moved)
     output = preprocessor._resizeToInputSize(output)
 
     # clear the computational graph
