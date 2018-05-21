@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -r dockerIdentifier="modelhub/test:1.4"
+declare -r dockerIdentifier="modelhub/main_caffe2:0.1.0"
 declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/master/"
 declare -r modelIdentifier="squeezenet"
 declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
@@ -8,6 +8,8 @@ declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
                              "$modelIdentifier""/contrib_src/preprocessing.py"
                              "$modelIdentifier""/contrib_src/run.py"
                              "$modelIdentifier""/contrib_src/sandbox.ipynb"
+                             "$modelIdentifier""/contrib_src/license/model"
+                             "$modelIdentifier""/contrib_src/license/sample_data"
                              "$modelIdentifier""/contrib_src/model/config.json"
                              "$modelIdentifier""/contrib_src/model/labels.json"
                              "$modelIdentifier""/contrib_src/model/model.onnx"
@@ -114,12 +116,12 @@ function runBasic()
     echo ""
     echo "============================================================"
     echo "Model started."
-    echo "Open http://localhost:4000/ in your web browser to access"
+    echo "Open http://localhost:80/ in your web browser to access"
     echo "modelhub web interface."
     echo "Press CTRL+C to quit session."
     echo "============================================================"
     echo ""
-    docker run -p 4000:80 -p 4001:81 -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier"
+    docker run --net=host -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier"
 }
 
 function runExpert()
@@ -132,7 +134,7 @@ function runExpert()
     echo "Press CTRL+C to quit session."
     echo "============================================================"
     echo ""
-    docker run -p 8888:8888 -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier" jupyter notebook --ip 0.0.0.0 --allow-root
+    docker run --net=host -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier" jupyter notebook --allow-root
 }
 
 function runBash()
@@ -144,7 +146,7 @@ function runBash()
     echo "Press CTRL+D to quit session."
     echo "============================================================"
     echo ""
-    docker run -it -p 8888:8888 -p 4000:80 -p 4001:81 -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier" /bin/bash
+    docker run -it --net=host -v "$PWD"/"$modelIdentifier"/contrib_src:/contrib_src "$dockerIdentifier" /bin/bash
 }
 
 if [ "$MODE" = "basic" ]; then
