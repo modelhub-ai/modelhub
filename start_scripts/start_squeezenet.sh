@@ -22,7 +22,8 @@ declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
                              "$modelIdentifier""/contrib_src/sample_data/phone.jpg"
                              "$modelIdentifier""/contrib_src/sample_data/room.jpg"
                              "$modelIdentifier""/contrib_src/sample_data/tree.jpg"
-                             "$modelIdentifier""/contrib_src/sample_data/trump.jpg"                             )
+                             "$modelIdentifier""/contrib_src/sample_data/trump.jpg"
+                             )
 
 
 # ---------------------------------------------------------
