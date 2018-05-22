@@ -7,17 +7,23 @@ from fcn_model import fcn_model
 import keras.backend as K
 
 
+model = None
+
+
 def infer(input):
+    global model
+
     config_json = json.load(open("model/config.json"))
-    K.tensorflow_backend.clear_session()
 
     # load preprocessed input
     preprocessor = ImagePreprocessor(config_json)
     inputAsNpArr = preprocessor.load(input)
 
     # load keras architecture and weights
-    model = fcn_model((200, 200, 1), 2, weights=None)
-    model.load_weights("model/weights.h5")
+    if model is None:
+        print "LOADING MODEL"
+        model = fcn_model((200, 200, 1), 2, weights=None)
+        model.load_weights("model/weights.h5")
 
     # Run inference
     results = model.predict(inputAsNpArr)
@@ -30,5 +36,5 @@ def infer(input):
     output = preprocessor._resizeToInputSize(output)
 
     # clear the computational graph
-    K.tensorflow_backend.clear_session()
+    #K.tensorflow_backend.clear_session()
     return output
