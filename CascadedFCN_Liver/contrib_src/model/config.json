@@ -1,0 +1,44 @@
+{
+  "id": "ccc16d36-d788-43eb-9e53-2125c97888df",
+  "meta": {
+    "name": "Cascaded-FCN Liver",
+    "application_area": "CT Abdomen",
+    "task": "Segmentation",
+    "task_extended": "Liver and liver lesion segmentation.",
+    "data_type": "Computed Tomography (CT)",
+    "data_source": "https://www.ircad.fr/research/3dircadb/"
+  },
+  "publication": {
+    "title": "Automatic Liver and Lesion Segmentation in CT Using Cascaded Fully Convolutional Neural Networks and 3D Conditional Random Fields",
+    "journal": "arXiv",
+    "year": 2016,
+    "authors": "Patrick Ferdinand Christ, Mohamed Ezzeldin A. Elshaer, Florian Ettlinger, Sunil Tatavarty, Marc Bickel, Patrick Bilic, Markus Rempfler, Marco Armbruster, Felix Hofmann, Melvin D'Anastasi, Wieland H. Sommer, Seyed-Ahmad Ahmadi, Bjoern H. Menze",
+    "email": "Patrick.Christ@tum.de",
+    "abstract": "Automatic segmentation of the liver and its lesion is an important step towards deriving quantitative biomarkers for accurate clinical diagnosis and computer-aided decision support systems. This paper presents a method to automatically segment liver and lesions in CT abdomen images using cascaded fully convolutional neural networks (CFCNs) and dense 3D conditional random fields (CRFs). We train and cascade two FCNs for a combined segmentation of the liver and its lesions. In the first step, we train a FCN to segment the liver as ROI input for a second FCN. The second FCN solely segments lesions from the predicted liver ROIs of step 1. We refine the segmentations of the CFCN using a dense 3D CRF that accounts for both spatial coherence and appearance. CFCN models were trained in a 2-fold cross-validation on the abdominal CT dataset 3DIRCAD comprising 15 hepatic tumor volumes. Our results show that CFCN-based semantic liver and lesion segmentation achieves Dice scores over 94% for liver with computation times below 100s per volume. We experimentally demonstrate the robustness of the proposed method as a decision support system with a high accuracy and speed for usage in daily clinical routine.",
+    "url": "https://arxiv.org/abs/1610.02177",
+    "google_scholar": "https://scholar.google.com/scholar?cites=16449972357705639728&as_sdt=40000005&sciodt=0,22&hl=en",
+    "bibtex": "@inproceedings{christ2016automatic, title={Automatic liver and lesion segmentation in CT using cascaded fully convolutional neural networks and 3D conditional random fields}, author={Christ, Patrick Ferdinand and Elshaer, Mohamed Ezzeldin A and Ettlinger, Florian and Tatavarty, Sunil and Bickel, Marc and Bilic, Patrick and Rempfler, Markus and Armbruster, Marco and Hofmann, Felix and D’Anastasi, Melvin and others}, booktitle={Medical Image Computing and Computer-Assisted Intervention -- MICCAI 2016}, pages={415--423}, year={2016}, organization={Springer International Publishing}, isbn={978-3-319-46723-8}, doi={10.1007/978-3-319-46723-8_48}, url={http://dx.doi.org/10.1007/978-3-319-46723-8_48}}"
+  },
+  "model": {
+    "name": "Cascaded-FCN Liver",
+    "description": "This model showcases the first step of the Automatic Liver and Lesion Segmentation. It segments the liver on a single slice CT image. The trained model for the second step (lesion segmentation) is included but not executed in the demo.",
+    "architecture": "Fully Convolutional Network (FCN)",
+    "learning_type": "Supervised learning",
+    "input": {
+      "format": [],
+      "dim_limits": [
+        {
+          "min": 1,
+          "max": 1
+        },
+        {
+          "min": 0
+        },
+        {
+          "min": 0
+        }
+      ]
+    },
+    "license": ""
+  }
+}
