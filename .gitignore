@@ -1,5 +1,6 @@
 /tests
 /contrib_src/.ipynb_checkpoints
+/CascadedFCN_Liver/**/*.caffemodel
 *.pyc
 *.vscode
 *.code-workspace
