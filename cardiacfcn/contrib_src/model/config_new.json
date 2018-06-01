@@ -6,7 +6,8 @@
     "task": "Segmentation",
     "task_extended": "Segmenting the right ventricle in MRI.",
     "data_type": "Magnetic Resonance (MRI)",
-    "data_source": "http://www.litislab.fr/?projet=1rvsc"
+    "data_source": "http://www.litislab.fr/?projet=1rvsc",
+    "thumbnail": "link/to/thumbnail.jpg"
   },
   "publication": {
     "title":
@@ -43,6 +44,8 @@
         }
       ]
     },
-    "license": "MIT"
+    "output": {
+      "format": []
+    }
   }
 }
