@@ -1,10 +1,11 @@
-from modelhublib.preprocessor import ImagePreprocessorBase
+from modelhublib.processor import ImageProcessorBase
 import PIL
 import SimpleITK
 import numpy as np
+import json
 
 
-class ImagePreprocessor(ImagePreprocessorBase):
+class ImageProcessor(ImageProcessorBase):
 
     def _preprocessBeforeConversionToNumpy(self, image):
         if isinstance(image, PIL.Image.Image):
@@ -32,3 +33,15 @@ class ImagePreprocessor(ImagePreprocessorBase):
         #npArr[:, (2, 1, 0), :, :]
         npArr = npArr - 127.5
         return npArr
+
+    def computeOutput(self, inferenceResults):
+        probs = np.squeeze(np.asarray(inferenceResults))
+        with open("model/labels.json") as jsonFile:
+            labels = json.load(jsonFile)
+        result = []
+        for i in range (len(probs)):
+            obj = {'label': str(labels[str(i)]),
+                    'probability': float(probs[i])}
+            result.append(obj)
+        print ('postprocessing done.')
+        return result
