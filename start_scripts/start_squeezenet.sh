@@ -1,7 +1,8 @@
 #!/bin/bash
 
 declare -r dockerIdentifier="modelhub/main_caffe2:0.1.0"
-declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/master/"
+declare -r commitId="8a5750b8263654658861ccadb9b99abb3e713ade"
+declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/""$commitId""/"
 declare -r modelIdentifier="squeezenet"
 declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
                              "$modelIdentifier""/contrib_src/postprocessing.py"

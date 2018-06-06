@@ -1,7 +1,8 @@
 #!/bin/bash
 
 declare -r dockerIdentifier="modelhub/test:1.4"
-declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/master/"
+declare -r commitId="master"
+declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/""$commitId""/"
 declare -r modelIdentifier="deepyeast"
 declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
                              "$modelIdentifier""/contrib_src/postprocessing.py"
@@ -21,7 +22,7 @@ declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
                              "$modelIdentifier""/contrib_src/sample_data/001012000-2-13870-17.png"
                              "$modelIdentifier""/contrib_src/sample_data/001018000-4-10823-48.png"                             )
                              "$modelIdentifier""/contrib_src/sample_data/002004000-6-4720-35.png"
-                             "$modelIdentifier""/contrib_src/sample_data/007013000-0-625-80.png"   
+                             "$modelIdentifier""/contrib_src/sample_data/007013000-0-625-80.png"
 
 # ---------------------------------------------------------
 # Process commandline parameters
