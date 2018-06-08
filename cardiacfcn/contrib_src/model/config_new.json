@@ -30,22 +30,24 @@
       "The proposed FCN architecture is efficiently trained end-to-end on a graphics processing unit (GPU) in a single learning stage from whole image inputs and ground truths to make inference at every pixel, a task commonly known as pixel-wise labeling or per-pixel classification.",
     "architecture": "Fully Convolutional Neural Network (FCN)",
     "learning_type": "Supervised learning",
-    "input": {
-      "format": ["png"],
-      "dim_limits": [
-        {
-          "min": 1
-        },
-        {
-          "min": 100
-        },
-        {
-          "min": 100
-        }
-      ]
-    },
-    "output": {
-      "format": []
+    "io": {
+      "input": {
+        "format": ["png"],
+        "dim_limits": [
+          {
+            "min": 1
+          },
+          {
+            "min": 100
+          },
+          {
+            "min": 100
+          }
+        ]
+      },
+      "output": {
+        "format": []
+      }
     }
   }
 }
