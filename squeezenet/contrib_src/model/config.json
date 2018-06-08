@@ -26,7 +26,6 @@
       "@article{iandola2016squeezenet, title={SqueezeNet: AlexNet-level accuracy with 50x fewer parameters and< 0.5 MB model size}, author={Iandola, Forrest N and Han, Song and Moskewicz, Matthew W and Ashraf, Khalid and Dally, William J and Keutzer, Kurt}, journal={arXiv preprint arXiv:1602.07360}, year={2016}}"
   },
   "model": {
-    "name": "SqueezeNet",
     "description":
       "SqueezeNet begins with a standalone convolution layer (conv1), followed by 8 Fire modules (fire2-9), ending with a final conv layer (conv10). We gradually increase the number of filters per fire module from the beginning to the end of the network. SqueezeNet performs max-pooling with a stride of 2 after layers conv1, fire4, fire8, and conv10",
     "architecture": "Convolutional Neural Network (CNN)",
@@ -48,7 +47,7 @@
         ]
       },
       "output": {
-        "format": []
+        "type": "label_list"
       }
     }
   }
