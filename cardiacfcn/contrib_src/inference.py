@@ -1,40 +1,31 @@
 import keras
-import numpy as np
 import json
-from preprocessing import ImagePreprocessor
-from postprocessing import Postprocessor
 from fcn_model import fcn_model
 import keras.backend as K
+from processing import ImageProcessor
+from modelhublib.model import ModelBase
 
 
-model = None
+class Model(ModelBase):
+
+    def __init__(self):
+        # load config file
+        config = json.load(open("model/config.json"))
+        # get the image processor
+        self._imageProcessor = ImageProcessor(config)
+        # load the DL model
+        self._model = fcn_model((200, 200, 1), 2, weights=None)
+        self._model.load_weights("model/weights.h5")
+        self._model._make_predict_function()
 
 
-def infer(input):
-    global model
+    def infer(self, input):
+        # load preprocessed input
+        inputAsNpArr = self._imageProcessor.loadAndPreprocess(input)
+        # Run inference
+        results = self._model.predict(inputAsNpArr)
+        # postprocess results into output
+        output = self._imageProcessor.computeOutput(results)
+        return output
 
-    config_json = json.load(open("model/config.json"))
 
-    # load preprocessed input
-    preprocessor = ImagePreprocessor(config_json)
-    inputAsNpArr = preprocessor.load(input)
-
-    # load keras architecture and weights
-    if model is None:
-        print "LOADING MODEL"
-        model = fcn_model((200, 200, 1), 2, weights=None)
-        model.load_weights("model/weights.h5")
-
-    # Run inference
-    results = model.predict(inputAsNpArr)
-
-    # convert to image through postprocessing
-    postprocessor = Postprocessor(config_json)
-    output = postprocessor.computeOutput(results)
-
-    # resize the image to inputSize - temporary step (to be moved)
-    output = preprocessor._resizeToInputSize(output)
-
-    # clear the computational graph
-    #K.tensorflow_backend.clear_session()
-    return output

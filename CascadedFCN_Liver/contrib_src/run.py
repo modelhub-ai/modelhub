@@ -1,4 +1,6 @@
 import main
+from inference import Model
 
 if __name__ == "__main__":
-    main.start()
+    model = Model()
+    main.start(model)
