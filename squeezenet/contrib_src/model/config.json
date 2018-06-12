@@ -46,9 +46,12 @@
           }
         ]
       },
-      "output": {
-        "type": "label_list"
-      }
+      "output": [
+        {
+          "name": "probabilities",
+          "type": "label_list"
+        }
+      ]
     }
   }
 }

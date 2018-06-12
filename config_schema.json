@@ -184,59 +184,66 @@
               "additionalProperties": false
             },
             "output": {
-              "type": "object",
+              "type": "array",
               "description":
-                "Output properties. For outputs, we do not dictate the size. We do however identify the type. ",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "description":
-                    "This could be one of the 6 types. See the 'options' property of this object for a full list of types. Each model can only have one output type.",
-                  "options": [
-                    {
-                      "name": "label_list",
-                      "overlaid": false,
-                      "description": "probabilities",
-                      "file_type": "json"
-                    },
-                    {
-                      "name": "vector",
-                      "overlaid": false,
-                      "description": "1d",
-                      "file_type": "numpy"
-                    },
-                    {
-                      "name": "mask_image",
-                      "overlaid": true,
-                      "description":
-                        "2d or 3d, discrete values. 0 is always background, 1,2... are the regions",
-                      "file_type": "numpy"
-                    },
-                    {
-                      "name": "heatmap",
-                      "overlaid": true,
-                      "description":
-                        "2d grayscale, 2d multi, 3d grayscale, 3d multi. If normalized, 1 is highest, 0 is lowest",
-                      "file_type": "numpy"
-                    },
-                    {
-                      "name": "image",
-                      "overlaid": false,
-                      "description":
-                        "2d grayscale, 2d multi, 3d grayscale, 3d multi",
-                      "file_type": "numpy"
-                    },
-                    {
-                      "name": "custom",
-                      "description":
-                        "Alien format we are not able to deal with yet.",
-                      "file_type": "numpy"
-                    }
-                  ]
-                }
+                "An array of objects. Output properties. For outputs, we do not dictate the size. We do however identify the name and type. The ordering is important here. The model infer function will give outputs in the same order as defined here.",
+              "items": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Output name."
+                  },
+                  "type": {
+                    "type": "string",
+                    "description":
+                      "This could be one of the 6 types. See the 'options' property of this object for a full list of types. Each model can have at least one or more output type(s).",
+                    "options": [
+                      {
+                        "name": "label_list",
+                        "overlaid": false,
+                        "description": "probabilities",
+                        "file_type": "json"
+                      },
+                      {
+                        "name": "vector",
+                        "overlaid": false,
+                        "description": "1d",
+                        "file_type": "numpy"
+                      },
+                      {
+                        "name": "mask_image",
+                        "overlaid": true,
+                        "description":
+                          "2d or 3d, discrete values. 0 is always background, 1,2... are the regions",
+                        "file_type": "numpy"
+                      },
+                      {
+                        "name": "heatmap",
+                        "overlaid": true,
+                        "description":
+                          "2d grayscale, 2d multi, 3d grayscale, 3d multi. If normalized, 1 is highest, 0 is lowest",
+                        "file_type": "numpy"
+                      },
+                      {
+                        "name": "image",
+                        "overlaid": false,
+                        "description":
+                          "2d grayscale, 2d multi, 3d grayscale, 3d multi",
+                        "file_type": "numpy"
+                      },
+                      {
+                        "name": "custom",
+                        "description":
+                          "Alien format we are not able to deal with yet.",
+                        "file_type": "numpy"
+                      }
+                    ]
+                  }
+                },
+                "required": ["name", "type"],
+                "additionalProperties": false
               },
-              "required": ["type"],
-              "additionalProperties": false
+              "minItems": 1
             }
           },
           "required": ["input", "output"],
