@@ -1,6 +1,5 @@
 import onnx
 import caffe2.python.onnx.backend
-import numpy as np
 import json
 from processing import ImageProcessor
 from modelhublib.model import ModelBase
