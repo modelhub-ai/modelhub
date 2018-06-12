@@ -1,12 +1,13 @@
-from modelhublib.preprocessor import ImagePreprocessorBase
+from modelhublib.processor import ImageProcessorBase
 import PIL
 import SimpleITK
 import numpy as np
+import json
 import scipy
 import scipy.misc
 
 
-class ImagePreprocessor(ImagePreprocessorBase):
+class ImageProcessor(ImageProcessorBase):
 
     def _preprocessBeforeConversionToNumpy(self, image):
         if isinstance(image, PIL.Image.Image):
@@ -46,6 +47,24 @@ class ImagePreprocessor(ImagePreprocessorBase):
         return (img - min_) / (max_ - min_)
 
 
-    # temporary function - to be cleaned and moved to postprocessing
-    def _resizeToInputSize(self, image):
-        return image.resize((self.inputSize[1],self.inputSize[0]), resample = PIL.Image.NEAREST)
+    def computeOutput(self, inferenceResults):
+        inferenceResults = inferenceResults['prob'][0,1]
+        # make sure the result dims are 2D
+        inferenceResults=np.squeeze(inferenceResults)
+        # create mask
+        inferenceResults[inferenceResults < 0.5] = 0
+        inferenceResults[inferenceResults >= 0.5] = 1
+        # convert to 4 channels
+        inferenceResults = self._to_rgba(inferenceResults)
+        result = PIL.Image.fromarray(inferenceResults, 'RGBA')
+        result = result.resize((self.inputSize[1],self.inputSize[0]), resample = PIL.Image.NEAREST)
+        return result
+
+
+    def _to_rgba(self, arr):
+        # convert to 255 uint8
+        arr = (arr*255).astype(np.uint8)
+        alpha = np.full((arr.shape), 255, dtype=np.uint8)
+        return np.asarray(np.dstack((arr, arr, arr, alpha)), dtype=np.uint8)
+
+

@@ -1,46 +1,39 @@
 import caffe
 caffe.set_mode_cpu()
-import numpy as np
 import json
 import os
-from preprocessing import ImagePreprocessor
-from postprocessing import Postprocessor
+from processing import ImageProcessor
+from modelhublib.model import ModelBase
 
 
-model = None
+class Model(ModelBase):
 
-
-def infer(input):
-    global model
-
-    config_json = json.load(open("model/config.json"))
+    def __init__(self):
+        # load config file
+        config = json.load(open("model/config.json"))
+        # get the image processor
+        self._imageProcessor = ImageProcessor(config)
+        # load the DL model
+        self._model = caffe.Net("model/step1/step1_deploy.prototxt", 
+                                "model/step1/step1_weights.caffemodel", 
+                                caffe.TEST)
     
-    # load preprocessed input
-    preprocessor = ImagePreprocessor(config_json)
-    inputAsNpArr = preprocessor.load(getDicomFilename(input))
-    
-    # load model
-    if model is None:
-        model = caffe.Net("model/step1/step1_deploy.prototxt", 
-                          "model/step1/step1_weights.caffemodel", 
-                          caffe.TEST)
-    
-    # Run inference
-    model.blobs['data'].data[...] = inputAsNpArr
-    results = model.forward()
-    #del model
 
-    # postprocess results into output
-    postprocessor = Postprocessor(config_json)
-    output = postprocessor.computeOutput(results)
-    
-    return preprocessor._resizeToInputSize(output)
+    def infer(self, input):
+        # load preprocessed input
+        inputAsNpArr = self._imageProcessor.loadAndPreprocess(self._getDicomFilename(input))
+        # Run inference
+        self._model.blobs['data'].data[...] = inputAsNpArr
+        results = self._model.forward()
+        # postprocess results into output
+        output = self._imageProcessor.computeOutput(results)
+        return output
 
 
-def getDicomFilename(inputFilename):
-    path, filename = os.path.split(inputFilename)
-    filename, _ = os.path.splitext(filename)
-    dicomFilename = str(os.path.join(path, "dicom", filename))
-    return dicomFilename
+    def _getDicomFilename(self, inputFilename):
+        path, filename = os.path.split(inputFilename)
+        filename, _ = os.path.splitext(filename)
+        dicomFilename = str(os.path.join(path, "dicom", filename))
+        return dicomFilename
 
 
