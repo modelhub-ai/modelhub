@@ -30,7 +30,7 @@
     "learning_type": "Supervised learning",
     "io": {
       "input": {
-        "format": ["png"],
+        "format": ["image/png"],
         "dim_limits": [
           {
             "min": 1
