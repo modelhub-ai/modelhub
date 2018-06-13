@@ -151,7 +151,7 @@
                 "format": {
                   "type": "array",
                   "description":
-                    "An array of acceptable file formats without the dot. Example: jpeg, jpg, dicom.",
+                    "An array of acceptable file formats according to python MIME type. Example: image/jpeg, application/dicom.",
                   "items": {
                     "type": "string"
                   },

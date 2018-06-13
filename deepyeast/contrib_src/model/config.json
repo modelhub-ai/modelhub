@@ -30,7 +30,7 @@
     "architecture": "Convolutional Neural Network (CNN)",
     "learning_type": "Supervised learning",
     "input": {
-      "format": ["png"],
+      "format": ["image/png"],
       "dim_limits": [
         {
           "min": 2,
