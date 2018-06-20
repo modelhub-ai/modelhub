@@ -23,29 +23,46 @@
     "bibtex":
       "@article{parnamaa2017accurate,\n  title={Accurate Classification of Protein Subcellular Localization from High-Throughput Microscopy Images Using Deep Learning},\n  author={P{\\\"a}rnamaa, Tanel and Parts, Leopold},\n  journal={G3: Genes, Genomes, Genetics},\n  volume={7},\n  number={5},\n  pages={1385--1392},\n  year={2017},\n  publisher={G3: Genes, Genomes, Genetics}\n}"
   },
+  "viewer": "netron",
   "model": {
-    "name": "DeepYeast",
     "description":
       "The “DeepYeast” convolutional neural network has eight convolutional layers,  succeeded by three fully connected ones, producing a 1-of-12 prediction of protein subcellular localization. All convolutional layers have 3 × 3 filters with stride 1, and all pooling operations are over 2 × 2 nonoverlapping areas.",
     "architecture": "Convolutional Neural Network (CNN)",
     "learning_type": "Supervised learning",
-    "input": {
-      "format": ["image/png"],
-      "dim_limits": [
+    "io": {
+      "input": {
+        "format": ["image/png"],
+        "dim_limits": [
+          {
+            "min": 2,
+            "max": 4
+          },
+          {
+            "min": 64,
+            "max": 64
+          },
+          {
+            "min": 64,
+            "max": 64
+          }
+        ]
+      },
+      "output": [
         {
-          "min": 2,
-          "max": 4
-        },
-        {
-          "min": 64,
-          "max": 64
-        },
-        {
-          "min": 64,
-          "max": 64
+          "name": "probabilities",
+          "type": "mask_image"
         }
       ]
-    },
-    "license": "MIT"
-  }
+    }
+  },
+  "script": [
+    {
+      "type": "bash",
+      "variables": [
+        {
+          "file_name": "start_deepyeast.sh"
+        }
+      ]
+    }
+  ]
 }

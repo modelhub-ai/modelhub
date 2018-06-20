@@ -62,7 +62,8 @@
     },
     "publication": {
       "type": "object",
-      "description": "Holds all information regarding the publication.",
+      "description":
+        "Holds all information regarding the publication. If the 'publication' key does not exist, then there is no publication associated with this model.",
       "properties": {
         "title": {
           "type": "string",
@@ -119,6 +120,11 @@
         "bibtex"
       ],
       "additionalProperties": false
+    },
+    "viewer": {
+      "type": "string",
+      "description":
+        "This string represents the model viewer used. If the 'viewer' key does not exist, this model cannot be visualized. This will usually ready 'netron' - and can be swapped for more model viewers in the future."
     },
     "model": {
       "type": "object",
@@ -252,8 +258,27 @@
       },
       "required": ["description", "learning_type", "architecture", "io"],
       "additionalProperties": false
+    },
+    "script": {
+      "type": "array",
+      "description":
+        "This object contains variables that are needed to generate instructions for running the model locally. To start, we provide the name of the bash script file. A template on the frontenf will take these variables and generate the instructions.",
+      "items": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "description":
+              "Type of setup required to run this model. For now, we only support bash."
+          },
+          "variables": {
+            "type": "array",
+            "description":
+              "Array of variables used to generate the entire instruction list. The properties are not set here for flexibility."
+          }
+        }
+      }
     }
   },
-  "required": ["id", "meta", "publication", "model"],
+  "required": ["id", "meta", "model", "script"],
   "additionalProperties": false
 }
