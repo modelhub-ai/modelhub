@@ -3,9 +3,8 @@
   "meta": {
     "name": "SqueezeNet",
     "application_area": "ImageNet",
-    "task": "ImageNet classification",
-    "task_extended":
-      "Compute probabilities for all ImageNet categories on a given input image",
+    "task": "Classification",
+    "task_extended": "ImageNet classification",
     "data_type": "Image/Photo",
     "data_source": "http://www.image-net.org/"
   },

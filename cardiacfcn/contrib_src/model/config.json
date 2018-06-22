@@ -4,7 +4,7 @@
     "name": "CardiacFCN",
     "application_area": "Cardiac Imaging",
     "task": "Segmentation",
-    "task_extended": "Segmenting the right ventricle in MRI.",
+    "task_extended": "Segmenting the right ventricle in MRI",
     "data_type": "Magnetic Resonance (MRI)",
     "data_source": "http://www.litislab.fr/?projet=1rvsc"
   },
