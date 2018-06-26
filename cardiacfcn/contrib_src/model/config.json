@@ -11,7 +11,7 @@
   "publication": {
     "title":
       "A Fully Convolutional Neural Network for Cardiac Segmentation in Short-Axis MRI",
-    "journal": "arXiv",
+    "source": "arXiv",
     "year": 2016,
     "authors": "Phi Vu Tran",
     "email": "tran_phi@bah.com",
@@ -55,11 +55,9 @@
   "script": [
     {
       "type": "bash",
-      "variables": [
-        {
-          "file_name": "start_cardiacfcn.sh"
-        }
-      ]
+      "variables": {
+        "file_name": "start_cardiacfcn.sh"
+      }
     }
   ]
 }

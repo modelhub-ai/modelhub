@@ -11,7 +11,7 @@
   "publication": {
     "title":
       "Accurate Classification of Protein Subcellular Localization from High-Throughput Microscopy Images Using Deep Learning",
-    "journal": "G3: Genes, Genomes, Genetics",
+    "source": "G3: Genes, Genomes, Genetics",
     "year": 2017,
     "authors": "Tanel Pärnamaa, Leopold Parts",
     "email": "tanel.parnamaa@gmail.com",
@@ -58,11 +58,9 @@
   "script": [
     {
       "type": "bash",
-      "variables": [
-        {
-          "file_name": "start_deepyeast.sh"
-        }
-      ]
+      "variables": {
+        "file_name": "start_deepyeast.sh"
+      }
     }
   ]
 }
