@@ -2,7 +2,7 @@
 
 declare -r dockerIdentifier="modelhub/main_keras_2.0.2:0.1.0"
 declare -r commitId="8a5750b8263654658861ccadb9b99abb3e713ade"
-declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/""$commitId""/"
+declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/""$commitId""/models/"
 declare -r modelIdentifier="cardiacfcn"
 declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/fcn_model.py"
                              "$modelIdentifier""/contrib_src/inference.py"

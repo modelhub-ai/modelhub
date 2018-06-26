@@ -2,7 +2,7 @@
 
 declare -r dockerIdentifier="modelhub/test:1.4"
 declare -r commitId="master"
-declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/""$commitId""/"
+declare -r serverAddress="https://raw.githubusercontent.com/modelhub-ai/modelhub/""$commitId""/models/"
 declare -r modelIdentifier="deepyeast"
 declare -a -r requiredFiles=("$modelIdentifier""/contrib_src/inference.py"
                              "$modelIdentifier""/contrib_src/postprocessing.py"
