@@ -11,7 +11,7 @@
   "publication": {
     "title":
       "SqueezeNet: AlexNet-level accuracy with 50x fewer parameters and <0.5MB model size",
-    "journal": "arXiv",
+    "source": "arXiv",
     "year": 2016,
     "authors":
       "Forrest N. Iandola, Song Han, Matthew W. Moskewicz, Khalid Ashraf, William J. Dally, Kurt Keutzer",
@@ -57,11 +57,9 @@
   "script": [
     {
       "type": "bash",
-      "variables": [
-        {
-          "file_name": "start_squeezenet.sh"
-        }
-      ]
+      "variables": {
+        "file_name": "start_squeezenet.sh"
+      }
     }
   ]
 }

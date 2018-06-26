@@ -69,10 +69,10 @@
           "type": "string",
           "description": "Publication title as it appears."
         },
-        "journal": {
+        "source": {
           "type": "string",
           "description":
-            "Journal name. If preprint, then the name of the platform. Example: Arxiv."
+            "Source name. This could be the name of the journal or conference. If preprint, then the name of the platform. Example: Nature, IEEE, Arxiv."
         },
         "year": {
           "type": "number",
@@ -111,7 +111,7 @@
       },
       "required": [
         "title",
-        "journal",
+        "source",
         "year",
         "authors",
         "abstract",
@@ -271,11 +271,12 @@
               "Type of setup required to run this model. For now, we only support bash."
           },
           "variables": {
-            "type": "array",
+            "type": "object",
             "description":
-              "Array of variables used to generate the entire instruction list. The properties are not set here for flexibility."
+              "object of variable keys and values used to generate the entire instruction list. The properties are not set here for flexibility."
           }
-        }
+        },
+        "required": ["type", "variables"]
       }
     }
   },
