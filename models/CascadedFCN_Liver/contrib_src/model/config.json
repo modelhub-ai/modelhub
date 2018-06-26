@@ -11,7 +11,7 @@
   "publication": {
     "title":
       "Automatic Liver and Lesion Segmentation in CT Using Cascaded Fully Convolutional Neural Networks and 3D Conditional Random Fields",
-    "journal": "arXiv",
+    "source": "arXiv",
     "year": 2016,
     "authors":
       "Patrick Ferdinand Christ, Mohamed Ezzeldin A. Elshaer, Florian Ettlinger, Sunil Tatavarty, Marc Bickel, Patrick Bilic, Markus Rempfler, Marco Armbruster, Felix Hofmann, Melvin D'Anastasi, Wieland H. Sommer, Seyed-Ahmad Ahmadi, Bjoern H. Menze",
@@ -57,11 +57,9 @@
   "script": [
     {
       "type": "bash",
-      "variables": [
-        {
-          "file_name": "start_CascadedFCN_Liver.sh"
-        }
-      ]
+      "variables": {
+        "file_name": "start_CascadedFCN_Liver.sh"
+      }
     }
   ]
 }
