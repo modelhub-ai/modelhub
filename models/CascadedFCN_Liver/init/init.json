@@ -3,7 +3,7 @@
   "external_contrib_files": [
     {
       "src_url": "https://www.dropbox.com/s/aoykiiuu669igxa/step1_weights.caffemodel?dl=1",
-      "dest_file_path": "/contrib_src/model/model.caffemodel"
+      "dest_file_path": "contrib_src/model/model.caffemodel"
     },
     {
       "src_url": "https://www.dropbox.com/s/aoykiiuu669igxa/step1_weights.caffemodel?dl=1",
