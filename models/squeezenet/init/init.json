@@ -1,0 +1,13 @@
+{
+  "branch_id": "master",
+  "external_contrib_files": [
+    {
+      "src_url": "URL1",
+      "dest_dir": "contrib_src/test1"
+    },
+    {
+      "src_url": "URL2",
+      "dest_dir": "contrib_src/test2"
+    }    
+  ]
+}
