@@ -2,7 +2,7 @@ import subprocess
 import os
 import sys
 from urllib import urlretrieve
-from urllib2 import urlopen
+from urllib2 import urlopen, HTTPError
 import json
 import argparse
 
@@ -23,7 +23,7 @@ group.add_argument("-b", "--bash",
 
 
 
-def startBasic(model_name, docker_name):
+def start_basic(model_name, docker_id):
     print ""
     print "============================================================"
     print "Model started."
@@ -34,11 +34,11 @@ def startBasic(model_name, docker_name):
     print ""
     command = ("docker run --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
-               + docker_name)
+               + docker_id)
     subprocess.check_call(command, shell = True)
 
 
-def startExpert(model_name, docker_name):
+def start_expert(model_name, docker_id):
     print ""
     print "============================================================"
     print "Modelhub Docker started in expert mode."
@@ -49,11 +49,11 @@ def startExpert(model_name, docker_name):
     print ""
     command = ("docker run --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
-               + docker_name + " jupyter notebook --allow-root")
+               + docker_id + " jupyter notebook --allow-root")
     subprocess.check_call(command, shell = True)
 
 
-def startBash(model_name, docker_name):
+def start_bash(model_name, docker_id):
     print ""
     print "============================================================"
     print "Modelhub Docker started in interactive bash mode."
@@ -63,53 +63,94 @@ def startBash(model_name, docker_name):
     print ""
     command = ("docker run -it --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
-               + docker_name + " /bin/bash")
+               + docker_id + " /bin/bash")
     subprocess.check_call(command, shell = True)
 
 
-def startDocker(args, docker_name):
+def start_docker(args):
+    docker_id = get_init_value(args.model, "docker_id")
     if args.expert:
-        startExpert(args.model, docker_name)
+        start_expert(args.model, docker_id)
     elif args.bash:
-        startBash(args.model, docker_name)
+        start_bash(args.model, docker_id)
     else:
-        startBasic(args.model, docker_name)
+        start_basic(args.model, docker_id)
 
 
-def download_github_dir(src_dir_url, branch_id, dest_dir):
-    request_url = src_dir_url + "?ref=" + branch_id
+def download_github_dir(src_dir_req_url, branch_id, dest_dir):
+    request_url = src_dir_req_url + "?ref=" + branch_id
     response = json.loads(urlopen(request_url).read())
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
     for element in response:
         if element["type"] == "file":
-            print element["name"], "-->", dest_dir
             src_file_url = element["download_url"]
             dest_file_path = os.path.join(dest_dir, element["name"])
+            print src_file_url, "\n-->", dest_file_path
             urlretrieve(src_file_url, dest_file_path)
         elif element["type"] == "dir":
-            next_src_dir_url = src_dir_url + "/" + element["name"]
+            next_src_dir_req_url = src_dir_req_url + "/" + element["name"]
             next_dest_dir = os.path.join(dest_dir, element["name"])
-            download_github_dir(next_src_dir_url, branch_id, next_dest_dir)
+            download_github_dir(next_src_dir_req_url, branch_id, next_dest_dir)
 
 
+def download_external_files(external_files, model_dir):
+    for element in external_files:
+        src_file_url = element["src_url"]
+        dest_file_path = os.path.join(model_dir, element["dest_file_path"].strip("/"))
+        if not os.path.exists(os.path.dirname(dest_file_path)):
+            os.makedirs(os.path.dirname(dest_file_path))
+        print src_file_url, "\n-->", dest_file_path
+        urlretrieve(src_file_url, dest_file_path)
 
-REQUEST_ROOT = "https://api.github.com/repos/modelhub-ai/modelhub/contents/models/"
+
+def get_model_req_url(model_name):
+    request_root = "https://api.github.com/repos/modelhub-ai/modelhub/contents/models/"
+    return request_root + model_name
+
+
+def get_init_value(model_name, key):
+    init_file_req_url = get_model_req_url(model_name) + "/init/init.json?ref=master"
+    response = json.loads(urlopen(init_file_req_url).read())
+    init = json.loads(urlopen(response["download_url"]).read())
+    return init[key]
+
+
+def download_model(model_name, dest_dir):
+    github_branch_id = get_init_value(model_name, "branch_id")
+    model_req_url = get_model_req_url(model_name)
+    download_github_dir(model_req_url, github_branch_id, dest_dir)
+    external_contrib_files = get_init_value(model_name, "external_contrib_files")
+    download_external_files(external_contrib_files, dest_dir)
+
+
+def download_model_if_necessary(model_name):
+    model_dir = os.path.join(os.getcwd(), model_name)
+    if os.path.exists(model_dir):
+        print "Model folder exists already. Skipping download."
+    else:
+        print "Downloading model ..."
+        download_model(model_name, model_dir)
+        print "Model download DONE!"
+
+
 
 def start(args):
-    src_url = REQUEST_ROOT + args.model
-    dest_dir = os.path.join(os.getcwd(), args.model)
-    download_github_dir(src_url, "master", dest_dir)
-
-    #startDocker(args, "modelhub/main_caffe2:0.1.0")
+    download_model_if_necessary(args.model)
+    start_docker(args)
 
 
 
 if __name__ == "__main__":
     try:
         args = parser.parse_args()
-    except SystemExit as err: 
-        if err.code == 2:
+    except SystemExit as e: 
+        if e.code == 2:
             parser.print_help()
-        sys.exit(err.code)
-    start(args)
+        sys.exit(e.code)
+    try:
+        start(args)
+    except HTTPError as e:
+        print "ERROR: Model download failed. Please check your internet connection. The model folder \"" + args.model + "\" is most likely corrupt. Please delete it."
+        print "ERROR DETAIL: ", e
+
