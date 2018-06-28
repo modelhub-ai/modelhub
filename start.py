@@ -151,6 +151,6 @@ if __name__ == "__main__":
     try:
         start(args)
     except HTTPError as e:
-        print "ERROR: Model download failed. Please check your internet connection. The model folder \"" + args.model + "\" is most likely corrupt. Please delete it."
+        print "ERROR: Model download failed. Please check if this is a valid model name. Also, please check your internet connection. The model folder \"" + args.model + "\" is possibly corrupt. Please delete it (if it exists)."
         print "ERROR DETAIL: ", e
 
