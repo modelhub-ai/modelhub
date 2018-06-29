@@ -21,12 +21,18 @@ parser = argparse.ArgumentParser(description="Starts model with modehub framewor
                                              " an easy user interface to run inference.")
 parser.add_argument("model", metavar = "MODEL", 
                     help = "Name of the model to run.")
+parser.add_argument("-l", "--list",
+                    help = "List all models available online on modelhub.",
+                    action = "store_true")
+parser.add_argument("-u", "--update",
+                    help = "Updates MODEL to the newest version before starting it.",
+                    action = "store_true")
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-e", "--expert", 
-                    help = "Start in expert mode. Provides a jupyter notebook environment to experiment.",
+                    help = "Start MODEL in expert mode. Provides a jupyter notebook environment to experiment.",
                     action = "store_true")
 group.add_argument("-b", "--bash", 
-                    help = "Start modelhub Docker in bash mode. Explore the Docker on your own.",
+                    help = "Start MODEL Docker in bash mode. Explore the Docker on your own.",
                     action = "store_true")
 
 
@@ -132,26 +138,49 @@ def download_model(model_name, dest_dir):
     download_external_files(external_contrib_files, dest_dir)
 
 
-def download_model_if_necessary(model_name):
-    model_dir = os.path.join(os.getcwd(), model_name)
+def download_model_if_necessary(args):
+    model_dir = os.path.join(os.getcwd(), args.model)
+    if args.update and os.path.exists(model_dir):
+        print("Removing existing model ...")
+        shutil.rmtree(model_dir)
     if os.path.exists(model_dir):
         print("Model folder exists already. Skipping download.")
     else:
         print("Downloading model ...")
-        download_model(model_name, model_dir)
+        download_model(args.model, model_dir)
         print("Model download DONE!")
 
 
 
 def start(args):
-    download_model_if_necessary(args.model)
+    download_model_if_necessary(args)
     start_docker(args)
+
+
+def list_online_models():
+    models_req_url = get_model_req_url("").rstrip("/")
+    response = json.loads(urlopen(models_req_url).read())
+    model_names = [element["name"] for element in response if element["type"] == "dir"]
+    header = "Models available online"
+    sep_length = max(len(max(model_names, key=len)), len(header))
+    print(header)
+    print("-" * sep_length)
+    print("\n".join(model_names))
 
 
 
 if __name__ == "__main__":
     try:
-        args = parser.parse_args()
+        # The extra manual parsing of the "--list" parameter is temporary until
+        # we have modelhub in a pip installable package and an extra list
+        # command. argparse does not support optional mandatory positional args
+        # based on the presence of certain flags (i.e. we don't want to require
+        # a MODEL when "--list" is given, but otherwise we do!)
+        if "-l" in sys.argv[1:] or "--list" in sys.argv[1:]:
+            list_online_models()
+            sys.exit(0)
+        else:
+            args = parser.parse_args()
     except SystemExit as e: 
         if e.code == 2:
             parser.print_help()
