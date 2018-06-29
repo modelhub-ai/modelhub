@@ -191,4 +191,7 @@ if __name__ == "__main__":
     except HTTPError as e:
         print("ERROR: Model download failed. Please check if this is a valid model name. Also, please check your internet connection. The model folder \"" + args.model + "\" is possibly corrupt. Please delete it (if it exists).")
         print("ERROR DETAIL: ", e)
+        if e.code == 403:
+            print("An HTTP 403 error usually means that GitHub rejected our request. The reason is that GitHub limits the number of anonymous requests from a certain IP address per hour. This unfortunately means that you will have to wait about an hour until you can download more models. You can still run all your local models, of course.")
+
 
