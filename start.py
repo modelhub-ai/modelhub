@@ -1,10 +1,18 @@
+from __future__ import print_function
 import subprocess
 import os
 import sys
-from urllib import urlretrieve
-from urllib2 import urlopen, HTTPError
 import json
 import argparse
+try:
+    # Python 2
+    from urllib import urlretrieve
+    from urllib2 import urlopen, HTTPError
+except ImportError:
+    # Python 3
+    from urllib.request import urlopen, urlretrieve
+    from urllib.error import HTTPError
+
 
 
 parser = argparse.ArgumentParser(description="Starts model with modehub framework and downloads model and prerequisites"\
@@ -24,14 +32,14 @@ group.add_argument("-b", "--bash",
 
 
 def start_basic(model_name, docker_id):
-    print ""
-    print "============================================================"
-    print "Model started."
-    print "Open http://localhost:80/ in your web browser to access"
-    print "modelhub web interface."
-    print "Press CTRL+C to quit session."
-    print "============================================================"
-    print ""
+    print("")
+    print("============================================================")
+    print("Model started.")
+    print("Open http://localhost:80/ in your web browser to access")
+    print("modelhub web interface.")
+    print("Press CTRL+C to quit session.")
+    print("============================================================")
+    print("")
     command = ("docker run --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
                + docker_id)
@@ -39,14 +47,14 @@ def start_basic(model_name, docker_id):
 
 
 def start_expert(model_name, docker_id):
-    print ""
-    print "============================================================"
-    print "Modelhub Docker started in expert mode."
-    print "Open the link displayed below to show jupyter dashboard and"
-    print "open sandbox.ipynb for a prepared playground."
-    print "Press CTRL+C to quit session."
-    print "============================================================"
-    print ""
+    print("")
+    print("============================================================")
+    print("Modelhub Docker started in expert mode.")
+    print("Open the link displayed below to show jupyter dashboard and")
+    print("open sandbox.ipynb for a prepared playground.")
+    print("Press CTRL+C to quit session.")
+    print("============================================================")
+    print("")
     command = ("docker run --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
                + docker_id + " jupyter notebook --allow-root")
@@ -54,13 +62,13 @@ def start_expert(model_name, docker_id):
 
 
 def start_bash(model_name, docker_id):
-    print ""
-    print "============================================================"
-    print "Modelhub Docker started in interactive bash mode."
-    print "You can freely explore the docker here."
-    print "Press CTRL+D to quit session."
-    print "============================================================"
-    print ""
+    print("")
+    print("============================================================")
+    print("Modelhub Docker started in interactive bash mode.")
+    print("You can freely explore the docker here.")
+    print("Press CTRL+D to quit session.")
+    print("============================================================")
+    print("")
     command = ("docker run -it --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
                + docker_id + " /bin/bash")
@@ -86,7 +94,7 @@ def download_github_dir(src_dir_req_url, branch_id, dest_dir):
         if element["type"] == "file":
             src_file_url = element["download_url"]
             dest_file_path = os.path.join(dest_dir, element["name"])
-            print src_file_url, "\n-->", dest_file_path
+            print(src_file_url, "\n-->", dest_file_path)
             urlretrieve(src_file_url, dest_file_path)
         elif element["type"] == "dir":
             next_src_dir_req_url = src_dir_req_url + "/" + element["name"]
@@ -100,7 +108,7 @@ def download_external_files(external_files, model_dir):
         dest_file_path = os.path.join(model_dir, element["dest_file_path"].strip("/"))
         if not os.path.exists(os.path.dirname(dest_file_path)):
             os.makedirs(os.path.dirname(dest_file_path))
-        print src_file_url, "\n-->", dest_file_path
+        print(src_file_url, "\n-->", dest_file_path)
         urlretrieve(src_file_url, dest_file_path)
 
 
@@ -127,11 +135,11 @@ def download_model(model_name, dest_dir):
 def download_model_if_necessary(model_name):
     model_dir = os.path.join(os.getcwd(), model_name)
     if os.path.exists(model_dir):
-        print "Model folder exists already. Skipping download."
+        print("Model folder exists already. Skipping download.")
     else:
-        print "Downloading model ..."
+        print("Downloading model ...")
         download_model(model_name, model_dir)
-        print "Model download DONE!"
+        print("Model download DONE!")
 
 
 
@@ -151,6 +159,6 @@ if __name__ == "__main__":
     try:
         start(args)
     except HTTPError as e:
-        print "ERROR: Model download failed. Please check your internet connection. The model folder \"" + args.model + "\" is most likely corrupt. Please delete it."
-        print "ERROR DETAIL: ", e
+        print("ERROR: Model download failed. Please check your internet connection. The model folder \"" + args.model + "\" is most likely corrupt. Please delete it.")
+        print("ERROR DETAIL: ", e)
 
