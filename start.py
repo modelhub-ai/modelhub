@@ -124,11 +124,25 @@ def get_model_req_url(model_name):
     return request_root + model_name
 
 
-def get_init_value(model_name, key):
+def get_init_value_online(model_name, key):
     init_file_req_url = get_model_req_url(model_name) + "/init/init.json?ref=master"
     response = json.loads(urlopen(init_file_req_url).read())
     init = json.loads(urlopen(response["download_url"]).read())
     return init[key]
+
+
+def get_init_value_local(init_file_path, key):
+    with open(init_file_path) as f:
+        init = json.load(f)
+    return init[key]
+
+
+def get_init_value(model_name, key):
+    local_init_file_path = os.path.join(os.getcwd(), model_name, "init/init.json")
+    if os.path.exists(local_init_file_path):
+        return get_init_value_local(local_init_file_path, key)
+    else:
+        return get_init_value_online(model_name, key)
 
 
 def download_model(model_name, dest_dir):
