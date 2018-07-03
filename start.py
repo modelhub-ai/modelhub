@@ -92,8 +92,18 @@ def start_docker(args):
         start_basic(args.model, docker_id)
 
 
-def download_github_dir(src_dir_req_url, branch_id, dest_dir):
-    request_url = src_dir_req_url + "?ref=" + branch_id
+def convert_to_github_api_contents_req(url, branch_id):
+    url_split = url.split("github.com")
+    repo_parts = url_split[1].strip("/").split("/", 2)
+    request = url_split[0] + "api.github.com/repos/" + repo_parts[0] + "/" + repo_parts[1] + "/contents"
+    if len(repo_parts) == 3:
+        request = request + "/" + repo_parts[2]
+    request = request + "?ref=" + branch_id
+    return request
+
+
+def download_github_dir(src_dir_url, branch_id, dest_dir):
+    request_url = convert_to_github_api_contents_req(src_dir_url, branch_id)
     response = json.loads(urlopen(request_url).read())
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
@@ -104,9 +114,9 @@ def download_github_dir(src_dir_req_url, branch_id, dest_dir):
             print(src_file_url, "\n-->", dest_file_path)
             urlretrieve(src_file_url, dest_file_path)
         elif element["type"] == "dir":
-            next_src_dir_req_url = src_dir_req_url + "/" + element["name"]
+            next_src_dir_url = src_dir_url + "/" + element["name"]
             next_dest_dir = os.path.join(dest_dir, element["name"])
-            download_github_dir(next_src_dir_req_url, branch_id, next_dest_dir)
+            download_github_dir(next_src_dir_url, branch_id, next_dest_dir)
 
 
 def download_external_files(external_files, model_dir):
@@ -119,36 +129,31 @@ def download_external_files(external_files, model_dir):
         urlretrieve(src_file_url, dest_file_path)
 
 
-def get_model_req_url(model_name):
-    request_root = "https://api.github.com/repos/modelhub-ai/modelhub/contents/models/"
-    return request_root + model_name
-
-
-def get_init_value_online(model_name, key):
-    init_file_req_url = get_model_req_url(model_name) + "/init/init.json?ref=master"
-    response = json.loads(urlopen(init_file_req_url).read())
-    init = json.loads(urlopen(response["download_url"]).read())
-    return init[key]
-
-
-def get_init_value_local(init_file_path, key):
+def get_init_value(model_name, key):
+    init_file_path = os.path.join(os.getcwd(), model_name, "init/init.json")
     with open(init_file_path) as f:
         init = json.load(f)
     return init[key]
 
 
-def get_init_value(model_name, key):
-    local_init_file_path = os.path.join(os.getcwd(), model_name, "init/init.json")
-    if os.path.exists(local_init_file_path):
-        return get_init_value_local(local_init_file_path, key)
-    else:
-        return get_init_value_online(model_name, key)
+def get_model_index():
+    index_url = "https://raw.githubusercontent.com/modelhub-ai/modelhub/master/models.json"
+    return json.loads(urlopen(index_url).read())
+
+
+def get_model_info_from_index(model_name):
+    model_index = get_model_index()
+    for element in model_index:
+        if element["name"] == model_name:
+            return element
+    raise KeyError("Model \"" + model_name + "\" not found in online model index")
 
 
 def download_model(model_name, dest_dir):
-    github_branch_id = get_init_value(model_name, "branch_id")
-    model_req_url = get_model_req_url(model_name)
-    download_github_dir(model_req_url, github_branch_id, dest_dir)
+    model_info = get_model_info_from_index(model_name)
+    github_url = model_info["github"]
+    github_branch_id = model_info["github_branch"]
+    download_github_dir(github_url, github_branch_id, dest_dir)
     external_contrib_files = get_init_value(model_name, "external_contrib_files")
     download_external_files(external_contrib_files, dest_dir)
 
@@ -173,14 +178,17 @@ def start(args):
 
 
 def list_online_models():
-    models_req_url = get_model_req_url("").rstrip("/")
-    response = json.loads(urlopen(models_req_url).read())
-    model_names = [element["name"] for element in response if element["type"] == "dir"]
-    header = "Models available online"
-    sep_length = max(len(max(model_names, key=len)), len(header))
-    print(header)
-    print("-" * sep_length)
-    print("\n".join(model_names))
+    model_index = get_model_index()
+    model_names = [element["name"] for element in model_index]
+    descriptions = [element["task_extended"] for element in model_index]
+    header1 = "Model"
+    header2 = "Description"
+    sep1_length = max(len(max(model_names, key=len)), len(header1))
+    sep2_length = max(len(max(descriptions, key=len)), len(header2))
+    print(header1 + " "*(sep1_length - len(header1)) + "  " + header2)
+    print("-"*sep1_length + "  " + "-"*sep2_length)
+    for i in range(len(model_names)):
+        print(model_names[i] + " "*(sep1_length - len(model_names[i])) + "  " + descriptions[i])
 
 
 
