@@ -215,5 +215,11 @@ if __name__ == "__main__":
         print("ERROR DETAIL: ", e)
         if e.code == 403:
             print("An HTTP 403 error usually means that GitHub rejected our request. The reason is that GitHub limits the number of anonymous requests from a certain IP address per hour. This unfortunately means that you will have to wait about an hour until you can download more models. You can still run all your local models, of course.")
+    except subprocess.CalledProcessError as e:
+        # Ignoring errors happening in the Docker Process, otherwise we'd e.g. get error messages on exiting the Docker via CTRL+D.
+        pass
+    except Exception as e:
+        print("ERROR: Model startup failed.")
+        print("ERROR DETAIL: ", e)
 
 
