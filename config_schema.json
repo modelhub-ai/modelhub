@@ -258,28 +258,8 @@
       },
       "required": ["description", "learning_type", "architecture", "io"],
       "additionalProperties": false
-    },
-    "script": {
-      "type": "array",
-      "description":
-        "This object contains variables that are needed to generate instructions for running the model locally. To start, we provide the name of the bash script file. A template on the frontenf will take these variables and generate the instructions.",
-      "items": {
-        "properties": {
-          "type": {
-            "type": "string",
-            "description":
-              "Type of setup required to run this model. For now, we only support bash."
-          },
-          "variables": {
-            "type": "object",
-            "description":
-              "object of variable keys and values used to generate the entire instruction list. The properties are not set here for flexibility."
-          }
-        },
-        "required": ["type", "variables"]
-      }
     }
   },
-  "required": ["id", "meta", "model", "script"],
+  "required": ["id", "meta", "model"],
   "additionalProperties": false
 }
