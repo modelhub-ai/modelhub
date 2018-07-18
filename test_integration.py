@@ -3,6 +3,7 @@ import subprocess
 import os
 import shutil
 import sys
+import traceback
 import json
 import argparse
 import inspect
@@ -156,6 +157,10 @@ if __name__ == "__main__":
     try:
         run_tests(args)
         print_test_summary()
-    except (SystemExit, Exception) as e: 
+    except SystemExit as e: 
         print(e)
         print("\nIntegration test FAILED. See details above.")
+    except Exception:
+        print(traceback.format_exc())
+        print("\nIntegration test FAILED. See details above.")
+
