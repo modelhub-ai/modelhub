@@ -126,13 +126,14 @@ def check_if_legal_docs_available():
         passed()
 
 
-def check_if_get_samples_returns_list():
+def check_if_sample_data_available():
     samples = get_api_response_as_json("http://localhost:80/api/get_samples")
     if "error" in samples:
         error(samples["error"])
     elif len(samples) == 0:
         warning("No sample data found. Please consider providing sample data with your model.")
-    passed()
+    else:
+        passed()
 
 
 def print_test_summary():
@@ -148,7 +149,7 @@ def run_tests(args):
     check_if_docker_is_running(args.model)
     check_if_config_complies_with_schema()
     check_if_legal_docs_available()
-    check_if_get_samples_returns_list()
+    check_if_sample_data_available()
 
 
 
