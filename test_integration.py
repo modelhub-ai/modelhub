@@ -72,6 +72,15 @@ def get_api_response_as_json(api_call):
             raise
 
 
+def check_if_model_exists_locally(model_name):
+    if not os.path.isdir(model_name):
+        error("Model folder", model_name, "does not exist.")
+    init_file = model_name + "/init/init.json"
+    if not os.path.exists(init_file):
+        error("Init file \"" + init_file + "\" for model", model_name, "does not exist.")
+    passed()
+
+
 def check_if_docker_is_running(model_name):
     docker_id = get_init_value(model_name, "docker_id")
     running_docker_images = subprocess.check_output("docker ps --format '{{.Image}}'", shell = True)
@@ -101,6 +110,30 @@ def check_if_config_complies_with_schema():
         error("The config file does not comply with the modelhub json schema. Validation error details:\n", str(ve))
 
 
+def check_if_legal_docs_available():
+    legal = get_api_response_as_json("http://localhost:80/api/get_legal")
+    if "error" in legal:
+        error(legal["error"])
+    elif ("model_license" not in legal or legal["model_license"] == "") and \
+         ("sample_data_license" not in legal or legal["sample_data_license"] == ""):
+        warning("Licenses for model and sample data are missing.")
+    elif "model_license" not in legal or legal["model_license"] == "":
+        warning("License for model is missing.")
+    elif "sample_data_license" not in legal or legal["sample_data_license"] == "":
+        warning("License for sample data is missing.")
+    else:
+        passed()
+
+
+def check_if_get_samples_returns_list():
+    samples = get_api_response_as_json("http://localhost:80/api/get_samples")
+    if "error" in samples:
+        error(samples["error"])
+    elif len(samples) == 0:
+        warning("No sample data found. Please consider providing sample data with your model.")
+    passed()
+
+
 def print_test_summary():
     if count_warn == 0:
         print("\nAll integration tests have PASSED.")
@@ -110,8 +143,11 @@ def print_test_summary():
 
 
 def run_tests(args):
+    check_if_model_exists_locally(args.model)
     check_if_docker_is_running(args.model)
     check_if_config_complies_with_schema()
+    check_if_legal_docs_available()
+    check_if_get_samples_returns_list()
 
 
 
