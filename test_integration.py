@@ -163,6 +163,27 @@ def check_if_sample_data_available():
         passed()
 
 
+def check_if_prediction_returns_expected_data_format():
+    samples = get_api_response_as_json("http://localhost:80/api/get_samples")
+    if ("error" in samples) or (len(samples) == 0):
+        warning("Cannot test prediction without sample data.")
+        return
+    sample_file = samples[0].rsplit("/", 1)[-1]
+    output_type = get_api_response_as_json("http://localhost:80/api/get_model_io")["output"][0]["type"]
+    result = get_api_response_as_json("http://localhost:80/api/predict_sample?filename=" + sample_file)
+    if "error" in result:
+        error(result["error"])
+    elif output_type == "label_list":
+        for element in result["output"]:
+            if ("probability" not in element) or ("label" not in element):
+                error("Output format does not match output type defined in config.")
+        passed()
+    else:
+        warning("Testing prediction result for output type", output_format["type"], "is not supported yet.")
+
+    
+
+
 def print_test_summary():
     if test_fail:
         print("\nIntegration test FAILED. See details above.")
@@ -197,6 +218,7 @@ def run_tests(args):
     check_if_config_complies_with_schema()
     check_if_legal_docs_available()
     check_if_sample_data_available()
+    check_if_prediction_returns_expected_data_format()
 
 
 def kill_docker(args):
