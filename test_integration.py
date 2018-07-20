@@ -88,13 +88,18 @@ def get_api_response_as_json(api_call):
             raise
 
 
-def check_if_model_exists_locally(model_name):
+def _check_if_model_exists_locally(model_name):
     if not os.path.isdir(model_name):
         error("Model folder", model_name, "does not exist.")
     init_file = model_name + "/init/init.json"
     if not os.path.exists(init_file):
         error("Init file \"" + init_file + "\" for model", model_name, "does not exist.")
-    passed()
+    return True
+
+
+def check_if_model_exists_locally(model_name):
+    if _check_if_model_exists_locally(model_name):
+        passed()
 
 
 def _count_docker_container_instances(model_name, docker_id):
@@ -171,15 +176,16 @@ def print_test_summary():
 def start_docker(args):
     if not args.manual:
         print("Starting", args.model, "docker under name modelhub_ai_test_container")
-        docker_id = get_init_value(args.model, "docker_id")
-        if _count_docker_container_instances(args.model, docker_id) > 0:
-            raise RuntimeError("Other modelhub Docker containers are currently running.\n"\
-                            "For intergration testing please make sure that no other modehub container is running when starting the test.")
-        command = ("docker run -d --rm --net=host --name=modelhub_ai_test_container -v " 
-                + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src " 
-                + docker_id)
-        subprocess.check_call(command, shell = True)
-        time.sleep(args.time)
+        if _check_if_model_exists_locally(args.model):
+            docker_id = get_init_value(args.model, "docker_id")
+            if _count_docker_container_instances(args.model, docker_id) > 0:
+                raise RuntimeError("Other modelhub Docker containers are currently running.\n"\
+                                   "For intergration testing please make sure that no other modehub container is running when starting the test.")
+            command = ("docker run -d --rm --net=host --name=modelhub_ai_test_container -v " 
+                    + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src " 
+                    + docker_id)
+            subprocess.check_call(command, shell = True)
+            time.sleep(args.time)
     else:
         pass
     
