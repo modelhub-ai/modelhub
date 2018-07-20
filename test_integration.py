@@ -8,6 +8,7 @@ import json
 import argparse
 import inspect
 import jsonschema
+import time
 try:
     # Python 2
     from urllib import urlretrieve
@@ -25,13 +26,25 @@ parser = argparse.ArgumentParser(description="Performs integration test for a mo
                                              " Run this test and make sure it passes before submitting a model to modelhub."\
                                              " NOTE: A passing test does not necessarily indicate that the model is working correctly."\
                                              " You should always also check manually if everything works as you expect."\
-                                             " Especially test the prediction on a few sample datasets.")
+                                             " Especially test the prediction on a few sample datasets.",
+                                formatter_class = argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("model", metavar = "MODEL", 
                     help = "Name of the model to run.")
+parser.add_argument("-t", dest = "time", default = 2, type = int,
+                    help = "Delay time (in seconds) to wait between starting the model and running the tests."\
+                           " Sometimes a model's docker container needs more time to start and if the tests" \
+                           " start before the docker is fully working, they will fail. In this case"\
+                           " you should try to increase the delay time.")
+parser.add_argument("-m", dest = "manual", action = "store_true",
+                    help = "Given this option, the test does not start the corresponding model docker automatically."\
+                           " Instead you have to start your model manually in a different terminal, using \"python start.py YOUR_MODEL_NAME\"."\
+                           " This is helpful for debugging if the tests fail, so you can see the possible error output in the docker in the other terminal.")
+
 
 
 
 count_warn = 0
+test_fail = False
 
 def warning(*message):
     """ 
@@ -49,6 +62,8 @@ def error(*message):
     Call this function only directly from the test function for wich you want to signal 
     that it has failed.
     """
+    global test_fail
+    test_fail = True
     msg = " ".join(message)
     exit_message = "Integration test \"" + inspect.stack()[1][3] + "\" has FAILED:"\
                    "\nERROR: " + msg
@@ -82,17 +97,24 @@ def check_if_model_exists_locally(model_name):
     passed()
 
 
-def check_if_docker_is_running(model_name):
-    docker_id = get_init_value(model_name, "docker_id")
+def _count_docker_container_instances(model_name, docker_id):
     running_docker_images = subprocess.check_output("docker ps --format '{{.Image}}'", shell = True)
     running_docker_images = running_docker_images.strip().split('\n')
     count = running_docker_images.count(docker_id)
+    return count
+
+
+def check_if_docker_is_running(model_name):
+    docker_id = get_init_value(model_name, "docker_id")
+    count = _count_docker_container_instances(model_name, docker_id)
     if count < 1:
-        error("Docker container", docker_id, "for", model_name, "is not running. Please start", model_name, 
-              "in a different terminal with the modelhub start script: \"python start.py " + model_name + "\".")
+        error("Docker container", docker_id, "for", model_name, "is not running.",
+              "Please make sure the image", docker_id, "exists and can be run.",
+              "\nIf you started the integration test with the \"-m\" option, make sure the correct model docker is running"\
+              " (you can start your model in another terminal via \"python start.py " + model_name + "\").")
     elif count > 1:
-        error("Multiple modelhub Docker containers are currently running.",
-              "For intergration testing please make sure that only the", model_name, "container is running")
+        error("Other modelhub Docker containers are currently running.",
+              "For intergration testing please make sure that no modehub container is running when starting the test.")
     else:
         passed()
 
@@ -137,14 +159,33 @@ def check_if_sample_data_available():
 
 
 def print_test_summary():
-    if count_warn == 0:
+    if test_fail:
+        print("\nIntegration test FAILED. See details above.")
+    elif count_warn == 0:
         print("\nAll integration tests have PASSED.")
     else:
         print("\nThe integration tests have PASSED with", count_warn, "WARNINGS.",
               "Please consider fixing all warnings before submitting your model to modelhub.ai.")
 
 
+def start_docker(args):
+    if not args.manual:
+        print("Starting", args.model, "docker under name modelhub_ai_test_container")
+        docker_id = get_init_value(args.model, "docker_id")
+        if _count_docker_container_instances(args.model, docker_id) > 0:
+            raise RuntimeError("Other modelhub Docker containers are currently running.\n"\
+                            "For intergration testing please make sure that no other modehub container is running when starting the test.")
+        command = ("docker run -d --rm --net=host --name=modelhub_ai_test_container -v " 
+                + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src " 
+                + docker_id)
+        subprocess.check_call(command, shell = True)
+        time.sleep(args.time)
+    else:
+        pass
+    
+
 def run_tests(args):
+    print("")
     check_if_model_exists_locally(args.model)
     check_if_docker_is_running(args.model)
     check_if_config_complies_with_schema()
@@ -152,16 +193,32 @@ def run_tests(args):
     check_if_sample_data_available()
 
 
+def kill_docker(args):
+    if not args.manual:
+        print("\nShutting down", args.model, "docker")
+        command = ("docker kill modelhub_ai_test_container")
+        try:
+            subprocess.check_call(command, shell = True)
+        except Exception:
+            print(traceback.format_exc())
+            print("Failed to shut down docker. Probably it failed because it did not start correctly. Use the \"docker ps -a\" command to check if the modelhub_ai_test_container still exists and if it does, remove it.")
+    else:
+        pass
+
 
 if __name__ == "__main__":
     args = parser.parse_args()
     try:
+        start_docker(args)
         run_tests(args)
-        print_test_summary()
     except SystemExit as e: 
+        test_fail = True
         print(e)
-        print("\nIntegration test FAILED. See details above.")
     except Exception:
+        test_fail = True
         print(traceback.format_exc())
-        print("\nIntegration test FAILED. See details above.")
+    finally:
+        kill_docker(args)
+        print_test_summary()
+        
 
