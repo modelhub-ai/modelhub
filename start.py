@@ -47,7 +47,7 @@ def start_basic(model_name, docker_id):
     print("Press CTRL+C to quit session.")
     print("============================================================")
     print("")
-    command = ("docker run --net=host -v " 
+    command = ("docker run --rm --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
                + docker_id)
     subprocess.check_call(command, shell = True)
@@ -62,7 +62,7 @@ def start_expert(model_name, docker_id):
     print("Press CTRL+C to quit session.")
     print("============================================================")
     print("")
-    command = ("docker run --net=host -v " 
+    command = ("docker run --rm --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
                + docker_id + " jupyter notebook --allow-root")
     subprocess.check_call(command, shell = True)
@@ -76,7 +76,7 @@ def start_bash(model_name, docker_id):
     print("Press CTRL+D to quit session.")
     print("============================================================")
     print("")
-    command = ("docker run -it --net=host -v " 
+    command = ("docker run -it --rm --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
                + docker_id + " /bin/bash")
     subprocess.check_call(command, shell = True)
