@@ -258,8 +258,13 @@
       },
       "required": ["description", "learning_type", "architecture", "io"],
       "additionalProperties": false
+    },
+    "allow_user_input": {
+      "type": "boolean",
+      "description":
+        "This boolean identifies if testing on user uploaded images is allowed or not. It will control the display of the 'test' tab on the modelhub frontend"
     }
   },
-  "required": ["id", "meta", "model"],
+  "required": ["id", "meta", "model", "allow_user_input"],
   "additionalProperties": false
 }
