@@ -35,10 +35,12 @@ group.add_argument("-e", "--expert",
 group.add_argument("-b", "--bash", 
                     help = "Start MODEL Docker in bash mode. Explore the Docker on your own.",
                     action = "store_true")
+parser.add_argument("-mf", dest = "framework",
+                    help = "Use modelhub framework from local drive instead of the built-in modelhub framework version. This is a feature for modelhub-engine developers.")
 
 
 
-def start_basic(model_name, docker_id):
+def start_basic(model_name, docker_id, mount_local_framework_cmd = ""):
     print("")
     print("============================================================")
     print("Model started.")
@@ -49,11 +51,12 @@ def start_basic(model_name, docker_id):
     print("")
     command = ("docker run --rm --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
+               + mount_local_framework_cmd + " "
                + docker_id)
     subprocess.check_call(command, shell = True)
 
 
-def start_expert(model_name, docker_id):
+def start_expert(model_name, docker_id, mount_local_framework_cmd = ""):
     print("")
     print("============================================================")
     print("Modelhub Docker started in expert mode.")
@@ -64,11 +67,12 @@ def start_expert(model_name, docker_id):
     print("")
     command = ("docker run --rm --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
+               + mount_local_framework_cmd + " "
                + docker_id + " jupyter notebook --allow-root")
     subprocess.check_call(command, shell = True)
 
 
-def start_bash(model_name, docker_id):
+def start_bash(model_name, docker_id, mount_local_framework_cmd = ""):
     print("")
     print("============================================================")
     print("Modelhub Docker started in interactive bash mode.")
@@ -78,18 +82,27 @@ def start_bash(model_name, docker_id):
     print("")
     command = ("docker run -it --rm --net=host -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
+               + mount_local_framework_cmd + " "
                + docker_id + " /bin/bash")
     subprocess.check_call(command, shell = True)
 
 
+def get_local_framework_mount_cmd(args):
+    mount_local_framework = ""
+    if args.framework is not None:
+        mount_local_framework = "-v " + args.framework + ":/framework"
+    return mount_local_framework
+
+
 def start_docker(args):
     docker_id = get_init_value(args.model, "docker_id")
+    mount_local_framework_cmd = get_local_framework_mount_cmd(args)
     if args.expert:
-        start_expert(args.model, docker_id)
+        start_expert(args.model, docker_id, mount_local_framework_cmd)
     elif args.bash:
-        start_bash(args.model, docker_id)
+        start_bash(args.model, docker_id, mount_local_framework_cmd)
     else:
-        start_basic(args.model, docker_id)
+        start_basic(args.model, docker_id, mount_local_framework_cmd)
 
 
 def convert_to_github_api_contents_req(url, branch_id):
