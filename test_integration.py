@@ -9,6 +9,7 @@ import argparse
 import inspect
 import jsonschema
 import time
+import numpy
 try:
     # Python 2
     from urllib import urlretrieve
@@ -163,25 +164,62 @@ def check_if_sample_data_available():
         passed()
 
 
+def _get_output_types_from_config():
+    model_io = get_api_response_as_json("http://localhost:80/api/get_model_io")
+    output_types = [o["type"] for o in model_io["output"]]
+    return output_types
+
+
+def _is_output_vector_valid(def_shape, array):
+    array = numpy.asarray(array)
+    if (len(def_shape) != len(array.shape)) or (len(def_shape) != 1):
+        return False
+    if def_shape[0] != array.shape[0]:
+        return False
+    else:
+        return True
+
+
+def _is_output_matrix_valid(def_shape, array):
+    array = numpy.asarray(array)
+    if len(def_shape) != len(array.shape):
+        return False
+    for i, dim in enumerate(def_shape):
+        if dim != array.shape[i]:
+            return False
+    else:
+        return True
+
+
 def check_if_prediction_returns_expected_data_format():
     samples = get_api_response_as_json("http://localhost:80/api/get_samples")
     if ("error" in samples) or (len(samples) == 0):
         warning("Cannot test prediction without sample data.")
         return
     sample_file = samples[0].rsplit("/", 1)[-1]
-    output_type = get_api_response_as_json("http://localhost:80/api/get_model_io")["output"][0]["type"]
+    config_output_types = _get_output_types_from_config()    
     result = get_api_response_as_json("http://localhost:80/api/predict_sample?filename=" + sample_file)
     if "error" in result:
         error(result["error"])
-    elif output_type == "label_list":
-        for element in result["output"]:
-            if ("probability" not in element) or ("label" not in element):
-                error("Output format does not match output type defined in config.")
-        passed()
-    else:
-        warning("Testing prediction result for output type", output_format["type"], "is not supported yet.")
-
-    
+    if len(result["output"]) != len(config_output_types):
+        error("Number of results does not match specified number of outputs in config.")
+    for i, output in enumerate(result["output"]):
+        if output["type"] != config_output_types[i]:
+            error("Result type for output ", str(i), " does not match output type in config (" + output["type"],
+                  "!=", config_output_types[i] + ")")
+        if output["type"] == "label_list":
+            for element in output["prediction"]:
+                if ("probability" not in element) or ("label" not in element):
+                    error("Format of output", str(i), "does not match output type defined in config.")
+        elif output["type"] == "vector":
+            if not _is_output_vector_valid(output["shape"], output["prediction"]):
+                error("Shape of output", str(i), "is not valid, or output is not a vector")
+        elif output["type"] in ["mask_image", "heatmap", "image", "custom"]:
+            if not _is_output_matrix_valid(output["shape"], output["prediction"]):
+                error("Shape of output", str(i), "is not valid, or output is not a matrix")
+        else:
+            error("Output type \"" + output["type"] + "\" is not a valid output type.")
+    passed()    
 
 
 def print_test_summary():
