@@ -31,7 +31,7 @@ parser = argparse.ArgumentParser(description="Performs integration test for a mo
                                 formatter_class = argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("model", metavar = "MODEL", 
                     help = "Name of the model to run.")
-parser.add_argument("-t", dest = "time", default = 2, type = int,
+parser.add_argument("-t", dest = "time", default = 5, type = int,
                     help = "Delay time (in seconds) to wait between starting the model and running the tests."\
                            " Sometimes a model's docker container needs more time to start and if the tests" \
                            " start before the docker is fully working, they will fail. In this case"\
