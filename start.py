@@ -117,7 +117,7 @@ def convert_to_github_api_contents_req(url, branch_id):
 
 def download_github_dir(src_dir_url, branch_id, dest_dir):
     request_url = convert_to_github_api_contents_req(src_dir_url, branch_id)
-    response = json.loads(urlopen(request_url).read())
+    response = json.loads(urlopen(request_url).read().decode("utf-8"))
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
     for element in response:
@@ -151,7 +151,7 @@ def get_init_value(model_name, key):
 
 def get_model_index():
     index_url = "https://raw.githubusercontent.com/modelhub-ai/modelhub/master/models.json"
-    return json.loads(urlopen(index_url).read())
+    return json.loads(urlopen(index_url).read().decode("utf-8"))
 
 
 def get_model_info_from_index(model_name):
