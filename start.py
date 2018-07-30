@@ -204,6 +204,13 @@ def list_online_models():
         print(model_names[i] + " "*(sep1_length - len(model_names[i])) + "  " + descriptions[i])
 
 
+def check_python_version():
+    print(sys.version_info)
+    if ((sys.version_info[0] == 2) and (sys.version_info[1] < 7) or
+        (sys.version_info[0] == 3) and (sys.version_info[1] < 6)):
+        raise RuntimeError("Your Python version is too old. For Python 2, please use Python 2.7. For Python 3, please use Python 3.6 or later.")
+
+
 
 if __name__ == "__main__":
     try:
@@ -222,6 +229,7 @@ if __name__ == "__main__":
             parser.print_help()
         sys.exit(e.code)
     try:
+        check_python_version()
         start(args)
     except HTTPError as e:
         print("ERROR: Model download failed. Please check if this is a valid model name. Also, please check your internet connection. The model folder \"" + args.model + "\" is possibly corrupt. Please delete it (if it exists).")
