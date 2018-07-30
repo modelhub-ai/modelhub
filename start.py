@@ -40,7 +40,7 @@ parser.add_argument("-mf", dest = "framework",
 
 
 
-def start_basic(model_name, docker_id, mount_local_framework_cmd = ""):
+def start_basic(model_name, docker_id, mount_local_framework_cmd = "", port_mapping_cmd = "--net=host"):
     print("")
     print("============================================================")
     print("Model started.")
@@ -49,30 +49,31 @@ def start_basic(model_name, docker_id, mount_local_framework_cmd = ""):
     print("Press CTRL+C to quit session.")
     print("============================================================")
     print("")
-    command = ("docker run --rm --net=host -v " 
+    command = ("docker run -it --rm " + port_mapping_cmd + " -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
                + mount_local_framework_cmd + " "
                + docker_id)
     subprocess.check_call(command, shell = True)
 
 
-def start_expert(model_name, docker_id, mount_local_framework_cmd = ""):
+def start_expert(model_name, docker_id, mount_local_framework_cmd = "", port_mapping_cmd = "--net=host"):
     print("")
     print("============================================================")
     print("Modelhub Docker started in expert mode.")
-    print("Open the link displayed below to show jupyter dashboard and")
-    print("open sandbox.ipynb for a prepared playground.")
-    print("Press CTRL+C to quit session.")
+    print("Open http://localhost:8080/ in your web browser show jupyter")
+    print("dashboard and open sandbox.ipynb for a prepared playground.")
+    print("Press CTRL+C to initiate quitting the session,")
+    print("then confirm that you want to shutdown jupyter.")
     print("============================================================")
     print("")
-    command = ("docker run --rm --net=host -v " 
+    command = ("docker run -it --rm " + port_mapping_cmd + " -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
                + mount_local_framework_cmd + " "
-               + docker_id + " jupyter notebook --allow-root")
+               + docker_id + " jupyter notebook --ip=0.0.0.0 --port=8080 --no-browser --allow-root --NotebookApp.token=''")
     subprocess.check_call(command, shell = True)
 
 
-def start_bash(model_name, docker_id, mount_local_framework_cmd = ""):
+def start_bash(model_name, docker_id, mount_local_framework_cmd = "", port_mapping_cmd = "--net=host"):
     print("")
     print("============================================================")
     print("Modelhub Docker started in interactive bash mode.")
@@ -80,7 +81,7 @@ def start_bash(model_name, docker_id, mount_local_framework_cmd = ""):
     print("Press CTRL+D to quit session.")
     print("============================================================")
     print("")
-    command = ("docker run -it --rm --net=host -v " 
+    command = ("docker run -it --rm " + port_mapping_cmd + " -v " 
                + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
                + mount_local_framework_cmd + " "
                + docker_id + " /bin/bash")
@@ -94,15 +95,21 @@ def get_local_framework_mount_cmd(args):
     return mount_local_framework
 
 
+def get_port_mapping_cmd(args):
+    port_mapping = "-p 80:80 -p 81:81 -p 8080:8080"
+    return port_mapping
+
+
 def start_docker(args):
     docker_id = get_init_value(args.model, "docker_id")
     mount_local_framework_cmd = get_local_framework_mount_cmd(args)
+    port_mapping_cmd = get_port_mapping_cmd(args)
     if args.expert:
-        start_expert(args.model, docker_id, mount_local_framework_cmd)
+        start_expert(args.model, docker_id, mount_local_framework_cmd, port_mapping_cmd)
     elif args.bash:
-        start_bash(args.model, docker_id, mount_local_framework_cmd)
+        start_bash(args.model, docker_id, mount_local_framework_cmd, port_mapping_cmd)
     else:
-        start_basic(args.model, docker_id, mount_local_framework_cmd)
+        start_basic(args.model, docker_id, mount_local_framework_cmd, port_mapping_cmd)
 
 
 def convert_to_github_api_contents_req(url, branch_id):
