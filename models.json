@@ -28,5 +28,15 @@
     "task_extended": "Liver and liver lesion segmentation",
     "github": "https://github.com/modelhub-ai/CascadedFCN_Liver",
     "github_branch": "master"
+  },
+  {
+    "id": "6c7d087b-ad67-4e36-8210-28b445d4d11b",
+    "url": "http://localhost",
+    "api": ":4006/api/",
+    "viewer": ":4007",
+    "name": "AlexNet",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/AlexNet",
+    "github_branch": "master"
   }
 ]
