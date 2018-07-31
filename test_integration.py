@@ -115,7 +115,7 @@ def check_if_docker_is_running(model_name):
     count = _count_docker_container_instances(model_name, docker_id)
     if count < 1:
         error("Docker container", docker_id, "for", model_name, "is not running.",
-              "Please make sure the image", docker_id, "exists and can be run.",
+              "Please make sure the image", docker_id, "exists and can be run (try if starting your model via \"python start.py " + model_name + "\" works without errors).",
               "\nIf you started the integration test with the \"-m\" option, make sure the correct model docker is running"\
               " (you can start your model in another terminal via \"python start.py " + model_name + "\").")
     elif count > 1:
