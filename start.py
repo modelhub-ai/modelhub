@@ -35,45 +35,44 @@ group.add_argument("-e", "--expert",
 group.add_argument("-b", "--bash", 
                     help = "Start MODEL Docker in bash mode. Explore the Docker on your own.",
                     action = "store_true")
+parser.add_argument("-p80", default = 80, type = int,
+                    help = "Defines to which port the Docker internal port 80 should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 80)")
+parser.add_argument("-p81", default = 81, type = int,
+                    help = "Defines to which port the Docker internal port 81 should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 81)")
+parser.add_argument("-p8080", default = 8080, type = int,
+                    help = "Defines to which port the Docker internal port 8080 should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 8080)")
 parser.add_argument("-mf", dest = "framework",
                     help = "Use modelhub framework from local drive instead of the built-in modelhub framework version. This is a feature for modelhub-engine developers.")
 
 
 
-def start_basic(model_name, docker_id, mount_local_framework_cmd = "", port_mapping_cmd = "--net=host"):
+def start_basic(base_command, args):
     print("")
     print("============================================================")
     print("Model started.")
-    print("Open http://localhost:80/ in your web browser to access")
+    print("Open http://localhost:" + str(args.p80) + "/ in your web browser to access")
     print("modelhub web interface.")
     print("Press CTRL+C to quit session.")
     print("============================================================")
     print("")
-    command = ("docker run -it --rm " + port_mapping_cmd + " -v " 
-               + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
-               + mount_local_framework_cmd + " "
-               + docker_id)
-    subprocess.check_call(command, shell = True)
+    subprocess.check_call(base_command, shell = True)
 
 
-def start_expert(model_name, docker_id, mount_local_framework_cmd = "", port_mapping_cmd = "--net=host"):
+def start_expert(base_command, args):
     print("")
     print("============================================================")
     print("Modelhub Docker started in expert mode.")
-    print("Open http://localhost:8080/ in your web browser show jupyter")
+    print("Open http://localhost:" + str(args.p8080) + "/ in your web browser show jupyter")
     print("dashboard and open sandbox.ipynb for a prepared playground.")
     print("Press CTRL+C to initiate quitting the session,")
     print("then confirm that you want to shutdown jupyter.")
     print("============================================================")
     print("")
-    command = ("docker run -it --rm " + port_mapping_cmd + " -v " 
-               + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
-               + mount_local_framework_cmd + " "
-               + docker_id + " jupyter notebook --ip=0.0.0.0 --port=8080 --no-browser --allow-root --NotebookApp.token=''")
+    command = base_command + " jupyter notebook --ip=0.0.0.0 --port=8080 --no-browser --allow-root --NotebookApp.token=''"
     subprocess.check_call(command, shell = True)
 
 
-def start_bash(model_name, docker_id, mount_local_framework_cmd = "", port_mapping_cmd = "--net=host"):
+def start_bash(base_command, args):
     print("")
     print("============================================================")
     print("Modelhub Docker started in interactive bash mode.")
@@ -81,10 +80,7 @@ def start_bash(model_name, docker_id, mount_local_framework_cmd = "", port_mappi
     print("Press CTRL+D to quit session.")
     print("============================================================")
     print("")
-    command = ("docker run -it --rm " + port_mapping_cmd + " -v " 
-               + os.getcwd() + "/" + model_name + "/contrib_src:/contrib_src " 
-               + mount_local_framework_cmd + " "
-               + docker_id + " /bin/bash")
+    command = base_command + " /bin/bash"
     subprocess.check_call(command, shell = True)
 
 
@@ -96,20 +92,21 @@ def get_local_framework_mount_cmd(args):
 
 
 def get_port_mapping_cmd(args):
-    port_mapping = "-p 80:80 -p 81:81 -p 8080:8080"
+    port_mapping = "-p " + str(args.p80) + ":80 -p " + str(args.p81) + ":81 -p " + str(args.p8080) + ":8080"
     return port_mapping
 
 
 def start_docker(args):
     docker_id = get_init_value(args.model, "docker_id")
-    mount_local_framework_cmd = get_local_framework_mount_cmd(args)
-    port_mapping_cmd = get_port_mapping_cmd(args)
+    command = ("docker run -it --rm " + get_port_mapping_cmd(args) + " -v " 
+               + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src " 
+               + get_local_framework_mount_cmd(args) + " " + docker_id)
     if args.expert:
-        start_expert(args.model, docker_id, mount_local_framework_cmd, port_mapping_cmd)
+        start_expert(command, args)
     elif args.bash:
-        start_bash(args.model, docker_id, mount_local_framework_cmd, port_mapping_cmd)
+        start_bash(command, args)
     else:
-        start_basic(args.model, docker_id, mount_local_framework_cmd, port_mapping_cmd)
+        start_basic(command, args)
 
 
 def convert_to_github_api_contents_req(url, branch_id):
@@ -212,7 +209,6 @@ def list_online_models():
 
 
 def check_python_version():
-    print(sys.version_info)
     if ((sys.version_info[0] == 2) and (sys.version_info[1] < 7) or
         (sys.version_info[0] == 3) and (sys.version_info[1] < 6)):
         raise RuntimeError("Your Python version is too old. For Python 2, please use Python 2.7. For Python 3, please use Python 3.6 or later.")
