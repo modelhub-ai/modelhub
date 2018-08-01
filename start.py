@@ -5,6 +5,7 @@ import shutil
 import sys
 import json
 import argparse
+from operator import itemgetter
 try:
     # Python 2
     from urllib import urlretrieve
@@ -195,7 +196,7 @@ def start(args):
 
 
 def list_online_models():
-    model_index = get_model_index()
+    model_index = sorted(get_model_index(), key=itemgetter("name"))
     model_names = [element["name"] for element in model_index]
     descriptions = [element["task_extended"] for element in model_index]
     header1 = "Model"
