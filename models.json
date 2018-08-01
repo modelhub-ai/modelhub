@@ -1,19 +1,9 @@
 [
   {
-    "id": "d50796da-87f2-4493-846e-6eeb498acc63",
+    "id": "985c8604-1381-4ebf-85af-bfe32080fb55",
     "url": "http://localhost",
     "api": ":4000/api/",
     "viewer": ":4001",
-    "name": "SqueezeNet",
-    "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/squeezenet",
-    "github_branch": "master"
-  },
-  {
-    "id": "985c8604-1381-4ebf-85af-bfe32080fb55",
-    "url": "http://localhost",
-    "api": ":4002/api/",
-    "viewer": ":4003",
     "name": "CardiacFCN",
     "task_extended": "Segmenting the right ventricle in MRI",
     "github": "https://github.com/modelhub-ai/cardiacfcn",
@@ -22,11 +12,21 @@
   {
     "id": "ccc16d36-d788-43eb-9e53-2125c97888df",
     "url": "http://localhost",
-    "api": ":4004/api/",
-    "viewer": ":4005",
+    "api": ":4002/api/",
+    "viewer": ":4003",
     "name": "CascadedFCN_Liver",
     "task_extended": "Liver and liver lesion segmentation",
     "github": "https://github.com/modelhub-ai/CascadedFCN_Liver",
+    "github_branch": "master"
+  },
+  {
+    "id": "d50796da-87f2-4493-846e-6eeb498acc63",
+    "url": "http://localhost",
+    "api": ":4004/api/",
+    "viewer": ":4005",
+    "name": "SqueezeNet",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/squeezenet",
     "github_branch": "master"
   },
   {
@@ -37,6 +37,16 @@
     "name": "AlexNet",
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/AlexNet",
+    "github_branch": "master"
+  },
+  {
+    "id": "8abbcaef-6bcf-4f1f-9159-85c17c38bd00",
+    "url": "http://localhost",
+    "api": ":4008/api/",
+    "viewer": ":4009",
+    "name": "ResNet-50",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/ResNet-50",
     "github_branch": "master"
   }
 ]
