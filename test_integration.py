@@ -104,7 +104,7 @@ def check_if_model_exists_locally(model_name):
 
 
 def _count_docker_container_instances(model_name, docker_id):
-    running_docker_images = subprocess.check_output("docker ps --format '{{.Image}}'", shell = True)
+    running_docker_images = subprocess.check_output("docker ps --format '{{.Image}}'", shell = True, encoding='utf8')
     running_docker_images = running_docker_images.strip().split('\n')
     count = running_docker_images.count(docker_id)
     return count
