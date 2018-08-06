@@ -142,6 +142,16 @@ def check_if_config_complies_with_schema():
         error("The config file does not comply with the modelhub json schema. Validation error details:\n", str(ve))
 
 
+def check_if_local_and_api_config_model_names_match(model_name):
+    with open(model_name + "/contrib_src/model/config.json", "r") as f:
+        local_config = json.load(f)
+    api_config = get_api_response_as_json("http://localhost:80/api/get_config")
+    if local_config["meta"]["name"] != api_config["meta"]["name"]:
+        error("The name for the model you indicated to test and the model name returned from the model API do not match (" + local_config["meta"]["name"] + " != " + api_config["meta"]["name"] + "). This usually indicates that the wrong model is running. Please make sure to start the correct model and that no other model is running during testing.")
+    else:
+        passed()
+    
+
 def check_if_legal_docs_available():
     legal = get_api_response_as_json("http://localhost:80/api/get_legal")
     if "error" in legal:
@@ -257,6 +267,7 @@ def run_tests(args):
     check_if_model_exists_locally(args.model)
     check_if_docker_is_running(args.model)
     check_if_config_complies_with_schema()
+    check_if_local_and_api_config_model_names_match(args.model)
     check_if_legal_docs_available()
     check_if_sample_data_available()
     check_if_prediction_returns_expected_data_format()
