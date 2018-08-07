@@ -6,7 +6,7 @@ This repository is the index/registry of all models, and as such the point where
 
 ## Quick Start
 
-The most accessible way to experience modelhub is [via modelhub.ai](http://www.modelhub.ai). You can explore the model collection, try them online, and find instructions on how to run models locally.
+The most accessible way to experience modelhub is [via modelhub.ai](http://www.modelhub.ai). There you can explore the model collection, try them online, and find instructions on how to run models locally.
 
 But since you are here, follow these steps to get modelhub running on your local computer:
 
@@ -42,7 +42,7 @@ But since you are here, follow these steps to get modelhub running on your local
    
    See additional starting options by executing `python start.py -h`.
 
-
+Since you found modelhub on GitHub, you are probably (hopefully) also interested in contributing models to modelhub.ai and the framework we provide. Please read on ...
 
 ## Overview
 
