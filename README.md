@@ -43,7 +43,7 @@ But since you are here, follow these steps to get modelhub running on your local
    
    See additional starting options by executing `python start.py -h`.
 
-Since you found modelhub on GitHub, you are probably (hopefully) also interested in contributing models to Modelhub and the framework we provide. Please read on ...
+Since you found modelhub on GitHub, you are probably also interested in packaging your own model with our framework and hopefully contributing it to Modelhub. Please read on ...
 
 
 ## Overview
@@ -52,12 +52,68 @@ Modelhub provides a framework into which contributors can plug-in their model an
 
 <img width="500" alt="modelhub framework overview" src="https://raw.githubusercontent.com/modelhub-ai/modelhub/master/docs/images/framework_overview.png">
 
-The _contrib_src_ contains the model specific code and data, all other functionality is provided by the framework.
+The _contrib_src_ contains the model specific code and data, all other functionality is provided by the framework. The framework and model specific code run inside of a Docker container, which contains all runtime dependencies. The resulting package constitutes a standalone unit that can be easily deployed, executed on different platforms (Linux, Windows, Mac), and integrated into existing applications via the generic API.
+
 
 
 ## Contribute Your Model to Modelhub
 
+To package a model with our framework you need to have the following **prerequisites** installed:
+- Python 2.7 or Python 3.6 (or higher)
+- [Docker](https://docs.docker.com/install/)
+- Clone of the [modelhub-engine repository](https://github.com/modelhub-ai/modelhub-engine.git) (`git clone https://github.com/modelhub-ai/modelhub-engine.git`)
+
+Packaging your model with our framework and eventually contributing it to the Modelhub collection requires the following steps (read further for details).
+
 <img width="500" alt="modelhub contribution steps" src="https://raw.githubusercontent.com/modelhub-ai/modelhub/master/docs/images/contribution_process.png">
+
+1. **Build Docker Image**
+
+   1. Write a dockerfile preparing/installing all third party dependencies your model needs 
+      (e.g. the deep learning library you are using). Use the `ubuntu:16.04` Docker image as base.
+      
+      You can check out examples of environments that we prepared 
+      [here](https://github.com/modelhub-ai/modelhub-engine/tree/master/docker).
+   
+   2. Build your docker image.
+   
+   3. Adapt the [_Dockerfile_modelhub_](https://github.com/modelhub-ai/modelhub-engine/blob/master/Dockerfile_modelhub) 
+      located in the modelhub-engine repository to use your docker image as base (change the first line in the file).
+      
+   4. Build the image from the modified Dockerfile_modelhub. This will include the modelhub engine into your docker.
+   
+   5. Push the image from the previous step to [DockerHub](https://hub.docker.com/) 
+      (required if you want to publish your model on Modelhub, such that the image can 
+      be found when starting a model for the first time. If you don't plan to publish on Modelhub, this step is optional).
+      
+2. **Populate Template**
+
+   - Git fork the model template https://github.com/modelhub-ai/model-template.git
+   - Change the name of the repo to your model's name (from the website)
+   - Clone locally
+   - Populate config.json with relevant information (need to refer to schema to fill it in)
+   - Put your model + license
+   - Put inference code
+   - (optional but highly recommended) Put sample images + license
+   - (optional) define preprocessing on native file input
+   - (optional) define preprocessing on numpy array
+   - (optional) define postprocessing on output
+   - (optional) customize example code in sandbox.ipynb
+   - Init file (point to docker image + (optional) external files
+
+3. **Run Tests**
+
+   - Run test_integration.py on your model folder
+   - Manually check frontend and sandbox.ipynb
+
+4. **Publish**
+
+   1. `git clone https://github.com/modelhub-ai/modelhub.git` (or update if you cloned already).
+   
+   2. Add your model to the model index list _models.json_.
+   
+   3. Send us a pull request.
+
 
 
 ## About Us: 
