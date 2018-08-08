@@ -180,18 +180,58 @@ Packaging your model with our framework and eventually contributing it to the Mo
          | image         | 2d grayscale, 2d multi, 3d grayscale, 3d multi     |
          | custom        | none of the above     |
    
-   9. Init file (point to docker image + (optional) external files 
+   9. Edit _init/init.json_ and add the id of your Docker, so when starting your model, Modelhub knows 
+      which Docker to use (and download from DockerHub).
+      
+      Optionally also list any additional files that are hosted externally (i.e. not in your model's GitHub repository).
+      Specify origin and the destination within your model's folder structure. This is particularly useful for 
+      pre-trained model files, since they can easily be larger than the maximum file size allowed by GitHub.
+      
+      When starting a model, Modelhub will first download the model's repository, then download any external files, 
+      and then start the Docker specified in this init file.
    
    10. Add your licenses for the model (i.e. everything in the repsoitory except the sample data) and the sample data to
        _contrib_src/license/model_ and _contrib_src/license/sample_data_ respectively.
    
-   11. (optional) Customize example code in _sandbox.ipynb_
+   11. (optional) Customize example code in _contrib_src/sandbox.ipynb_. This jupyter notebook is supposed
+       to showcase how to use your model and interpret the output from python. The standard example code in this 
+       notebook is very basic and generic. Usually it is much more informative to a user of your model if the
+       example code is tailored to your model.
+       
+       You can access and run the Sandbox notebook by starting your model via `python start.py YOUR_MODEL_FOLDER_NAME`. 
+       For this, copy _start.py_ from the [modelhub repository](https://github.com/modelhub-ai/modelhub) to the 
+       parent folder of your model folder.
 
-3. **Run Tests**
+3. **Run tests**
 
-   - Run test_integration.py on your model folder
-   - Manually check frontend and sandbox.ipynb
-
+   1. Manually check if your model works. 
+      
+      1. Copy _start.py_ from the 
+         [modelhub repository](https://github.com/modelhub-ai/modelhub) to the parent folder of your model folder.
+      
+      2. Run `python start.py YOUR_MODEL_FOLDER_NAME` and check if the wep app for your model looks and works as expected.
+      
+      3. Run `python start.py YOUR_MODEL_FOLDER_NAME -e` and check if the jupyter notebook _contrib_src/sandbox.ipynb_ 
+         works as expected.
+   
+   2. Run automatic integration test. This test will perform a few sanity checks to verify that all the basics
+      seem to be working properly. Passing this test does not mean your model performs correctly (hence the manual
+      checks).
+      
+      1. Copy _test_integration.py_ from the 
+         [modelhub repository](https://github.com/modelhub-ai/modelhub) to the parent folder of your model folder.
+      
+      2. Run `python test_integration.py YOUR_MODEL_FOLDER_NAME`. If all tests pass you are good to publish.
+      
+         On some platforms (Windows, Mac) communication to the model's Docker container might fail if the
+         Docker is started implicitly by the integration test. If you get obscure errors during test, try
+         starting your model in a different terminal and running the test with the "-m" option.
+         
+         If your model needs particularly long to start up, you need to tell the integration test how long
+         to wait before attempting to communicate with the model. Use the "-t" option.
+         
+         Check out the documentation of the integration test by calling `python test_integration.py -h`      
+      
 4. **Publish**
 
    1. `git clone https://github.com/modelhub-ai/modelhub.git` (or update if you cloned already).
