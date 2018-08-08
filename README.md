@@ -201,8 +201,8 @@ Packaging your model with our framework and eventually contributing it to the Mo
        _contrib_src/license/model_ and _contrib_src/license/sample_data_ respectively.
        
        If you want to publish your model via Modelhub, make sure the licenses allow us to use your code, model, and 
-       sample data (most open source licenses should be fine, for proprietary licenses you might need to give Modelhub
-       and its users explicit permission).
+       sample data (most of the popular open source licenses should be fine, for proprietary licenses you might need 
+       to give Modelhub and its users explicit permission).
    
    11. (optional) Customize example code in _contrib_src/sandbox.ipynb_. This jupyter notebook is supposed
        to showcase how to use your model and interpret the output from python. The standard example code in this 
