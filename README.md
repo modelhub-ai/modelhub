@@ -66,6 +66,8 @@ Packaging your model with our framework and eventually contributing it to the Mo
 
 <img width="500" alt="modelhub contribution steps" src="https://raw.githubusercontent.com/modelhub-ai/modelhub/master/docs/images/contribution_process.png">
 
+**_HINT_** Take a look at an already integrated model to understand how it looks when finished ([AlexNet](https://github.com/modelhub-ai/AlexNet) is a good and simple example).
+
 1. **Prepare Docker image**
 
    1. Write a dockerfile preparing/installing all third party dependencies your model needs 
@@ -145,7 +147,18 @@ Packaging your model with our framework and eventually contributing it to the Mo
       
       2. **_preprocessAfterConversionToNumpy(self, npArr)**
       
+         After the image has passed through the previous function, it is automatically converted to a numpy array 
+         and then passed into this function. Here you must implement all additional pre-processing and numpy re-formating 
+         necessary for your model to perform inference on the numpy array. The numpy array returned by this function 
+         should have the right input format for your model (the output of this function is exactly what is returned 
+         by `self._imageProcessor.loadAndPreprocess(input)` in _contrib_src/inference.py_).
+      
       3. **computeOutput(self, inferenceResults)**
+      
+         This function receives the direct output of your model's inference. Here you must implement all
+         post-processing required to prepare the output in a format that is supported by modelhub.
+         
+         You can either output a 
    
    - (optional) define preprocessing on native file input
    - (optional) define preprocessing on numpy array
