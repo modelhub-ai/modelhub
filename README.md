@@ -55,7 +55,6 @@ Modelhub provides a framework into which contributors can plug-in their model an
 The _contrib_src_ contains the model specific code and data, all other functionality is provided by the framework. The framework and model specific code run inside of a Docker container, which contains all runtime dependencies. The resulting package constitutes a standalone unit that can be easily deployed, executed on different platforms (Linux, Windows, Mac), and integrated into existing applications via the generic API.
 
 
-
 ## Contribute Your Model to Modelhub
 
 To package a model with our framework you need to have the following **prerequisites** installed:
@@ -67,7 +66,7 @@ Packaging your model with our framework and eventually contributing it to the Mo
 
 <img width="500" alt="modelhub contribution steps" src="https://raw.githubusercontent.com/modelhub-ai/modelhub/master/docs/images/contribution_process.png">
 
-1. **Build Docker Image**
+1. **Prepare Docker image**
 
    1. Write a dockerfile preparing/installing all third party dependencies your model needs 
       (e.g. the deep learning library you are using). Use the `ubuntu:16.04` Docker image as base.
@@ -86,20 +85,74 @@ Packaging your model with our framework and eventually contributing it to the Mo
       (required if you want to publish your model on Modelhub, such that the image can 
       be found when starting a model for the first time. If you don't plan to publish on Modelhub, this step is optional).
       
-2. **Populate Template**
+2. **Prepare your model based on the modelhub template**
 
-   - Git fork the model template https://github.com/modelhub-ai/model-template.git
-   - Change the name of the repo to your model's name (from the website)
-   - Clone locally
-   - Populate config.json with relevant information (need to refer to schema to fill it in)
-   - Put your model + license
-   - Put inference code
-   - (optional but highly recommended) Put sample images + license
+   1. Fork the model template https://github.com/modelhub-ai/model-template.git.
+   
+   2. Change the name of your model-template fork to your model's name. For this open your fork on GitHub, 
+      go to _Settings_, change the _Repository name_, and press _Rename_.
+      
+   3. Clone your renamed fork to your local computer.
+   
+   4. Populate the configuration file _contrib_src/model/config.json_ with the relevant information about your model. 
+      Please refer to the [schema](https://github.com/modelhub-ai/modelhub/blob/master/config_schema.json) for 
+      allowed values and structure.
+   
+   5. Place your pre-trained model file(s) into the _contrib_src/model/_ folder.
+   
+   6. (optional) Place some sample data into the _contrib_src/sample_data/_ folder. This is not mandatory
+      but highly recommended, such that users can try your directly.
+   
+   7. Open _contrib_src/inference.py_ and replace the model initialization and inference with your 
+      model specific code. The template example shows how to integrate models in ONNX format and running
+      them in caffe2. If your are using a different model format and/or backend you have to change this.
+      
+      There are only two lines you have to modify. In the `__init__` function change the following line,
+      which loads the model:
+      ```python
+      # load the DL model (change this if you are not using ONNX)
+      self._model = onnx.load('model/model.onnx')
+      ```
+      In the `infer` function change the following line, which runs the model prediction on the input data:
+      ```python
+      # Run inference with caffe2 (change this if you are using a different DL framework)
+      results = caffe2.python.onnx.backend.run_model(self._model, [inputAsNpArr])
+      ```
+      
+      **Note** Feel free to add functions to the _Model_ class as needed to structure your model's initialization 
+      and execution code. But make sure to keep the pre- and post-processing of the input data and prediction 
+      results (done by the _ImageProcessor_) as they are. In the next step you will implement the _ImageProcessor_.
+   
+   8. Open _contrib_src/processing.py_ to implement the _ImageProcessor_ class. The _ImageProcessor_ inherits
+      from _ImageProcessorBase_, which already has most of the required data I/O processing implemented. Just your model
+      specific pre- and post-processing has to be implemented, to make the _ImageProcessor_ work. There are two 
+      pre-processing functions and one post-processing function to be filled in. We'll go through each of these 
+      functions individually:
+      
+      1. **_preprocessBeforeConversionToNumpy(self, image)**
+      
+         The _ImageProcessorBase_ takes care of loading the input image and then calls this function to let you
+         perform pre-processing on the image. The image comming into this function is either a 
+         [PIL](https://pillow.readthedocs.io/en/latest/) or a [SimpleITK](http://www.simpleitk.org/) object.
+         So this __preprocessBeforeConversionToNumpy_ gives you the option to perform pre-processing using PIL
+         or SimpleITK, which might be more convenient than performing pre-processing on the image in numpy format
+         (see next step). If you decide to implement pre-porcessing here, you should implement it for both, PIL and 
+         SimpleITK objects. Make sure this function returns the same type of object as it received (PIL in => PIL out, 
+         SimpleITK in => SimpleITK out).
+         
+         You do not have to implement this, alternatively you can just pass the image through unaltered and perform
+         all your pre-processing using the image converted to numpy (see next step).
+      
+      2. **_preprocessAfterConversionToNumpy(self, npArr)**
+      
+      3. **computeOutput(self, inferenceResults)**
+   
    - (optional) define preprocessing on native file input
    - (optional) define preprocessing on numpy array
    - (optional) define postprocessing on output
    - (optional) customize example code in sandbox.ipynb
    - Init file (point to docker image + (optional) external files
+   - addlicenses for model and sample_data
 
 3. **Run Tests**
 
