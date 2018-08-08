@@ -84,8 +84,15 @@ Packaging your model with our framework and eventually contributing it to the Mo
    4. Build the image from the modified Dockerfile_modelhub. This will include the modelhub engine into your docker.
    
    5. Push the image from the previous step to [DockerHub](https://hub.docker.com/) 
-      (required if you want to publish your model on Modelhub, such that the image can 
+      (required if you want to publish your model on Modelhub, so the image can 
       be found when starting a model for the first time. If you don't plan to publish on Modelhub, this step is optional).
+   
+   -  **_NOTE_** We are planning to provide a few pre-build Docker images for the most common deep learning 
+      frameworks, so you do not have to build them yourself. For now what we have is not really consolidated yet.
+      Nevertheless, you can check out the Docker install scripts we are using 
+      [here](https://github.com/modelhub-ai/modelhub-engine/tree/master/docker), they also serve as examples to 
+      prepare your own. You can also try any of the existing 
+      [pre-build images on DockerHub](https://hub.docker.com/u/modelhub/) - use the ones that start with _modelhub/main__.
       
 2. **Prepare your model based on the modelhub template**
 
@@ -103,7 +110,7 @@ Packaging your model with our framework and eventually contributing it to the Mo
    5. Place your pre-trained model file(s) into the _contrib_src/model/_ folder.
    
    6. (optional) Place some sample data into the _contrib_src/sample_data/_ folder. This is not mandatory
-      but highly recommended, such that users can try your directly.
+      but highly recommended, so users can try your model directly.
    
    7. Open _contrib_src/inference.py_ and replace the model initialization and inference with your 
       model specific code. The template example shows how to integrate models in ONNX format and running
