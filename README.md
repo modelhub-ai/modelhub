@@ -23,12 +23,12 @@ But since you are here, follow these steps to get modelhub running on your local
    
 3. **Download modelhub start script**
 
-   Download [start.py](https://raw.githubusercontent.com/modelhub-ai/modelhub/master/start.py) (use "save link as") 
+   Download [_start.py_](https://raw.githubusercontent.com/modelhub-ai/modelhub/master/start.py) (use "save link as") 
    from this repository and place it into an empty folder.
    
 4. **Run a model using start.py**
 
-   Open a terminal and navigate to the folder that contains start.py. For running models, write access 
+   Open a terminal and navigate to the folder that contains _start.py_. For running models, write access 
    is required in the current folder.   
    
    Execute `python start.py SqueezeNet` in the terminal to run the SqueezeNet model from the modelhub collection. 
