@@ -156,16 +156,36 @@ Packaging your model with our framework and eventually contributing it to the Mo
       3. **computeOutput(self, inferenceResults)**
       
          This function receives the direct output of your model's inference. Here you must implement all
-         post-processing required to prepare the output in a format that is supported by modelhub.
+         post-processing required to prepare the output in a format that is supported by Modelhub.
          
-         You can either output a 
+         You can either output a list of dictionaries, where each dictionary has a "label" element, giving the
+         name of a class, and a "probability" element, giving the probability of that class. For example:
+         ```python
+         result = []
+         for i in range (len(inferenceResults)):
+             obj = {'label': 'Class ' + str(i),
+                    'probability': float(inferenceResults[i])}
+             result.append(obj)
+         ```
+         For this you have to specifiy output type "label_list" in your model's _config.json_.
+         
+         Or you can output a numpy array. The output type specified in model's _config.json_ will help
+         users (and Modelhub) to interpret the meaning result array:
+         
+         | Type          | Description   |
+         | ------------- | ------------- |
+         | vector        | 1d            |
+         | mask_image    | 2d or 3d, discrete values, 0 is always background, 1,2... are the regions       |
+         | heatmap       | 2d grayscale, 2d multi, 3d grayscale, 3d multi, if normalized, 1 is highest, 0 is lowest       |
+         | image         | 2d grayscale, 2d multi, 3d grayscale, 3d multi     |
+         | custom        | none of the above     |
    
-   - (optional) define preprocessing on native file input
-   - (optional) define preprocessing on numpy array
-   - (optional) define postprocessing on output
-   - (optional) customize example code in sandbox.ipynb
-   - Init file (point to docker image + (optional) external files
-   - addlicenses for model and sample_data
+   9. Init file (point to docker image + (optional) external files 
+   
+   10. Add your licenses for the model (i.e. everything in the repsoitory except the sample data) and the sample data to
+       _contrib_src/license/model_ and _contrib_src/license/sample_data_ respectively.
+   
+   11. (optional) Customize example code in _sandbox.ipynb_
 
 3. **Run Tests**
 
