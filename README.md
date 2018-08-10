@@ -5,7 +5,7 @@ Crowdsourced through contributions by the scientific research community, modelhu
 This repository is the index/registry of all models, and as such the point where all developments under [modelhub-ai](https://github.com/modelhub-ai) come together.
 
 **Essential Information/Documentation:**
-- [**Quickstart**](http://modelhub.readthedocs.io/en/latest/quickstart.html)
+- [**Quick Start**](http://modelhub.readthedocs.io/en/latest/quickstart.html)
 - [**Technical Overview**](http://modelhub.readthedocs.io/en/latest/overview.html)
 - [**Contribute Your Own Model to Modelhub**](http://modelhub.readthedocs.io/en/latest/contribute.html)
 
