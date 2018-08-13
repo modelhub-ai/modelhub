@@ -1,8 +1,8 @@
 We are building a collection of deep learning models for medical data (and beyond). Check it out [here](http://www.modelhub.ai).
 
-Crowdsourced through contributions by the scientific research community, modelhub is a repository of deep learning models pretrained for a wide variety of medical applications. Modelhub highlights recent trends in deep learning applications, enables transfer learning approaches and promotes reproducible science.
+Crowdsourced through contributions by the scientific research community, Modelhub is a repository of deep learning models pretrained for a wide variety of medical applications. Modelhub highlights recent trends in deep learning applications, enables transfer learning approaches and promotes reproducible science.
 
-This repository is the index/registry of all models, and as such the point where all developments under [modelhub-ai](https://github.com/modelhub-ai) come together.
+This repository is the index/registry of all models, and as such the point where all developments under [Modelhub](https://github.com/modelhub-ai) come together.
 
 **Essential Information/Documentation:**
 - [**Quick Start**](http://modelhub.readthedocs.io/en/latest/quickstart.html)
