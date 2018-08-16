@@ -22,7 +22,7 @@
         "name": {
           "type": "string",
           "description":
-            "Model name. This should be in Pascal Case. This will be converted to lowercase in the backend. This should be unique regardless of case.",
+            "Model name. This should match the repository name: all small caps with '-' spacers. This should be unique.",
           "uniqueValue": true
         },
         "application_area": {
