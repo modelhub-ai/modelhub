@@ -36,13 +36,13 @@ group.add_argument("-e", "--expert",
 group.add_argument("-b", "--bash", 
                     help = "Start MODEL Docker in bash mode. Explore the Docker on your own.",
                     action = "store_true")
-parser.add_argument("-p80", default = 80, type = int,
-                    help = "Defines to which port the Docker internal port 80 should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 80)")
-parser.add_argument("-p81", default = 81, type = int,
-                    help = "Defines to which port the Docker internal port 81 should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 81)")
-parser.add_argument("-p8080", default = 8080, type = int,
-                    help = "Defines to which port the Docker internal port 8080 should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 8080)")
-parser.add_argument("-mf", dest = "framework",
+parser.add_argument("-wp", "--webuiport", default = 80, type = int,
+                    help = "Defines to which port the Modelhub web interface should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 80)")
+parser.add_argument("-mp", "--modelviewerport", default = 81, type = int,
+                    help = "Defines to which port the Modelhub model viewer should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 81)")
+parser.add_argument("-jp", "--jupyterport", default = 8080, type = int,
+                    help = "Defines to which port the Jupyter notebook server should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 8080)")
+parser.add_argument("-mf", "--mountframework", dest = "framework",
                     help = "Use modelhub framework from local drive instead of the built-in modelhub framework version. This is a feature for modelhub-engine developers.")
 
 
@@ -51,7 +51,7 @@ def start_basic(base_command, args):
     print("")
     print("============================================================")
     print("Model started.")
-    print("Open http://localhost:" + str(args.p80) + "/ in your web browser to access")
+    print("Open http://localhost:" + str(args.webuiport) + "/ in your web browser to access")
     print("modelhub web interface.")
     print("Press CTRL+C to quit session.")
     print("============================================================")
@@ -63,7 +63,7 @@ def start_expert(base_command, args):
     print("")
     print("============================================================")
     print("Modelhub Docker started in expert mode.")
-    print("Open http://localhost:" + str(args.p8080) + "/ in your web browser show jupyter")
+    print("Open http://localhost:" + str(args.jupyterport) + "/ in your web browser show jupyter")
     print("dashboard and open sandbox.ipynb for a prepared playground.")
     print("Press CTRL+C to initiate quitting the session,")
     print("then confirm that you want to shutdown jupyter.")
@@ -93,7 +93,7 @@ def get_local_framework_mount_cmd(args):
 
 
 def get_port_mapping_cmd(args):
-    port_mapping = "-p " + str(args.p80) + ":80 -p " + str(args.p81) + ":81 -p " + str(args.p8080) + ":8080"
+    port_mapping = "-p " + str(args.webuiport) + ":80 -p " + str(args.modelviewerport) + ":81 -p " + str(args.jupyterport) + ":8080"
     return port_mapping
 
 
