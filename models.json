@@ -24,9 +24,9 @@
     "url": "http://localhost",
     "api": ":4004/api/",
     "viewer": ":4005",
-    "name": "SqueezeNet",
+    "name": "squeeze-net",
     "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/squeezenet",
+    "github": "https://github.com/modelhub-ai/squeeze-net",
     "github_branch": "master"
   },
   {
