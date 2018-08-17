@@ -34,9 +34,9 @@
     "url": "http://localhost",
     "api": ":4006/api/",
     "viewer": ":4007",
-    "name": "AlexNet",
+    "name": "alex-net",
     "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/AlexNet",
+    "github": "https://github.com/modelhub-ai/alex-net",
     "github_branch": "master"
   },
   {
