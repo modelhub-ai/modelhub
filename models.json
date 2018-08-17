@@ -44,9 +44,9 @@
     "url": "http://localhost",
     "api": ":4008/api/",
     "viewer": ":4009",
-    "name": "ResNet-50",
+    "name": "resnet-50",
     "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/ResNet-50",
+    "github": "https://github.com/modelhub-ai/resnet-50",
     "github_branch": "master"
   },
   {
