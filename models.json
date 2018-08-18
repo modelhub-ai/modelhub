@@ -54,9 +54,9 @@
     "url": "http://localhost",
     "api": ":4010/api/",
     "viewer": ":4011",
-    "name": "GoogLeNet",
+    "name": "googlenet",
     "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/GoogLeNet",
+    "github": "https://github.com/modelhub-ai/googlenet",
     "github_branch": "master"
   }
 ]
