@@ -24,9 +24,9 @@
     "url": "http://localhost",
     "api": ":4004/api/",
     "viewer": ":4005",
-    "name": "squeeze-net",
+    "name": "squeezenet",
     "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/squeeze-net",
+    "github": "https://github.com/modelhub-ai/squeezenet",
     "github_branch": "master"
   },
   {
@@ -34,9 +34,9 @@
     "url": "http://localhost",
     "api": ":4006/api/",
     "viewer": ":4007",
-    "name": "alex-net",
+    "name": "alexnet",
     "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/alex-net",
+    "github": "https://github.com/modelhub-ai/alexnet",
     "github_branch": "master"
   },
   {
