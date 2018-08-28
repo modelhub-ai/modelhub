@@ -41,7 +41,7 @@
   },
   {
     "id": "985c8604-1381-4ebf-85af-bfe32080fb55",
-    "url": "http://52.90.250.193",
+    "url": "http://54.172.24.84",
     "api": ":80/api/",
     "viewer": ":81",
     "name": "cardiac-fcn",
