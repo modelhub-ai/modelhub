@@ -42,6 +42,8 @@ parser.add_argument("-mp", "--modelviewerport", default = 81, type = int,
                     help = "Defines to which port the Modelhub model viewer should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 81)")
 parser.add_argument("-jp", "--jupyterport", default = 8080, type = int,
                     help = "Defines to which port the Jupyter notebook server should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 8080)")
+parser.add_argument("-md", "--mountdata",
+                    help = "Mount a local folder with data into the MODEL Docker. Inside the Docker the folder will be mounted as '/data'")
 parser.add_argument("-mf", "--mountframework", dest = "framework",
                     help = "Use modelhub framework from local drive instead of the built-in modelhub framework version. This is a feature for modelhub-engine developers.")
 
@@ -85,11 +87,22 @@ def start_bash(base_command, args):
     subprocess.check_call(command, shell = True)
 
 
+def get_contrib_src_mount_cmd(args):
+    return "-v " + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src"
+
+
 def get_local_framework_mount_cmd(args):
     mount_local_framework = ""
     if args.framework is not None:
         mount_local_framework = "-v " + args.framework + ":/framework"
     return mount_local_framework
+
+
+def get_local_data_mount_cmd(args):
+    mount_local_data = ""
+    if args.mountdata is not None:
+        mount_local_data = "-v " + args.mountdata + ":/data"
+    return mount_local_data
 
 
 def get_port_mapping_cmd(args):
@@ -99,9 +112,10 @@ def get_port_mapping_cmd(args):
 
 def start_docker(args):
     docker_id = get_init_value(args.model, "docker_id")
-    command = ("docker run -it --rm " + get_port_mapping_cmd(args) + " -v " 
-               + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src " 
-               + get_local_framework_mount_cmd(args) + " " + docker_id)
+    command = ("docker run -it --rm " + get_port_mapping_cmd(args) + " " 
+               + get_contrib_src_mount_cmd(args) + " " 
+               + get_local_framework_mount_cmd(args) + " " 
+               + get_local_data_mount_cmd(args) + " " + docker_id)
     if args.expert:
         start_expert(command, args)
     elif args.bash:
