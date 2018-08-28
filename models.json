@@ -51,7 +51,7 @@
   },
   {
     "id": "ccc16d36-d788-43eb-9e53-2125c97888df",
-    "url": "xxxx",
+    "url": "http://18.212.101.251",
     "api": ":80/api/",
     "viewer": ":81",
     "name": "cascaded-fcn-liver",
