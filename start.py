@@ -29,6 +29,9 @@ parser.add_argument("-l", "--list",
 parser.add_argument("-u", "--update",
                     help = "Updates MODEL to the newest version before starting it.",
                     action = "store_true")
+parser.add_argument("-ud", "--updatedocker",
+                    help = "Re-download the Docker for the current model. This is usually not necessary since updating the model with '-u' would also update the Docker if its version changed. However, in some cases (corrupt Docker, version conflict) it might be necessary to force a re-download of the Docker.",
+                    action = "store_true")
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-e", "--expert", 
                     help = "Start MODEL in expert mode. Provides a jupyter notebook environment to experiment.",
@@ -110,8 +113,14 @@ def get_port_mapping_cmd(args):
     return port_mapping
 
 
+def remove_model_docker(docker_id):
+    subprocess.check_call("docker rmi " + docker_id, shell = True)
+
+
 def start_docker(args):
     docker_id = get_init_value(args.model, "docker_id")
+    if args.updatedocker:
+        remove_model_docker(docker_id)
     command = ("docker run -it --rm " + get_port_mapping_cmd(args) + " " 
                + get_contrib_src_mount_cmd(args) + " " 
                + get_local_framework_mount_cmd(args) + " " 
