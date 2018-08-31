@@ -40,7 +40,7 @@ parser.add_argument("-m", dest = "manual", action = "store_true",
                     help = "Given this option, the test does not start the corresponding model docker automatically."\
                            " Instead you have to start your model manually in a different terminal, using \"python start.py YOUR_MODEL_NAME\"."\
                            " This is helpful for debugging if the tests fail, so you can see the possible error output in the docker in the other terminal."\
-                           " Furthermore, on some platforms (Windows, Mac) communication to the Docker container might fail if the model Docker is started implicitly by the integration test. If you get obscure errors during test, try starting your model in a different terminal and running the test with this option.")
+                           " Furthermore, on some platforms or certain Docker daemon versions, communication to the Docker container might fail, if the model Docker is started implicitly by the integration test. If you get obscure errors during test, try starting your model in a different terminal and running the test with this option.")
 parser.add_argument("-p", dest = "port", default = 80, type = int,
                     help = "Port on which to start the API of the model to be tested (or on which port you started the model API in manual mode).")
 
