@@ -41,12 +41,15 @@ parser.add_argument("-m", dest = "manual", action = "store_true",
                            " Instead you have to start your model manually in a different terminal, using \"python start.py YOUR_MODEL_NAME\"."\
                            " This is helpful for debugging if the tests fail, so you can see the possible error output in the docker in the other terminal."\
                            " Furthermore, on some platforms (Windows, Mac) communication to the Docker container might fail if the model Docker is started implicitly by the integration test. If you get obscure errors during test, try starting your model in a different terminal and running the test with this option.")
+parser.add_argument("-p", dest = "port", default = 80, type = int,
+                    help = "Port on which to start the API of the model to be tested (or on which port you started the model API in manual mode).")
 
 
 
 
 count_warn = 0
 test_fail = False
+api_port = 80
 
 def warning(*message):
     """ 
@@ -80,7 +83,8 @@ def passed():
     print("Integration test \"" + inspect.stack()[1][3] + "\" has PASSED")
 
 
-def get_api_response_as_json(api_call):
+def get_api_response_as_json(api_function):
+    api_call = "http://localhost:" + str(api_port) + "/api/" + api_function
     try:
         return json.loads(urlopen(api_call).read())
     except HTTPError as e:
@@ -132,7 +136,7 @@ def check_if_config_complies_with_schema():
     with open("config_schema.json", "r") as f:
         schema_data = f.read()
     schema = json.loads(schema_data)
-    config = get_api_response_as_json("http://localhost:80/api/get_config")
+    config = get_api_response_as_json("get_config")
     if "error" in config:
         error(config["error"])
     try:
@@ -145,7 +149,7 @@ def check_if_config_complies_with_schema():
 def check_if_local_and_api_config_model_names_match(model_name):
     with open(model_name + "/contrib_src/model/config.json", "r") as f:
         local_config = json.load(f)
-    api_config = get_api_response_as_json("http://localhost:80/api/get_config")
+    api_config = get_api_response_as_json("get_config")
     if local_config["meta"]["name"] != api_config["meta"]["name"]:
         error("The name for the model you indicated to test and the model name returned from the model API do not match (" + local_config["meta"]["name"] + " != " + api_config["meta"]["name"] + "). This usually indicates that the wrong model is running. Please make sure to start the correct model and that no other model is running during testing.")
     else:
@@ -153,7 +157,7 @@ def check_if_local_and_api_config_model_names_match(model_name):
     
 
 def check_if_legal_docs_available():
-    legal = get_api_response_as_json("http://localhost:80/api/get_legal")
+    legal = get_api_response_as_json("get_legal")
     if "error" in legal:
         error(legal["error"])
     elif ("model_license" not in legal or legal["model_license"] == "") and \
@@ -168,7 +172,7 @@ def check_if_legal_docs_available():
 
 
 def check_if_sample_data_available():
-    samples = get_api_response_as_json("http://localhost:80/api/get_samples")
+    samples = get_api_response_as_json("get_samples")
     if "error" in samples:
         error(samples["error"])
     elif len(samples) == 0:
@@ -178,7 +182,7 @@ def check_if_sample_data_available():
 
 
 def _get_output_types_from_config():
-    model_io = get_api_response_as_json("http://localhost:80/api/get_model_io")
+    model_io = get_api_response_as_json("get_model_io")
     output_types = [o["type"] for o in model_io["output"]]
     return output_types
 
@@ -205,13 +209,13 @@ def _is_output_matrix_valid(def_shape, array):
 
 
 def check_if_prediction_returns_expected_data_format():
-    samples = get_api_response_as_json("http://localhost:80/api/get_samples")
+    samples = get_api_response_as_json("get_samples")
     if ("error" in samples) or (len(samples) == 0):
         warning("Cannot test prediction without sample data.")
         return
     sample_file = samples[0].rsplit("/", 1)[-1]
     config_output_types = _get_output_types_from_config()    
-    result = get_api_response_as_json("http://localhost:80/api/predict_sample?filename=" + sample_file)
+    result = get_api_response_as_json("predict_sample?filename=" + sample_file)
     if "error" in result:
         error(result["error"])
     if len(result["output"]) != len(config_output_types):
@@ -253,9 +257,10 @@ def start_docker(args):
             if _count_docker_container_instances(args.model, docker_id) > 0:
                 raise RuntimeError("Other modelhub Docker containers are currently running.\n"\
                                    "For intergration testing please make sure that no other modehub container is running when starting the test.")
-            command = ("docker run -d --rm --net=host --name=modelhub_ai_test_container -v " 
-                    + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src " 
-                    + docker_id)
+            command = ("docker run -d --rm -p " + str(args.port) + ":80 "
+                       + "--name=modelhub_ai_test_container -v " 
+                       + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src " 
+                       + docker_id)
             subprocess.check_call(command, shell = True)
             time.sleep(args.time)
     else:
@@ -263,6 +268,8 @@ def start_docker(args):
     
 
 def run_tests(args):
+    global api_port
+    api_port = args.port
     print("")
     check_if_model_exists_locally(args.model)
     check_if_docker_is_running(args.model)
