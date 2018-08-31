@@ -43,7 +43,8 @@ parser.add_argument("-m", dest = "manual", action = "store_true",
                            " Furthermore, on some platforms or certain Docker daemon versions, communication to the Docker container might fail, if the model Docker is started implicitly by the integration test. If you get obscure errors during test, try starting your model in a different terminal and running the test with this option.")
 parser.add_argument("-p", dest = "port", default = 80, type = int,
                     help = "Port on which to start the API of the model to be tested (or on which port you started the model API in manual mode).")
-
+parser.add_argument("-s", dest = "schema",
+                    help = "Define a local schema file to validate the models configuration. By default the test loads the schema from the modelhub git repository. Use this option only if the online access fails and you have the latest modelhub schema file saved locally.")
 
 
 
@@ -132,9 +133,12 @@ def check_if_docker_is_running(model_name):
         passed()
 
 
-def check_if_config_complies_with_schema():
-    with open("config_schema.json", "r") as f:
-        schema_data = f.read()
+def check_if_config_complies_with_schema(schema_filename):
+    if schema_filename is not None:
+        with open(schema_filename, "r") as f:
+            schema_data = f.read()
+    else:
+        schema_data = urlopen("https://raw.githubusercontent.com/modelhub-ai/modelhub/master/config_schema.json").read()
     schema = json.loads(schema_data)
     config = get_api_response_as_json("get_config")
     if "error" in config:
@@ -273,7 +277,7 @@ def run_tests(args):
     print("")
     check_if_model_exists_locally(args.model)
     check_if_docker_is_running(args.model)
-    check_if_config_complies_with_schema()
+    check_if_config_complies_with_schema(args.schema)
     check_if_local_and_api_config_model_names_match(args.model)
     check_if_legal_docs_available()
     check_if_sample_data_available()
