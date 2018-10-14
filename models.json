@@ -58,5 +58,15 @@
     "task_extended": "Liver and liver lesion segmentation",
     "github": "https://github.com/modelhub-ai/cascaded-fcn-liver",
     "github_branch": "master"
+  },
+  {
+    "id": "ce585219-d617-4864-b225-06b52532ea95",
+    "url": "",
+    "api": ":80/api/",
+    "viewer": ":81",
+    "name": "sfm-learner-pose",
+    "task_extended": "Endoscopic pose estimator",
+    "github": "https://github.com/modelhub-ai/sfm-learner-pose",
+    "github_branch": "master"
   }
 ]
