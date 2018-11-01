@@ -139,6 +139,16 @@
           "description":
             "Choice of Supervised Learning, Unsupervised Learning, Self-Supervised Learning, or one of the other types they keep coming up with these days. "
         },
+        "backend": {
+          "type": "array",
+          "description":
+            "Describes the platform where the model was trained. This can also be inferred by glancing over the dockerfile. Examples include: tensorflow, caffe, pytorch..etc. Ensure small caps.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
         "architecture": {
           "type": "string",
           "description":
@@ -259,12 +269,17 @@
       "required": ["description", "learning_type", "architecture", "io"],
       "additionalProperties": false
     },
-    "allow_user_input": {
+    "allow_user_test": {
       "type": "boolean",
       "description":
-        "This boolean identifies if testing on user uploaded images is allowed or not. It will control the display of the 'test' tab on the modelhub frontend"
+        "This boolean identifies if testing on user uploaded images is allowed or not. It will control the display of the 'test' tab on the modelhub frontend."
+    },
+    "allow_sample_demo": {
+      "type": "boolean",
+      "description":
+        "This boolean identifies if testing on sample images is allowed or not. It will control the display of the 'demo' tab on the modelhub frontend. This is not an indication that sample images exist or not."
     }
   },
-  "required": ["id", "meta", "model", "allow_user_input"],
+  "required": ["id", "meta", "model", "allow_user_test", "allow_sample_demo"],
   "additionalProperties": false
 }
