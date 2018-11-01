@@ -278,6 +278,14 @@
       "type": "boolean",
       "description":
         "This boolean identifies if testing on sample images is allowed or not. It will control the display of the 'demo' tab on the modelhub frontend. This is not an indication that sample images exist or not."
+    },
+    "modelhub": {
+      "type": "object",
+      "description":
+        "This property is not required. It has a free structure and should be added by the modelhub team. It can be helful if the modelhub web app requires certain parameters for correctly visualizing input/outputs.",
+      "properties": {},
+      "required": [],
+      "additionalProperties": true
     }
   },
   "required": ["id", "meta", "model", "allow_user_test", "allow_sample_demo"],
