@@ -221,37 +221,51 @@
                         "file_type": "json"
                       },
                       {
+                        "name": "contour_2d",
+                        "overlaid": false,
+                        "description":
+                          "A list (or lists) of [x,y] coordinates identifying the contour of a mask.",
+                        "file_type": "json"
+                      },
+                      {
+                        "name": "contour_3d",
+                        "overlaid": false,
+                        "description":
+                          "A list (or lists) of [x,y,z] coordinates identifying the contour of a mask.",
+                        "file_type": "json"
+                      },
+                      {
                         "name": "vector",
                         "overlaid": false,
                         "description": "1d",
-                        "file_type": "numpy"
+                        "file_type": "h5"
                       },
                       {
                         "name": "mask_image",
                         "overlaid": true,
                         "description":
                           "2d or 3d, discrete values. 0 is always background, 1,2... are the regions",
-                        "file_type": "numpy"
+                        "file_type": "h5"
                       },
                       {
                         "name": "heatmap",
                         "overlaid": true,
                         "description":
                           "2d grayscale, 2d multi, 3d grayscale, 3d multi. If normalized, 1 is highest, 0 is lowest",
-                        "file_type": "numpy"
+                        "file_type": "h5"
                       },
                       {
                         "name": "image",
                         "overlaid": false,
                         "description":
                           "2d grayscale, 2d multi, 3d grayscale, 3d multi",
-                        "file_type": "numpy"
+                        "file_type": "h5"
                       },
                       {
                         "name": "custom",
                         "description":
                           "Alien format we are not able to deal with yet.",
-                        "file_type": "numpy"
+                        "file_type": "h5"
                       }
                     ]
                   }
