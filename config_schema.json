@@ -194,7 +194,12 @@
                     "additionalProperties": false
                   },
                   "minItems": 1
-                }
+                },
+                "description": {
+                  "type": "string",
+                  "description":
+                    "Optional string to describe the input beyond the required format and dim_limits properties.",
+                },
               },
               "required": ["format", "dim_limits"],
               "additionalProperties": false
@@ -268,7 +273,12 @@
                         "file_type": "h5"
                       }
                     ]
-                  }
+                  },
+                  "description": {
+                    "type": "string",
+                    "description":
+                      "Optional string to describe the output beyond the required name and type properties.",
+                  },
                 },
                 "required": ["name", "type"],
                 "additionalProperties": false
