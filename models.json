@@ -58,5 +58,15 @@
     "task_extended": "Liver and liver lesion segmentation",
     "github": "https://github.com/modelhub-ai/cascaded-fcn-liver",
     "github_branch": "master"
+  },
+  {
+    "id": "9d6a816a-612c-4f50-90f6-8f043db2a775",
+    "url": "",
+    "api": ":80/api/",
+    "viewer": ":81",
+    "name": "deep-prognosis",
+    "task_extended": "2-year survival of NSCLC patients",
+    "github": "https://github.com/modelhub-ai/deep-prognosis",
+    "github_branch": "master"
   }
 ]
