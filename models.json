@@ -10,26 +10,6 @@
     "github_branch": "master"
   },
   {
-    "id": "6c7d087b-ad67-4e36-8210-28b445d4d11b",
-    "url": "http://107.21.130.166",
-    "api": ":80/api/",
-    "viewer": ":81",
-    "name": "alexnet",
-    "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/alexnet",
-    "github_branch": "master"
-  },
-  {
-    "id": "8abbcaef-6bcf-4f1f-9159-85c17c38bd00",
-    "url": "http://34.227.206.141",
-    "api": ":80/api/",
-    "viewer": ":81",
-    "name": "resnet-50",
-    "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/resnet-50",
-    "github_branch": "master"
-  },
-  {
     "id": "948e93d7-bc36-4c39-9640-dc3345269fe7",
     "url": "http://54.147.209.54",
     "api": ":80/api/",
@@ -40,10 +20,21 @@
     "github_branch": "master"
   },
   {
+    "id": "6c7d087b-ad67-4e36-8210-28b445d4d11b",
+    "name": "alexnet",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/alexnet",
+    "github_branch": "master"
+  },
+  {
+    "id": "8abbcaef-6bcf-4f1f-9159-85c17c38bd00",
+    "name": "resnet-50",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/resnet-50",
+    "github_branch": "master"
+  },
+  {
     "id": "985c8604-1381-4ebf-85af-bfe32080fb55",
-    "url": "http://34.229.96.245",
-    "api": ":80/api/",
-    "viewer": ":81",
     "name": "cardiac-fcn",
     "task_extended": "Segmenting the right ventricle in MRI",
     "github": "https://github.com/modelhub-ai/cardiac-fcn",
@@ -51,9 +42,6 @@
   },
   {
     "id": "ccc16d36-d788-43eb-9e53-2125c97888df",
-    "url": "http://18.212.101.251",
-    "api": ":80/api/",
-    "viewer": ":81",
     "name": "cascaded-fcn-liver",
     "task_extended": "Liver and liver lesion segmentation",
     "github": "https://github.com/modelhub-ai/cascaded-fcn-liver",
@@ -61,9 +49,6 @@
   },
   {
     "id": "9d6a816a-612c-4f50-90f6-8f043db2a775",
-    "url": "",
-    "api": ":80/api/",
-    "viewer": ":81",
     "name": "deep-prognosis",
     "task_extended": "2-year survival of NSCLC patients",
     "github": "https://github.com/modelhub-ai/deep-prognosis",
