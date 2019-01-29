@@ -149,6 +149,12 @@
           "minItems": 1,
           "uniqueItems": true
         },
+
+        "format": {
+          "type": "string",
+          "description": "File format of the model with the preceeding dot. This could be .h5, .caffemodel, .onnx ...etc. This is used by the viewer to grab and view the model file if it is served on Github."
+        },
+
         "architecture": {
           "type": "string",
           "description":
