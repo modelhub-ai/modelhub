@@ -41,8 +41,6 @@ group.add_argument("-b", "--bash",
                     action = "store_true")
 parser.add_argument("-ap", "--apiport", default = 80, type = int,
                     help = "Defines to which port the Modelhub API should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 80)")
-parser.add_argument("-mp", "--modelviewerport", default = 81, type = int,
-                    help = "Defines to which port the Modelhub model viewer should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 81)")
 parser.add_argument("-jp", "--jupyterport", default = 8080, type = int,
                     help = "Defines to which port the Jupyter notebook server should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 8080)")
 parser.add_argument("-md", "--mountdata",
@@ -57,7 +55,7 @@ def start_basic(base_command, args):
     print("============================================================")
     print("Model started.")
     print("Use http://localhost:" + str(args.apiport) + "/api to access")
-    print("the modela REST API.")
+    print("the model REST API.")
     print("Press CTRL+C to quit session.")
     print("============================================================")
     print("")
@@ -109,7 +107,7 @@ def get_local_data_mount_cmd(args):
 
 
 def get_port_mapping_cmd(args):
-    port_mapping = "-p " + str(args.apiport) + ":80 -p " + str(args.modelviewerport) + ":81 -p " + str(args.jupyterport) + ":8080"
+    port_mapping = "-p " + str(args.apiport) + ":80 -p " + str(args.jupyterport) + ":8080"
     return port_mapping
 
 
