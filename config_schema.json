@@ -7,8 +7,7 @@
     "version": "1-0-0"
   },
   "type": "object",
-  "description":
-    "The config file holds information about the model and associated publication. This file ins required with every contribution to modelhub.",
+  "description": "The config file holds information about the model and associated publication. This file ins required with every contribution to modelhub.",
   "properties": {
     "id": {
       "type": "string",
@@ -21,34 +20,28 @@
       "properties": {
         "name": {
           "type": "string",
-          "description":
-            "Model name. This should match the repository name: all small caps with '-' spacers. This should be unique.",
+          "description": "Model name. This should match the repository name: all small caps with '-' spacers. This should be unique.",
           "uniqueValue": true
         },
         "application_area": {
           "type": "string",
-          "description":
-            "Free text explaining the application area. Examples: Imagnet, Cardiac MRI, Lung CT."
+          "description": "Free text explaining the application area. Examples: Imagnet, Cardiac MRI, Lung CT."
         },
         "task": {
           "type": "string",
-          "description":
-            "Free text explaining the task preformed by the model. Examples: Segmentation, Classification."
+          "description": "Free text explaining the task preformed by the model. Examples: Segmentation, Classification."
         },
         "task_extended": {
           "type": "string",
-          "description":
-            "Extended version of the 'task' property. Gives more information."
+          "description": "Extended version of the 'task' property. Gives more information."
         },
         "data_type": {
           "type": "string",
-          "description":
-            "Free text explaining the type of input data to the model. Examples: Photos, CT Dicom, Vectors."
+          "description": "Free text explaining the type of input data to the model. Examples: Photos, CT Dicom, Vectors."
         },
         "data_source": {
           "type": "string",
-          "description":
-            "If the model has been trained on public data, this property is a url link to the data. Otherwise does not exist. Not required."
+          "description": "If the model has been trained on public data, this property is a url link to the data. Otherwise does not exist. Not required."
         }
       },
       "required": [
@@ -62,8 +55,7 @@
     },
     "publication": {
       "type": "object",
-      "description":
-        "Holds all information regarding the publication. If the 'publication' key does not exist, then there is no publication associated with this model.",
+      "description": "Holds all information regarding the publication. If the 'publication' key does not exist, then there is no publication associated with this model.",
       "properties": {
         "title": {
           "type": "string",
@@ -71,8 +63,7 @@
         },
         "source": {
           "type": "string",
-          "description":
-            "Source name. This could be the name of the journal or conference. If preprint, then the name of the platform. Example: Nature, IEEE, Arxiv."
+          "description": "Source name. This could be the name of the journal or conference. If preprint, then the name of the platform. Example: Nature, IEEE, Arxiv."
         },
         "year": {
           "type": "number",
@@ -80,33 +71,27 @@
         },
         "authors": {
           "type": "string",
-          "description":
-            "Authors in the same order they appear on the publication. Full first name, middle initial, Full last name. Preserve this as much as possible for best exposure for contributors."
+          "description": "Authors in the same order they appear on the publication. Full first name, middle initial, Full last name. Preserve this as much as possible for best exposure for contributors."
         },
         "email": {
           "type": "string",
-          "description":
-            "If contributor is ok with email being shared with users for future questions and communictions, this property is an email. Otherwise does not exist. Not required."
+          "description": "If contributor is ok with email being shared with users for future questions and communictions, this property is an email. Otherwise does not exist. Not required."
         },
         "abstract": {
           "type": "string",
-          "description":
-            "Publication abstract. Make sure this is pure text without newline funky characters..etc."
+          "description": "Publication abstract. Make sure this is pure text without newline funky characters..etc."
         },
         "url": {
           "type": "string",
-          "description":
-            "URL to the publication wherever it lives. If the paper is behind a paywall, this link should be public."
+          "description": "URL to the publication wherever it lives. If the paper is behind a paywall, this link should be public."
         },
         "google_scholar": {
           "type": "string",
-          "description":
-            "Link to google scholar page that lists all other works that have cited this publication. Get this link by clicking on the number of citation of this publication on the google scholar website. This will help us in the future for undertsanding the 'impact' of models in modelhub. Number of citations is a horrible metric.. but it's the only thing we have ¯\\_(ツ)_//¯"
+          "description": "Link to google scholar page that lists all other works that have cited this publication. Get this link by clicking on the number of citation of this publication on the google scholar website. This will help us in the future for undertsanding the 'impact' of models in modelhub. Number of citations is a horrible metric.. but it's the only thing we have ¯\\_(ツ)_//¯"
         },
         "bibtex": {
           "type": "string",
-          "description":
-            "A BibTeX style citation for the publication. Make sure it includes a DOI if available."
+          "description": "A BibTeX style citation for the publication. Make sure it includes a DOI if available."
         }
       },
       "required": [
@@ -123,8 +108,7 @@
     },
     "viewer": {
       "type": "string",
-      "description":
-        "This string represents the model viewer used. If the 'viewer' key does not exist, this model cannot be visualized. This will usually ready 'netron' - and can be swapped for more model viewers in the future."
+      "description": "This string represents the model viewer used. If the 'viewer' key does not exist, this model cannot be visualized. This will usually ready 'netron' - and can be swapped for more model viewers in the future."
     },
     "model": {
       "type": "object",
@@ -136,13 +120,11 @@
         },
         "learning_type": {
           "type": "string",
-          "description":
-            "Choice of Supervised Learning, Unsupervised Learning, Self-Supervised Learning, or one of the other types they keep coming up with these days. "
+          "description": "Choice of Supervised Learning, Unsupervised Learning, Self-Supervised Learning, or one of the other types they keep coming up with these days. "
         },
         "backend": {
           "type": "array",
-          "description":
-            "Describes the platform where the model was trained. This can also be inferred by glancing over the dockerfile. Examples include: tensorflow, caffe, pytorch..etc. Ensure small caps.",
+          "description": "Describes the platform where the model was trained. This can also be inferred by glancing over the dockerfile. Examples include: tensorflow, caffe, pytorch..etc. Ensure small caps.",
           "items": {
             "type": "string"
           },
@@ -157,23 +139,19 @@
 
         "architecture": {
           "type": "string",
-          "description":
-            "Architecture type + acronym in parenthesis if available. Example: Convolutional Neural Network (CNN). "
+          "description": "Architecture type + acronym in parenthesis if available. Example: Convolutional Neural Network (CNN). "
         },
         "io": {
           "type": "object",
-          "description":
-            "Inputs this model expects and outputs you should be expecting.",
+          "description": "Inputs this model expects and outputs you should be expecting.",
           "properties": {
             "input": {
               "type": "object",
-              "description":
-                "Input properties. For inputs, we dictate the file formats that can be absorbed by modelhub. In the backend, these are converted to numpy arrays and fed into the model. Also for inputs, we define the dimension limits.",
+              "description": "Input properties. For inputs, we dictate the file formats that can be absorbed by modelhub. In the backend, these are converted to numpy arrays and fed into the model. Also for inputs, we define the dimension limits.",
               "properties": {
                 "format": {
                   "type": "array",
-                  "description":
-                    "An array of acceptable file formats according to python MIME type. Example: image/jpeg, application/dicom.",
+                  "description": "An array of acceptable file formats according to python MIME type. Example: image/jpeg, application/dicom.",
                   "items": {
                     "type": "string"
                   },
@@ -182,8 +160,7 @@
                 },
                 "dim_limits": {
                   "type": "array",
-                  "description":
-                    "An array of objects. The array can have varying length depending on the input data size. ( array length == 1 : vector ) ( array length == 3 : 2d ) ( array length == 4 : 3d ). First item in array is always a channel, the second is width, the third is length, and the forth is height. We only deal with a inference on a single image at once, so it is unlikely that there will be a fifth item.",
+                  "description": "An array of objects. The array can have varying length depending on the input data size. ( array length == 1 : vector ) ( array length == 3 : 2d ) ( array length == 4 : 3d ). First item in array is always a channel, the second is width, the third is length, and the forth is height. We only deal with a inference on a single image at once, so it is unlikely that there will be a fifth item.",
                   "items": {
                     "properties": {
                       "min": {
@@ -192,8 +169,7 @@
                       },
                       "max": {
                         "type": "number",
-                        "description":
-                          "Maximum size of the dimension. Not Required."
+                        "description": "Maximum size of the dimension. Not Required."
                       }
                     },
                     "required": ["min"],
@@ -203,17 +179,15 @@
                 },
                 "description": {
                   "type": "string",
-                  "description":
-                    "Optional string to describe the input beyond the required format and dim_limits properties.",
-                },
+                  "description": "Optional string to describe the input beyond the required format and dim_limits properties."
+                }
               },
               "required": ["format", "dim_limits"],
               "additionalProperties": false
             },
             "output": {
               "type": "array",
-              "description":
-                "An array of objects. Output properties. For outputs, we do not dictate the size. We do however identify the name and type. The ordering is important here. The model infer function will give outputs in the same order as defined here.",
+              "description": "An array of objects. Output properties. For outputs, we do not dictate the size. We do however identify the name and type. The ordering is important here. The model infer function will give outputs in the same order as defined here.",
               "items": {
                 "properties": {
                   "name": {
@@ -222,8 +196,7 @@
                   },
                   "type": {
                     "type": "string",
-                    "description":
-                      "This could be one of the 6 types. See the 'options' property of this object for a full list of types. Each model can have at least one or more output type(s).",
+                    "description": "This could be one of the 6 types. See the 'options' property of this object for a full list of types. Each model can have at least one or more output type(s).",
                     "options": [
                       {
                         "name": "label_list",
@@ -234,15 +207,13 @@
                       {
                         "name": "contour_2d",
                         "overlaid": false,
-                        "description":
-                          "A list (or lists) of [x,y] coordinates identifying the contour of a mask.",
+                        "description": "A list (or lists) of [x,y] coordinates identifying the contour of a mask.",
                         "file_type": "json"
                       },
                       {
                         "name": "contour_3d",
                         "overlaid": false,
-                        "description":
-                          "A list (or lists) of [x,y,z] coordinates identifying the contour of a mask.",
+                        "description": "A list (or lists) of [x,y,z] coordinates identifying the contour of a mask.",
                         "file_type": "json"
                       },
                       {
@@ -254,37 +225,32 @@
                       {
                         "name": "mask_image",
                         "overlaid": true,
-                        "description":
-                          "2d or 3d, discrete values. 0 is always background, 1,2... are the regions",
+                        "description": "2d or 3d, discrete values. 0 is always background, 1,2... are the regions",
                         "file_type": "h5"
                       },
                       {
                         "name": "heatmap",
                         "overlaid": true,
-                        "description":
-                          "2d grayscale, 2d multi, 3d grayscale, 3d multi. If normalized, 1 is highest, 0 is lowest",
+                        "description": "2d grayscale, 2d multi, 3d grayscale, 3d multi. If normalized, 1 is highest, 0 is lowest",
                         "file_type": "h5"
                       },
                       {
                         "name": "image",
                         "overlaid": false,
-                        "description":
-                          "2d grayscale, 2d multi, 3d grayscale, 3d multi",
+                        "description": "2d grayscale, 2d multi, 3d grayscale, 3d multi",
                         "file_type": "h5"
                       },
                       {
                         "name": "custom",
-                        "description":
-                          "Alien format we are not able to deal with yet.",
+                        "description": "Alien format we are not able to deal with yet.",
                         "file_type": "h5"
                       }
                     ]
                   },
                   "description": {
                     "type": "string",
-                    "description":
-                      "Optional string to describe the output beyond the required name and type properties.",
-                  },
+                    "description": "Optional string to describe the output beyond the required name and type properties."
+                  }
                 },
                 "required": ["name", "type"],
                 "additionalProperties": false
@@ -299,25 +265,20 @@
       "required": ["description", "learning_type", "architecture", "io"],
       "additionalProperties": false
     },
-    "allow_user_test": {
-      "type": "boolean",
-      "description":
-        "This boolean identifies if testing on user uploaded images is allowed or not. It will control the display of the 'test' tab on the modelhub frontend."
-    },
-    "allow_sample_demo": {
-      "type": "boolean",
-      "description":
-        "This boolean identifies if testing on sample images is allowed or not. It will control the display of the 'demo' tab on the modelhub frontend. This is not an indication that sample images exist or not."
-    },
     "modelhub": {
       "type": "object",
-      "description":
-        "This property is not required. It has a free structure and should be added by the modelhub team. It can be helful if the modelhub web app requires certain parameters for correctly visualizing input/outputs.",
+      "description": "This property is not required. It has a free structure and should be added by the modelhub team. It can be helful if the modelhub web app requires certain parameters for correctly visualizing input/outputs.",
       "properties": {},
       "required": [],
+      "modelhubOptionalProperties": [
+        "allow_user_test",
+        "allow_sample_demo",
+        "top",
+        "sort"
+      ],
       "additionalProperties": true
     }
   },
-  "required": ["id", "meta", "model", "allow_user_test", "allow_sample_demo"],
+  "required": ["id", "meta", "model"],
   "additionalProperties": false
 }
