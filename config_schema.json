@@ -71,7 +71,7 @@
         },
         "authors": {
           "type": "string",
-          "description": "Authors in the same order they appear on the publication. Full first name, middle initial, Full last name. Preserve this as much as possible for best exposure for contributors."
+          "description": "Authors in the same order they appear on the publication. Full first name, middle initial with dot, Full last name. Preserve this as much as possible for best exposure for contributors."
         },
         "email": {
           "type": "string",
