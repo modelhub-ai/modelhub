@@ -51,5 +51,12 @@
     "task_extended": "2-year survival of NSCLC patients",
     "github": "https://github.com/modelhub-ai/deep-prognosis",
     "github_branch": "master"
+  },
+  {
+    "id": "ce585219-d617-4864-b225-06b52532ea95",
+    "name": "sfm-learner-pose",
+    "task_extended": "Unsupervised Pose and Depth Estimation",
+    "github": "https://github.com/modelhub-ai/sfm-learner-pose",
+    "github_branch": "master"
   }
 ]
