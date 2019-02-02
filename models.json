@@ -6,7 +6,9 @@
     "name": "squeezenet",
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/squeezenet",
-    "github_branch": "master"
+    "github_branch": "master",
+    "backend": ["caffe2", "onnx"],
+    "viewer": "netron"
   },
   {
     "id": "948e93d7-bc36-4c39-9640-dc3345269fe7",
@@ -15,48 +17,59 @@
     "name": "googlenet",
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/googlenet",
-    "github_branch": "master"
+    "github_branch": "master",
+    "backend": ["caffe2", "onnx"],
+    "viewer": "netron"
   },
   {
     "id": "6c7d087b-ad67-4e36-8210-28b445d4d11b",
     "name": "alexnet",
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/alexnet",
-    "github_branch": "master"
+    "github_branch": "master",
+    "backend": ["caffe2", "onnx"]
   },
   {
     "id": "8abbcaef-6bcf-4f1f-9159-85c17c38bd00",
     "name": "resnet-50",
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/resnet-50",
-    "github_branch": "master"
+    "github_branch": "master",
+    "backend": ["caffe2", "onnx"]
   },
   {
     "id": "985c8604-1381-4ebf-85af-bfe32080fb55",
     "name": "cardiac-fcn",
     "task_extended": "Segmenting the right ventricle in MRI",
     "github": "https://github.com/modelhub-ai/cardiac-fcn",
-    "github_branch": "master"
+    "github_branch": "master",
+    "backend": ["tensorflow", "keras"],
+    "viewer": "netron"
   },
   {
     "id": "ccc16d36-d788-43eb-9e53-2125c97888df",
     "name": "cascaded-fcn-liver",
     "task_extended": "Liver and liver lesion segmentation",
     "github": "https://github.com/modelhub-ai/cascaded-fcn-liver",
-    "github_branch": "master"
+    "github_branch": "master",
+    "backend": ["caffe"]
   },
   {
     "id": "9d6a816a-612c-4f50-90f6-8f043db2a775",
     "name": "deep-prognosis",
     "task_extended": "2-year survival of NSCLC patients",
     "github": "https://github.com/modelhub-ai/deep-prognosis",
-    "github_branch": "master"
+    "github_branch": "master",
+    "backend": ["tensorflow", "keras"],
+    "viewer": "netron"
   },
   {
     "id": "ce585219-d617-4864-b225-06b52532ea95",
     "name": "sfm-learner-pose",
     "task_extended": "Unsupervised Pose & Depth Estimation",
     "github": "https://github.com/modelhub-ai/sfm-learner-pose",
-    "github_branch": "master"
+    "github_branch": "master",
+    "backend": ["tensorflow"],
+    "viewer": "netron"
   }
 ]
