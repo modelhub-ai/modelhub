@@ -106,10 +106,6 @@
       ],
       "additionalProperties": false
     },
-    "viewer": {
-      "type": "string",
-      "description": "This string represents the model viewer used. If the 'viewer' key does not exist, this model cannot be visualized. This will usually ready 'netron' - and can be swapped for more model viewers in the future."
-    },
     "model": {
       "type": "object",
       "description": "Holds all information regarding the model itself.",
@@ -122,16 +118,6 @@
           "type": "string",
           "description": "Choice of Supervised Learning, Unsupervised Learning, Self-Supervised Learning, or one of the other types they keep coming up with these days. "
         },
-        "backend": {
-          "type": "array",
-          "description": "Describes the platform where the model was trained. This can also be inferred by glancing over the dockerfile. Examples include: tensorflow, caffe, pytorch..etc. Ensure small caps.",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1,
-          "uniqueItems": true
-        },
-
         "format": {
           "type": "string",
           "description": "File format of the model with the preceeding dot. This could be .h5, .caffemodel, .onnx ...etc. This is used by the viewer to grab and view the model file if it is served on Github."
