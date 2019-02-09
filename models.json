@@ -71,5 +71,13 @@
     "github_branch": "master",
     "backend": ["tensorflow"],
     "viewer": "netron"
+  },
+  {
+    "id": "02f2f15c-3285-44a4-8119-b298623b7acf",
+    "name": "arc-face",
+    "task_extended": "Facial Detection & Recognition",
+    "github": "https://github.com/modelhub-ai/arc-face",
+    "github_branch": "master",
+    "backend": ["mxnet"]
   }
 ]
