@@ -86,6 +86,7 @@
     "task_extended": "Facial Expression Recognition",
     "github": "https://github.com/modelhub-ai/emotion-fer-plus",
     "github_branch": "master",
-    "backend": ["cntk"]
+    "backend": ["cntk"],
+    "viewer": "netron"
   }
 ]
