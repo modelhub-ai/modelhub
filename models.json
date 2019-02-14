@@ -79,5 +79,13 @@
     "github": "https://github.com/modelhub-ai/arc-face",
     "github_branch": "master",
     "backend": ["mxnet"]
+  },
+  {
+    "id": "115053de-abe1-4073-b957-99213599e8a4",
+    "name": "emotion-fer-plus",
+    "task_extended": "Facial Expression Recognition",
+    "github": "https://github.com/modelhub-ai/emotion-fer-plus",
+    "github_branch": "master",
+    "backend": ["cntk"]
   }
 ]
