@@ -22,6 +22,17 @@
     "viewer": "netron"
   },
   {
+    "id": "115053de-abe1-4073-b957-99213599e8a4",
+    "url": "http://3.88.163.221",
+    "api": ":80/api/",
+    "name": "emotion-fer-plus",
+    "task_extended": "Facial Expression Recognition",
+    "github": "https://github.com/modelhub-ai/emotion-fer-plus",
+    "github_branch": "master",
+    "backend": ["cntk", "onnx"],
+    "viewer": "netron"
+  },
+  {
     "id": "6c7d087b-ad67-4e36-8210-28b445d4d11b",
     "name": "alexnet",
     "task_extended": "ImageNet classification",
@@ -79,14 +90,5 @@
     "github": "https://github.com/modelhub-ai/arc-face",
     "github_branch": "master",
     "backend": ["mxnet"]
-  },
-  {
-    "id": "115053de-abe1-4073-b957-99213599e8a4",
-    "name": "emotion-fer-plus",
-    "task_extended": "Facial Expression Recognition",
-    "github": "https://github.com/modelhub-ai/emotion-fer-plus",
-    "github_branch": "master",
-    "backend": ["cntk"],
-    "viewer": "netron"
   }
 ]
