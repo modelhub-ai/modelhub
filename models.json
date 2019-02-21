@@ -90,5 +90,13 @@
     "github": "https://github.com/modelhub-ai/arc-face",
     "github_branch": "master",
     "backend": ["mxnet"]
+  },
+  {
+    "id": "8154347c-a642-4e9e-91f1-ba800c0b532f",
+    "name": "duc-semantic",
+    "task_extended": "Semantic Segmentation",
+    "github": "https://github.com/modelhub-ai/duc-semantic",
+    "github_branch": "master",
+    "backend": ["mxnet"]
   }
 ]
