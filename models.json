@@ -33,6 +33,15 @@
     "viewer": "netron"
   },
   {
+    "id": "f7201cb5-37af-476b-86e0-4c8120d8235e",
+    "name": "vgg-19",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/vgg-19",
+    "github_branch": "master",
+    "backend": ["mxnet"],
+    "viewer": "netron"
+  },
+  {
     "id": "6c7d087b-ad67-4e36-8210-28b445d4d11b",
     "name": "alexnet",
     "task_extended": "ImageNet classification",
