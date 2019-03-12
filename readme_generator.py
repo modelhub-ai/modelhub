@@ -67,6 +67,7 @@ def generateReadMe(data):
     model = data["model"]
     fid.beginTable()
     fid.tableRow(model, "description", model["description"])
+    fid.tableRow(model, "provenance", model["provenance"])
     fid.tableRow(model, "architecture", model["architecture"])
     fid.tableRow(model, "learning_type", model["learning_type"])
     fid.tableRow(model, "format", model["format"])
