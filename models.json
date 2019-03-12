@@ -67,6 +67,15 @@
     "backend": ["caffe2", "onnx"]
   },
   {
+    "id": "016c5f2a-9b58-44a9-bc93-10dc67385035",
+    "name": "mobilenet",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/mobilenet",
+    "github_branch": "master",
+    "backend": ["mxnet"],
+    "viewer": "netron"
+  },
+  {
     "id": "985c8604-1381-4ebf-85af-bfe32080fb55",
     "name": "cardiac-fcn",
     "task_extended": "Segmenting the right ventricle in MRI",
