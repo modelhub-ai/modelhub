@@ -59,6 +59,14 @@
     "backend": ["caffe2", "onnx"]
   },
   {
+    "id": "c0048222-b29f-4719-be6b-cac790251a19",
+    "name": "densenet",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/densenet",
+    "github_branch": "master",
+    "backend": ["tensorflow", "keras"]
+  },
+  {
     "id": "8abbcaef-6bcf-4f1f-9159-85c17c38bd00",
     "name": "resnet-50",
     "task_extended": "ImageNet classification",
