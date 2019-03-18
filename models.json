@@ -33,6 +33,14 @@
     "viewer": "netron"
   },
   {
+    "id": "001bb1c9-bbaf-48ca-bf4a-505faca870dd",
+    "name": "inception-v3",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/inception-v3",
+    "github_branch": "master",
+    "backend": ["tensorflow", "keras"]
+  },
+  {
     "id": "f7201cb5-37af-476b-86e0-4c8120d8235e",
     "name": "vgg-19",
     "task_extended": "ImageNet classification",
