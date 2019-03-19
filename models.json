@@ -50,6 +50,14 @@
     "viewer": "netron"
   },
   {
+    "id": "dbf35840-9c8d-408f-8a36-b9fe2f8e5546",
+    "name": "xception",
+    "task_extended": "ImageNet classification",
+    "github": "https://github.com/modelhub-ai/xception",
+    "github_branch": "master",
+    "backend": ["tensorflow", "keras"]
+  },
+  {
     "id": "b73d1ee2-c1c2-4a7f-951e-6ec569a8dc98",
     "name": "network-in-network",
     "task_extended": "ImageNet classification",
