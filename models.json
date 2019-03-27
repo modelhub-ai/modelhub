@@ -46,7 +46,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/vgg-19",
     "github_branch": "master",
-    "backend": ["mxnet"],
+    "backend": ["mxnet", "onnx"],
     "viewer": "netron"
   },
   {
