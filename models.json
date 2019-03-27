@@ -7,7 +7,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/squeezenet",
     "github_branch": "master",
-    "backend": ["caffe2", "onnx"],
+    "backend": ["mxnet", "onnx"],
     "viewer": "netron"
   },
   {
