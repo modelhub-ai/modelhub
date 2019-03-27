@@ -96,7 +96,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/mobilenet",
     "github_branch": "master",
-    "backend": ["mxnet"],
+    "backend": ["mxnet", "onnx"],
     "viewer": "netron"
   },
   {
