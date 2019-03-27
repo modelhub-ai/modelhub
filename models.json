@@ -88,7 +88,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/resnet-50",
     "github_branch": "master",
-    "backend": ["caffe2", "onnx"]
+    "backend": ["mxnet", "onnx"]
   },
   {
     "id": "016c5f2a-9b58-44a9-bc93-10dc67385035",
