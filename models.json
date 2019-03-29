@@ -72,7 +72,8 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/alexnet",
     "github_branch": "master",
-    "backend": ["caffe2", "onnx"]
+    "backend": ["caffe"],
+    "viewer": "netron"
   },
   {
     "id": "c0048222-b29f-4719-be6b-cac790251a19",
