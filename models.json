@@ -58,15 +58,6 @@
     "backend": ["tensorflow", "keras"]
   },
   {
-    "id": "b73d1ee2-c1c2-4a7f-951e-6ec569a8dc98",
-    "name": "network-in-network",
-    "task_extended": "ImageNet classification",
-    "github": "https://github.com/modelhub-ai/network-in-network",
-    "github_branch": "master",
-    "backend": ["mxnet"],
-    "viewer": "netron"
-  },
-  {
     "id": "6c7d087b-ad67-4e36-8210-28b445d4d11b",
     "name": "alexnet",
     "task_extended": "ImageNet classification",
