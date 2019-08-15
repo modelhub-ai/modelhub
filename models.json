@@ -145,7 +145,7 @@
     "id": "d9564b79-1f1a-4ac4-891d-2767a0d6bc95",
     "name": "yolo-v3",
     "task_extended": "Real-Time Object Detection",
-    "github": "https://github.com/christophbrgr/yolov3",
+    "github": "https://github.com/modelhub-ai/yolo-v3",
     "github_branch": "master",
     "backend": ["tensorflow", "keras"],
     "viewer": "netron"
