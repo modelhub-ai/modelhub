@@ -20,8 +20,10 @@ except ImportError:
 parser = argparse.ArgumentParser(description="Starts model with modehub framework and downloads model and prerequisites"\
                                              " if they don't exist yet."\
                                              " By default starts a webservice showing details about the model providing"\
-                                             " an easy user interface to run inference.")
-parser.add_argument("model", metavar = "MODEL", 
+                                             " an easy user interface to run inference." \
+                                             "Please keep in mind that some models require Nvidia-Docker to run as" \
+                                             " they need a supported GPU.")
+parser.add_argument("model", metavar = "MODEL",
                     help = "Name of the model to run.")
 parser.add_argument("-l", "--list",
                     help = "List all models available online on modelhub.",
@@ -33,10 +35,10 @@ parser.add_argument("-ud", "--updatedocker",
                     help = "Re-download the Docker for the current model. This is usually not necessary since updating the model with '-u' would also update the Docker if its version changed. However, in some cases (corrupt Docker, version conflict) it might be necessary to force a re-download of the Docker.",
                     action = "store_true")
 group = parser.add_mutually_exclusive_group()
-group.add_argument("-e", "--expert", 
+group.add_argument("-e", "--expert",
                     help = "Start MODEL in expert mode. Provides a jupyter notebook environment to experiment.",
                     action = "store_true")
-group.add_argument("-b", "--bash", 
+group.add_argument("-b", "--bash",
                     help = "Start MODEL Docker in bash mode. Explore the Docker on your own.",
                     action = "store_true")
 parser.add_argument("-ap", "--apiport", default = 80, type = int,
@@ -47,7 +49,6 @@ parser.add_argument("-md", "--mountdata",
                     help = "Mount a local folder with data into the MODEL Docker. Inside the Docker the folder will be mounted as '/data'")
 parser.add_argument("-mf", "--mountframework", dest = "framework",
                     help = "Use modelhub framework from local drive instead of the built-in modelhub framework version. This is a feature for modelhub-engine developers.")
-
 
 
 def start_basic(base_command, args):
@@ -117,11 +118,18 @@ def remove_model_docker(docker_id):
 
 def start_docker(args):
     docker_id = get_init_value(args.model, "docker_id")
+    config = get_model_info_from_index(args.model)
     if args.updatedocker:
         remove_model_docker(docker_id)
-    command = ("docker run -it --rm " + get_port_mapping_cmd(args) + " " 
-               + get_contrib_src_mount_cmd(args) + " " 
-               + get_local_framework_mount_cmd(args) + " " 
+    if config["gpu"]:
+        command = ("docker run -it --rm --runtime=nvidia " + get_port_mapping_cmd(args) + " "
+               + get_contrib_src_mount_cmd(args) + " "
+               + get_local_framework_mount_cmd(args) + " "
+               + get_local_data_mount_cmd(args) + " " + docker_id)
+    else:
+        command = ("docker run -it --rm " + get_port_mapping_cmd(args) + " "
+               + get_contrib_src_mount_cmd(args) + " "
+               + get_local_framework_mount_cmd(args) + " "
                + get_local_data_mount_cmd(args) + " " + docker_id)
     if args.expert:
         start_expert(command, args)
@@ -176,7 +184,7 @@ def get_init_value(model_name, key):
 
 
 def get_model_index():
-    index_url = "https://raw.githubusercontent.com/modelhub-ai/modelhub/master/models.json"
+    index_url = "https://raw.githubusercontent.com/christophbrgr/modelhub/master/models.json"
     return json.loads(urlopen(index_url).read().decode("utf-8"))
 
 
@@ -249,7 +257,7 @@ if __name__ == "__main__":
             sys.exit(0)
         else:
             args = parser.parse_args()
-    except SystemExit as e: 
+    except SystemExit as e:
         if e.code == 2:
             parser.print_help()
         sys.exit(e.code)
@@ -267,5 +275,3 @@ if __name__ == "__main__":
     except Exception as e:
         print("ERROR: Model startup failed.")
         print("ERROR DETAIL: ", e)
-
-
