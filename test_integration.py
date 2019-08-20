@@ -29,7 +29,7 @@ parser = argparse.ArgumentParser(description="Performs integration test for a mo
                                              " You should always also check manually if everything works as you expect."\
                                              " Especially test the prediction on a few sample datasets.",
                                 formatter_class = argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument("model", metavar = "MODEL", 
+parser.add_argument("model", metavar = "MODEL",
                     help = "Name of the model to run.")
 parser.add_argument("-t", dest = "time", default = 5, type = int,
                     help = "Delay time (in seconds) to wait between starting the model and running the tests."\
@@ -53,8 +53,8 @@ test_fail = False
 api_port = 80
 
 def warning(*message):
-    """ 
-    Call this function only directly from the test function for wich you want to signal 
+    """
+    Call this function only directly from the test function for wich you want to signal
     that it has passed but with a warning.
     """
     global count_warn
@@ -64,8 +64,8 @@ def warning(*message):
 
 
 def error(*message):
-    """ 
-    Call this function only directly from the test function for wich you want to signal 
+    """
+    Call this function only directly from the test function for wich you want to signal
     that it has failed.
     """
     global test_fail
@@ -77,8 +77,8 @@ def error(*message):
 
 
 def passed():
-    """ 
-    Call this function only directly from the test function for wich you want to signal 
+    """
+    Call this function only directly from the test function for wich you want to signal
     that it has passed.
     """
     print("Integration test \"" + inspect.stack()[1][3] + "\" has PASSED")
@@ -158,7 +158,7 @@ def check_if_local_and_api_config_model_names_match(model_name):
         error("The name for the model you indicated to test and the model name returned from the model API do not match (" + local_config["meta"]["name"] + " != " + api_config["meta"]["name"] + "). This usually indicates that the wrong model is running. Please make sure to start the correct model and that no other model is running during testing.")
     else:
         passed()
-    
+
 
 def check_if_legal_docs_available():
     legal = get_api_response_as_json("get_legal")
@@ -218,7 +218,7 @@ def check_if_prediction_returns_expected_data_format():
         warning("Cannot test prediction without sample data.")
         return
     sample_file = samples[0].rsplit("/", 1)[-1]
-    config_output_types = _get_output_types_from_config()    
+    config_output_types = _get_output_types_from_config()
     result = get_api_response_as_json("predict_sample?filename=" + sample_file)
     if "error" in result:
         error(result["error"])
@@ -240,7 +240,7 @@ def check_if_prediction_returns_expected_data_format():
                 error("Shape of output", str(i), "is not valid, or output is not a matrix")
         else:
             error("Output type \"" + output["type"] + "\" is not a valid output type.")
-    passed()    
+    passed()
 
 
 def print_test_summary():
@@ -262,14 +262,14 @@ def start_docker(args):
                 raise RuntimeError("Other modelhub Docker containers are currently running.\n"\
                                    "For intergration testing please make sure that no other modehub container is running when starting the test.")
             command = ("docker run -d --rm -p " + str(args.port) + ":80 "
-                       + "--name=modelhub_ai_test_container -v " 
-                       + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src " 
+                       + "--name=modelhub_ai_test_container -v "
+                       + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src "
                        + docker_id)
             subprocess.check_call(command, shell = True)
             time.sleep(args.time)
     else:
         pass
-    
+
 
 def run_tests(args):
     global api_port
@@ -302,7 +302,7 @@ if __name__ == "__main__":
     try:
         start_docker(args)
         run_tests(args)
-    except SystemExit as e: 
+    except SystemExit as e:
         test_fail = True
         print(e)
     except Exception:
@@ -311,5 +311,3 @@ if __name__ == "__main__":
     finally:
         kill_docker(args)
         print_test_summary()
-        
-
