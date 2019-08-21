@@ -164,7 +164,6 @@
     "github": "https://github.com/modelhub-ai/yolo-v3",
     "github_branch": "master",
     "backend": ["tensorflow", "keras"],
-    "viewer": "netron",
     "gpu": false
   }
 ]
