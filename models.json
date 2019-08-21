@@ -8,8 +8,7 @@
     "github": "https://github.com/modelhub-ai/squeezenet",
     "github_branch": "master",
     "backend": ["mxnet", "onnx"],
-    "viewer": "netron",
-    "gpu": false
+    "viewer": "netron"
   },
   {
     "id": "948e93d7-bc36-4c39-9640-dc3345269fe7",
@@ -20,8 +19,7 @@
     "github": "https://github.com/modelhub-ai/googlenet",
     "github_branch": "master",
     "backend": ["caffe"],
-    "viewer": "netron",
-    "gpu": false
+    "viewer": "netron"
   },
   {
     "id": "115053de-abe1-4073-b957-99213599e8a4",
@@ -32,8 +30,7 @@
     "github": "https://github.com/modelhub-ai/emotion-fer-plus",
     "github_branch": "master",
     "backend": ["cntk", "onnx"],
-    "viewer": "netron",
-    "gpu": false
+    "viewer": "netron"
   },
   {
     "id": "001bb1c9-bbaf-48ca-bf4a-505faca870dd",
@@ -41,8 +38,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/inception-v3",
     "github_branch": "master",
-    "backend": ["tensorflow", "keras"],
-    "gpu": false
+    "backend": ["tensorflow", "keras"]
   },
   {
     "id": "f7201cb5-37af-476b-86e0-4c8120d8235e",
@@ -59,8 +55,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/xception",
     "github_branch": "master",
-    "backend": ["tensorflow", "keras"],
-    "gpu": false
+    "backend": ["tensorflow", "keras"]
   },
   {
     "id": "6c7d087b-ad67-4e36-8210-28b445d4d11b",
@@ -69,8 +64,7 @@
     "github": "https://github.com/modelhub-ai/alexnet",
     "github_branch": "master",
     "backend": ["caffe"],
-    "viewer": "netron",
-    "gpu": false
+    "viewer": "netron"
   },
   {
     "id": "c0048222-b29f-4719-be6b-cac790251a19",
@@ -78,8 +72,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/densenet",
     "github_branch": "master",
-    "backend": ["tensorflow", "keras"],
-    "gpu": false
+    "backend": ["tensorflow", "keras"]
   },
   {
     "id": "8abbcaef-6bcf-4f1f-9159-85c17c38bd00",
@@ -87,8 +80,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/resnet-50",
     "github_branch": "master",
-    "backend": ["mxnet", "onnx"],
-    "gpu": false
+    "backend": ["mxnet", "onnx"]
   },
   {
     "id": "016c5f2a-9b58-44a9-bc93-10dc67385035",
@@ -97,8 +89,7 @@
     "github": "https://github.com/modelhub-ai/mobilenet",
     "github_branch": "master",
     "backend": ["mxnet", "onnx"],
-    "viewer": "netron",
-    "gpu": false
+    "viewer": "netron"
   },
   {
     "id": "985c8604-1381-4ebf-85af-bfe32080fb55",
@@ -116,8 +107,7 @@
     "task_extended": "Liver and liver lesion segmentation",
     "github": "https://github.com/modelhub-ai/cascaded-fcn-liver",
     "github_branch": "master",
-    "backend": ["caffe"],
-    "gpu": false
+    "backend": ["caffe"]
   },
   {
     "id": "9d6a816a-612c-4f50-90f6-8f043db2a775",
@@ -126,8 +116,7 @@
     "github": "https://github.com/modelhub-ai/deep-prognosis",
     "github_branch": "master",
     "backend": ["tensorflow", "keras"],
-    "viewer": "netron",
-    "gpu": false
+    "viewer": "netron"
   },
   {
     "id": "ce585219-d617-4864-b225-06b52532ea95",
@@ -136,8 +125,7 @@
     "github": "https://github.com/modelhub-ai/sfm-learner-pose",
     "github_branch": "master",
     "backend": ["tensorflow"],
-    "viewer": "netron",
-    "gpu": false
+    "viewer": "netron"
   },
   {
     "id": "02f2f15c-3285-44a4-8119-b298623b7acf",
@@ -145,8 +133,7 @@
     "task_extended": "Facial Detection & Recognition",
     "github": "https://github.com/modelhub-ai/arc-face",
     "github_branch": "master",
-    "backend": ["mxnet"],
-    "gpu": false
+    "backend": ["mxnet"]
   },
   {
     "id": "8154347c-a642-4e9e-91f1-ba800c0b532f",
@@ -154,8 +141,7 @@
     "task_extended": "Semantic Segmentation",
     "github": "https://github.com/modelhub-ai/duc-semantic",
     "github_branch": "master",
-    "backend": ["mxnet"],
-    "gpu": false
+    "backend": ["mxnet"]
   },
   {
     "id": "d9564b79-1f1a-4ac4-891d-2767a0d6bc95",
@@ -163,7 +149,6 @@
     "task_extended": "Real-Time Object Detection",
     "github": "https://github.com/modelhub-ai/yolo-v3",
     "github_branch": "master",
-    "backend": ["tensorflow", "keras"],
-    "gpu": false
+    "backend": ["tensorflow", "keras"]
   }
 ]
