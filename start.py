@@ -41,6 +41,9 @@ group.add_argument("-e", "--expert",
 group.add_argument("-b", "--bash",
                     help = "Start MODEL Docker in bash mode. Explore the Docker on your own.",
                     action = "store_true")
+parser.add_argument("-g", "--gpu",
+                    help = "Overrides the automatic check whether the model needs a GPU or not and tries to start the container with GPU support. Use this for testing if your model hasn't been included in the model index yet. Do not pass if your model only uses the CPU (native Docker).",
+                    action = "store_true")
 parser.add_argument("-ap", "--apiport", default = 80, type = int,
                     help = "Defines to which port the Modelhub API should be mapped on the host system. Change this if the default port is already in use on your host system. (default: 80)")
 parser.add_argument("-jp", "--jupyterport", default = 8080, type = int,
@@ -118,14 +121,11 @@ def remove_model_docker(docker_id):
 
 def start_docker(args):
     docker_id = get_init_value(args.model, "docker_id")
-    try:
-        config = get_model_info_from_index(args.model)
-        if "gpu" in config:
-            gpu = True
-    except KeyError as e:
-        print(e)
-        print("Falling back to CPU for local model.")
-        gpu = False
+    if args.gpu:
+        print("Set GPU mode for local model.")
+        gpu = True
+    else:
+        gpu = check_gpu_mode(args)
     if args.updatedocker:
         remove_model_docker(docker_id)
     if gpu:
@@ -145,6 +145,16 @@ def start_docker(args):
     else:
         start_basic(command, args)
 
+def check_gpu_mode(args):
+    gpu = False # default
+    try:
+        config = get_model_info_from_index(args.model)
+        if "gpu" in config:
+            gpu = True
+    except KeyError as e:
+        print(e)
+        print("Falling back to CPU mode for local model.")
+    return gpu
 
 def convert_to_github_api_contents_req(url, branch_id):
     url_split = url.split("github.com")
