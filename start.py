@@ -118,10 +118,17 @@ def remove_model_docker(docker_id):
 
 def start_docker(args):
     docker_id = get_init_value(args.model, "docker_id")
-    config = get_model_info_from_index(args.model)
+    try:
+        config = get_model_info_from_index(args.model)
+        if "gpu" in config:
+            gpu = True
+    except KeyError as e:
+        print(e)
+        print("Falling back to CPU for local model.")
+        gpu = False
     if args.updatedocker:
         remove_model_docker(docker_id)
-    if "gpu" in config:
+    if gpu:
         command = ("docker run -it --rm --runtime=nvidia " + get_port_mapping_cmd(args) + " "
                + get_contrib_src_mount_cmd(args) + " "
                + get_local_framework_mount_cmd(args) + " "
