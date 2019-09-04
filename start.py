@@ -153,7 +153,7 @@ def check_gpu_mode(args):
             gpu = True
     except KeyError as e:
         print(e)
-        print("Falling back to CPU mode for local model.")
+        print("Attention: Falling back to CPU mode for local model.")
     return gpu
 
 def convert_to_github_api_contents_req(url, branch_id):
