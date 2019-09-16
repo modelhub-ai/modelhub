@@ -185,6 +185,15 @@
                   },
                   "type": {
                     "type": "string",
+                    "enum": [
+                      "label_list",
+                      "contour",
+                      "vector",
+                      "mask_image",
+                      "heatmap",
+                      "image",
+                      "custom"
+                    ],
                     "description": "This could be one of the 6 types. See the 'options' property of this object for a full list of types. Each model can have at least one or more output type(s).",
                     "options": [
                       {
