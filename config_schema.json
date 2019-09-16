@@ -114,6 +114,14 @@
           "type": "string",
           "description": "Free text explaining the model architecture."
         },
+        "provenance": {
+          "type": "string",
+          "description": "URL to where the model originated - or 'contributed by author'"
+        },
+        "architecture": {
+          "type": "string",
+          "description": "Architecture type + acronym in parenthesis if available. Example: Convolutional Neural Network (CNN). "
+        },
         "learning_type": {
           "type": "string",
           "description": "Choice of Supervised Learning, Unsupervised Learning, Self-Supervised Learning, or one of the other types they keep coming up with these days. "
@@ -121,11 +129,6 @@
         "format": {
           "type": "string",
           "description": "File format of the model with the preceeding dot. This could be .h5, .caffemodel, .onnx ...etc. This is used by the viewer to grab and view the model file if it is served on Github."
-        },
-
-        "architecture": {
-          "type": "string",
-          "description": "Architecture type + acronym in parenthesis if available. Example: Convolutional Neural Network (CNN). "
         },
         "io": {
           "type": "object",
@@ -191,15 +194,9 @@
                         "file_type": "json"
                       },
                       {
-                        "name": "contour_2d",
+                        "name": "contour",
                         "overlaid": false,
-                        "description": "A list (or lists) of [x,y] coordinates identifying the contour of a mask.",
-                        "file_type": "json"
-                      },
-                      {
-                        "name": "contour_3d",
-                        "overlaid": false,
-                        "description": "A list (or lists) of [x,y,z] coordinates identifying the contour of a mask.",
+                        "description": "A list (or lists) of coordinates identifying the contour of a mask.",
                         "file_type": "json"
                       },
                       {
@@ -211,19 +208,19 @@
                       {
                         "name": "mask_image",
                         "overlaid": true,
-                        "description": "2d or 3d, discrete values. 0 is always background, 1,2... are the regions",
+                        "description": ">=2 dimensions. Single- or multi-channel. Discrete values.",
                         "file_type": "h5"
                       },
                       {
                         "name": "heatmap",
                         "overlaid": true,
-                        "description": "2d grayscale, 2d multi, 3d grayscale, 3d multi. If normalized, 1 is highest, 0 is lowest",
+                        "description": ">=2 dimensions. Single- or multi-channel. Continuous values.",
                         "file_type": "h5"
                       },
                       {
                         "name": "image",
                         "overlaid": false,
-                        "description": "2d grayscale, 2d multi, 3d grayscale, 3d multi",
+                        "description": ">=2 dimensions. Single- or multi-channel. Continuous values.",
                         "file_type": "h5"
                       },
                       {
@@ -248,7 +245,14 @@
           "additionalProperties": false
         }
       },
-      "required": ["description", "learning_type", "architecture", "io"],
+      "required": [
+        "description",
+        "provenance",
+        "architecture",
+        "learning_type",
+        "format",
+        "io"
+      ],
       "additionalProperties": false
     },
     "modelhub": {
