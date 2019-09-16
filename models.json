@@ -98,8 +98,7 @@
     "github": "https://github.com/modelhub-ai/cardiac-fcn",
     "github_branch": "master",
     "backend": ["tensorflow", "keras"],
-    "viewer": "netron",
-    "gpu": false
+    "viewer": "netron"
   },
   {
     "id": "ccc16d36-d788-43eb-9e53-2125c97888df",
