@@ -137,6 +137,56 @@
             "input": {
               "type": "object",
               "description": "Input properties. For inputs, we dictate the file formats that can be absorbed by modelhub. In the backend, these are converted to numpy arrays and fed into the model. Also for inputs, we define the dimension limits.",
+              "patternProperties":{
+                  "(/^format$/)":{
+                    "type":"array",
+                    "description": "The overall input file type as MIME type. For multiple inputs, this is always application/json. If only a single input is needed, you can either leave json or use the actual datatype of your input file.",
+                  	"items": {
+                    	"type": "string"
+                  		},
+                  	"minItems": 1,
+                    "maxItems": 1,
+                  	"uniqueItems": true
+                  },
+                  "^((?!format).)*$":{
+                    "type":"object",
+                    "description": "Each additional key will be treated as an individual input file and has to be matched in the input configuration. e.g. if you need 4 input sequences for a MRI segmentation, you would add 4 keys t1, flair, t1c and t2 here with dim_limits and an appropriate file type. If you only have a single input for your model, use the key single",
+                    "properties":{
+                      "format": {
+                        "type": "array",
+                        "description": "An array of acceptable file formats according to python MIME type. Example: image/jpeg, application/dicom. For medical images, our non-standard types are: application/nii-gzip, application/nii, application/nrrd. ",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 1,
+                        "uniqueItems": true
+                		},
+                        "dim_limits": {
+                          "type": "array",
+                          "description": "An array of objects. The array can have varying length depending on the input data size. ( array length == 1 : vector ) ( array length == 3 : 2d ) ( array length == 4 : 3d ). First item in array is always a channel, the second is width, the third is length, and the forth is height. We only deal with a inference on a single image at once, so it is unlikely that there will be a fifth item.",
+                          "items": {
+                            "properties": {
+                              "min": {
+                                "type": "number",
+                                "description": "Minimum size of that dimension."
+                              },
+                              "max": {
+                                "type": "number",
+                                "description": "Maximum size of the dimension. Not Required."
+                              }
+                            },
+                            "required": ["min"],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        },
+                          "description": {
+                            "type": "string",
+                              "description": "Optional string to describe the input beyond the required format and dim_limits properties."
+                          }
+                    }
+                  }
+              },
               "properties": {
                 "format": {
                   "type": "array",
@@ -147,31 +197,12 @@
                   "minItems": 1,
                   "uniqueItems": true
                 },
-                "dim_limits": {
-                  "type": "array",
-                  "description": "An array of objects. The array can have varying length depending on the input data size. ( array length == 1 : vector ) ( array length == 3 : 2d ) ( array length == 4 : 3d ). First item in array is always a channel, the second is width, the third is length, and the forth is height. We only deal with a inference on a single image at once, so it is unlikely that there will be a fifth item.",
-                  "items": {
-                    "properties": {
-                      "min": {
-                        "type": "number",
-                        "description": "Minimum size of that dimension."
-                      },
-                      "max": {
-                        "type": "number",
-                        "description": "Maximum size of the dimension. Not Required."
-                      }
-                    },
-                    "required": ["min"],
-                    "additionalProperties": false
-                  },
-                  "minItems": 1
-                },
                 "description": {
                   "type": "string",
                   "description": "Optional string to describe the input beyond the required format and dim_limits properties."
                 }
               },
-              "required": ["format", "dim_limits"],
+              "required": ["format"],
               "additionalProperties": false
             },
             "output": {

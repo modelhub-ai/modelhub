@@ -129,7 +129,7 @@ def start_docker(args):
     if args.updatedocker:
         remove_model_docker(docker_id)
     if gpu:
-        command = ("docker run -it --rm --runtime=nvidia " + get_port_mapping_cmd(args) + " "
+        command = ("docker run -it --rm --gpus all " + get_port_mapping_cmd(args) + " "
                + get_contrib_src_mount_cmd(args) + " "
                + get_local_framework_mount_cmd(args) + " "
                + get_local_data_mount_cmd(args) + " " + docker_id)
