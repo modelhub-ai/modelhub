@@ -148,7 +148,11 @@
                     "maxItems": 1,
                   	"uniqueItems": true
                   },
-                  "^((?!format).)*$":{
+                  "(/^description$/)":{
+                    "type":"string",
+                    "description": "Optional description for the overall inputs."
+                  },
+                  "^(((?!format)(?!description)).)*$":{
                     "type":"object",
                     "description": "Each additional key will be treated as an individual input file and has to be matched in the input configuration. e.g. if you need 4 input sequences for a MRI segmentation, you would add 4 keys t1, flair, t1c and t2 here with dim_limits and an appropriate file type. If you only have a single input for your model, use the key single",
                     "properties":{
