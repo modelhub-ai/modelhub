@@ -149,5 +149,13 @@
     "github": "https://github.com/modelhub-ai/yolo-v3",
     "github_branch": "master",
     "backend": ["tensorflow", "keras"]
+  },
+  {
+    "id": "0314b397-3d19-446b-a1ec-2832e6444f67",
+    "name": "lfb-rwth-brats",
+    "task_extended": "Brain Tumor Segmentation on MRI",
+    "github": "https://github.com/modelhub-ai/lfb-rwth-brats",
+    "github_branch": "master",
+    "backend": ["pytorch"]
   }
 ]
