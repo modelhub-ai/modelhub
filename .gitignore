@@ -5,3 +5,7 @@
 *.vscode
 *.code-workspace
 *.ipynb_checkpoints
+/build
+/dist
+/modelhub_ai.egg-info
+
