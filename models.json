@@ -157,5 +157,14 @@
     "github": "https://github.com/modelhub-ai/lfb-rwth-brats",
     "github_branch": "master",
     "backend": ["pytorch"]
+  },
+  {
+    "id": "14e79015-ae1d-49b7-9673-032f6e441d3d",
+    "name": "mic-dkfz-brats",
+    "task_extended": "Brain Tumor Segmentation on MRI",
+    "github": "https://github.com/modelhub-ai/mic-dkfz-brats",
+    "github_branch": "master",
+    "backend": ["pytorch"],
+    "gpu": true
   }
 ]
