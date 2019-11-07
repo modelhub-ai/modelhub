@@ -46,8 +46,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/vgg-19",
     "github_branch": "master",
-    "backend": ["mxnet", "onnx"],
-    "gpu": false
+    "backend": ["mxnet", "onnx"]
   },
   {
     "id": "dbf35840-9c8d-408f-8a36-b9fe2f8e5546",
@@ -132,7 +131,7 @@
     "task_extended": "Facial Detection & Recognition",
     "github": "https://github.com/modelhub-ai/arc-face",
     "github_branch": "master",
-    "backend": ["mxnet"]
+    "backend": ["mxnet", "onnx"]
   },
   {
     "id": "8154347c-a642-4e9e-91f1-ba800c0b532f",
