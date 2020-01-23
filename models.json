@@ -174,5 +174,13 @@
     "github_branch": "master",
     "backend": ["pytorch"],
     "gpu": true
+  },
+  {
+    "id": "7f91e01c-0b61-49d3-98ca-241dcb699802",
+    "name": "unet-2d",
+    "task_extended": "Cell Image Segmentation",
+    "github": "https://github.com/modelhub-ai/unet-2d",
+    "github_branch": "master",
+    "backend": ["keras"-"tensorflow"]
   }
 ]
