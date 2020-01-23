@@ -181,6 +181,6 @@
     "task_extended": "Cell Image Segmentation",
     "github": "https://github.com/modelhub-ai/unet-2d",
     "github_branch": "master",
-    "backend": ["keras"-"tensorflow"]
+    "backend": ["keras", "tensorflow"]
   }
 ]
