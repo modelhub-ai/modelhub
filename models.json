@@ -182,5 +182,13 @@
     "github": "https://github.com/modelhub-ai/unet-2d",
     "github_branch": "master",
     "backend": ["keras", "tensorflow"]
+  },
+  {
+    "id": "ef562736-2539-43ec-81c0-40e0ff7d1f13",
+    "name": "cxr-risk",
+    "task_extended": "Survival Classification from chest Xray",
+    "github": "https://github.com/modelhub-ai/cxr-risk",
+    "github_branch": "master",
+    "backend": ["pytorch"]
   }
 ]
