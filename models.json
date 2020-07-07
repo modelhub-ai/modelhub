@@ -193,10 +193,11 @@
   },
   {
     "id": "f8063322-cbba-4dd4-85cc-3a939b1bb608",
-    "name": "DentalArtifactModel",
-    "task_extended": "External validation and transfer learning of convolutional neural networks for computed tomography dental artifact classification", 
+    "name": "dental-artifact-model",
+    "task_extended": "Dental artifact Classification in H&N CT", 
     "github": "https://github.com/bhklab/DentalArtifactModel",
     "github_branch": "master",
-    "backed": ["pytorch"]
+    "backed": ["pytorch"],
+    "gpu": true
   }
 ]
