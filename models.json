@@ -198,7 +198,7 @@
     "task_extended": "Dental artifact Classification in H&N CT", 
     "github": "https://github.com/bhklab/DentalArtifactModel",
     "github_branch": "master",
-    "backed": ["pytorch"],
+    "backend": ["pytorch"],
     "gpu": true,
     "viewer": "netron"
   }
