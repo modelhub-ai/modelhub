@@ -189,8 +189,7 @@
     "task_extended": "Survival Classification from chest Xray",
     "github": "https://github.com/modelhub-ai/cxr-risk",
     "github_branch": "master",
-    "backend": ["pytorch"],
-    "gpu": true
+    "backend": ["pytorch"]
   },
   {
     "id": "f8063322-cbba-4dd4-85cc-3a939b1bb608",
@@ -199,7 +198,6 @@
     "github": "https://github.com/bhklab/DentalArtifactModel",
     "github_branch": "master",
     "backend": ["pytorch"],
-    "gpu": true,
     "viewer": "netron"
   }
 ]
