@@ -194,7 +194,7 @@
   },
   {
     "id": "f8063322-cbba-4dd4-85cc-3a939b1bb608",
-    "name": "DentalArtifactModel",
+    "name": "dental-artifact-model",
     "task_extended": "Dental artifact Classification in H&N CT", 
     "github": "https://github.com/bhklab/DentalArtifactModel",
     "github_branch": "master",
