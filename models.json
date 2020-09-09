@@ -189,7 +189,8 @@
     "task_extended": "age estimation based on face image",
     "github": "https://github.com/modelhub-ai/face-age",
     "github_branch": "master",
-    "backend": ["keras", "tensorflow"]
+    "backend": ["keras", "tensorflow"],
+    "gpu": true
   },
   {
     "id": "ef562736-2539-43ec-81c0-40e0ff7d1f13",
