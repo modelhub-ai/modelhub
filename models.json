@@ -184,6 +184,14 @@
     "backend": ["keras", "tensorflow"]
   },
   {
+    "id": "1ab267c3-b6ee-4a19-a0d9-7658542089ac",
+    "name": "face-age",
+    "task_extended": "age estimation based on face image",
+    "github": "https://github.com/modelhub-ai/face-age",
+    "github_branch": "master",
+    "backend": ["keras", "tensorflow"]
+  },
+  {
     "id": "ef562736-2539-43ec-81c0-40e0ff7d1f13",
     "name": "cxr-risk",
     "task_extended": "Survival Classification from chest Xray",
