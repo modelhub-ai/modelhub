@@ -1,8 +1,6 @@
 [
   {
     "id": "d50796da-87f2-4493-846e-6eeb498acc63",
-    "url": "http://52.91.176.186",
-    "api": ":80/api/",
     "name": "squeezenet",
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/squeezenet",
@@ -12,8 +10,6 @@
   },
   {
     "id": "948e93d7-bc36-4c39-9640-dc3345269fe7",
-    "url": "http://3.90.215.209",
-    "api": ":80/api/",
     "name": "googlenet",
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/googlenet",
@@ -23,8 +19,6 @@
   },
   {
     "id": "115053de-abe1-4073-b957-99213599e8a4",
-    "url": "http://3.88.163.221",
-    "api": ":80/api/",
     "name": "emotion-fer-plus",
     "task_extended": "Facial Expression Recognition",
     "github": "https://github.com/modelhub-ai/emotion-fer-plus",
