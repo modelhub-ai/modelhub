@@ -6,7 +6,7 @@
     "github": "https://github.com/modelhub-ai/squeezenet",
     "github_branch": "master",
     "backend": ["mxnet", "onnx"],
-    "viewer": "netron"
+    "viewer": "n"
   },
   {
     "id": "948e93d7-bc36-4c39-9640-dc3345269fe7",
@@ -15,7 +15,7 @@
     "github": "https://github.com/modelhub-ai/googlenet",
     "github_branch": "master",
     "backend": ["caffe"],
-    "viewer": "netron"
+    "viewer": "n"
   },
   {
     "id": "115053de-abe1-4073-b957-99213599e8a4",
@@ -24,7 +24,7 @@
     "github": "https://github.com/modelhub-ai/emotion-fer-plus",
     "github_branch": "master",
     "backend": ["cntk", "onnx"],
-    "viewer": "netron"
+    "viewer": "n"
   },
   {
     "id": "001bb1c9-bbaf-48ca-bf4a-505faca870dd",
@@ -57,7 +57,7 @@
     "github": "https://github.com/modelhub-ai/alexnet",
     "github_branch": "master",
     "backend": ["caffe"],
-    "viewer": "netron"
+    "viewer": "n"
   },
   {
     "id": "c0048222-b29f-4719-be6b-cac790251a19",
@@ -82,7 +82,7 @@
     "github": "https://github.com/modelhub-ai/mobilenet",
     "github_branch": "master",
     "backend": ["mxnet", "onnx"],
-    "viewer": "netron"
+    "viewer": "n"
   },
   {
     "id": "985c8604-1381-4ebf-85af-bfe32080fb55",
@@ -91,7 +91,7 @@
     "github": "https://github.com/modelhub-ai/cardiac-fcn",
     "github_branch": "master",
     "backend": ["tensorflow", "keras"],
-    "viewer": "netron"
+    "viewer": "n"
   },
   {
     "id": "ccc16d36-d788-43eb-9e53-2125c97888df",
@@ -108,7 +108,7 @@
     "github": "https://github.com/modelhub-ai/deep-prognosis",
     "github_branch": "master",
     "backend": ["tensorflow", "keras"],
-    "viewer": "netron"
+    "viewer": "n"
   },
   {
     "id": "ce585219-d617-4864-b225-06b52532ea95",
@@ -117,7 +117,7 @@
     "github": "https://github.com/modelhub-ai/sfm-learner-pose",
     "github_branch": "master",
     "backend": ["tensorflow"],
-    "viewer": "netron"
+    "viewer": "n"
   },
   {
     "id": "02f2f15c-3285-44a4-8119-b298623b7acf",
@@ -178,15 +178,6 @@
     "backend": ["keras", "tensorflow"]
   },
   {
-    "id": "1ab267c3-b6ee-4a19-a0d9-7658542089ac",
-    "name": "face-age",
-    "task_extended": "age estimation based on face image",
-    "github": "https://github.com/modelhub-ai/face-age",
-    "github_branch": "master",
-    "backend": ["keras", "tensorflow"],
-    "gpu": true
-  },
-  {
     "id": "ef562736-2539-43ec-81c0-40e0ff7d1f13",
     "name": "cxr-risk",
     "task_extended": "Survival Classification from chest Xray",
@@ -201,6 +192,6 @@
     "github": "https://github.com/bhklab/DentalArtifactModel",
     "github_branch": "master",
     "backend": ["pytorch"],
-    "viewer": "netron"
+    "viewer": "n"
   }
 ]
