@@ -93,7 +93,7 @@ def start_bash(base_command, args):
 
 
 def get_contrib_src_mount_cmd(args):
-    return "-v " + os.getcwd() + "/" + args.model + "/contrib_src:/contrib_src"
+    return f"-v \"{os.getcwd()}/{args.model}/contrib_src\":/contrib_src"
 
 
 def get_local_framework_mount_cmd(args):
@@ -106,7 +106,7 @@ def get_local_framework_mount_cmd(args):
 def get_local_data_mount_cmd(args):
     mount_local_data = ""
     if args.mountdata is not None:
-        mount_local_data = "-v " + args.mountdata + ":/data"
+        mount_local_data = f"-v '{args.mountdata}':/data"
     return mount_local_data
 
 
