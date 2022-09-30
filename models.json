@@ -5,7 +5,7 @@
     "task_extended": "ImageNet classification",
     "github": "https://github.com/modelhub-ai/squeezenet",
     "github_branch": "master",
-    "backend": ["mxnet", "onnx"]
+    "backend": ["mxnet", "tensorflow"]
   },
   {
     "id": "8409d87f-4771-4388-93aa-fa7b9954de98",
