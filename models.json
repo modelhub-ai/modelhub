@@ -9,7 +9,7 @@
   },
   {
     "id": "8409d87f-4771-4388-93aa-fa7b9954de98",
-    "name": "deep_contrast",
+    "name": "colab_deepcontrast",
     "task_extended": "Contrast detection - Google CoLab Notebook - Classification",
     "github": "https://github.com/modelhub-ai/colab_deepcontrast",
     "github_branch": "master",
