@@ -16,7 +16,15 @@
     "backend": ["colab", "tensorflow"]
   },
   {
-    "id": "0000",
+    "id": "0001",
+    "name": "colab_totalsegmentator",
+    "task_extended": "Whole body segmentation",
+    "github": "https://github.com/modelhub-ai/colab_totalsegmentator",
+    "github_branch": "master",
+    "backend": ["colab", "pytorch"]
+  },
+  {
+    "id": "0002",
     "name": "colab_lungmask",
     "task_extended": "Lung segmentation - Google CoLab Notebook - Segmentation",
     "github": "https://github.com/modelhub-ai/colab_lungmask",
