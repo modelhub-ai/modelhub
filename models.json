@@ -10,7 +10,7 @@
   {
     "id": "0000",
     "name": "colab_organsatrisk",
-    "task_extended": "Organ segmentation - Google CoLab Notebook - Classification",
+    "task_extended": "Organ segmentation - Google CoLab Notebook - Segmentation",
     "github": "https://github.com/modelhub-ai/colab_organsatrisk",
     "github_branch": "master",
     "backend": ["colab", "pytorch"]
@@ -44,6 +44,14 @@
     "name": "colab_liver",
     "task_extended": "Liver segmentation - Google CoLab Notebook - Segmentation",
     "github": "https://github.com/modelhub-ai/colab_liver",
+    "github_branch": "master",
+    "backend": ["colab", "pytorch"]
+  },
+  {
+    "id": "0004",
+    "name": "colab_segthor",
+    "task_extended": "Organ segmentation - Google CoLab Notebook - Segmentation",
+    "github": "https://github.com/modelhub-ai/colab_segthor",
     "github_branch": "master",
     "backend": ["colab", "pytorch"]
   },
