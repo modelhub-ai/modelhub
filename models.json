@@ -56,6 +56,14 @@
     "backend": ["colab", "pytorch"]
   },
   {
+    "id": "0006",
+    "name": "colab_prostate",
+    "task_extended": "Prostate segmentation - Google CoLab Notebook - Segmentation",
+    "github": "https://github.com/modelhub-ai/colab_prostate",
+    "github_branch": "master",
+    "backend": ["colab", "pytorch"]
+  },
+  {
     "id": "948e93d7-bc36-4c39-9640-dc3345269fe7",
     "name": "googlenet",
     "task_extended": "ImageNet classification",
