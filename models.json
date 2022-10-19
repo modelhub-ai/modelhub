@@ -9,6 +9,14 @@
   },
   {
     "id": "0000",
+    "name": "colab_organsatrisk",
+    "task_extended": "Organ segmentation - Google CoLab Notebook - Classification",
+    "github": "https://github.com/modelhub-ai/colab_organsatrisk",
+    "github_branch": "master",
+    "backend": ["colab", "pytorch"]
+  },
+  {
+    "id": "0000",
     "name": "colab_deepcontrast",
     "task_extended": "Contrast detection - Google CoLab Notebook - Classification",
     "github": "https://github.com/modelhub-ai/colab_deepcontrast",
