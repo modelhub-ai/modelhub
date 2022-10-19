@@ -64,6 +64,22 @@
     "backend": ["colab", "pytorch"]
   },
   {
+    "id": "0007",
+    "name": "colab_pancreas",
+    "task_extended": "Pangreas segmentation - Google CoLab Notebook - Segmentation",
+    "github": "https://github.com/modelhub-ai/colab_pancreas",
+    "github_branch": "master",
+    "backend": ["colab", "pytorch"]
+  },
+  {
+    "id": "0008",
+    "name": "colab_nsclc",
+    "task_extended": "Nsclc segmentation - Google CoLab Notebook - Segmentation",
+    "github": "https://github.com/modelhub-ai/colab_nsclc",
+    "github_branch": "master",
+    "backend": ["colab", "pytorch"]
+  },
+  {
     "id": "948e93d7-bc36-4c39-9640-dc3345269fe7",
     "name": "googlenet",
     "task_extended": "ImageNet classification",
